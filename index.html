@@ -7,316 +7,1829 @@
     <meta http-equiv="Expires" content="0">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>流行病与卫生统计学题库 · 山东第二医科大学</title>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js">
+    </script>
     <style>
+        /* ===== 全局变量 ===== */
         :root {
-            --primary: #8B1A2B; --primary-dark: #5C0E0E; --primary-light: #B22222; --primary-bg: #fdf0f0;
-            --accent: #f59e0b; --accent-light: #fef3c7; --success: #10b981; --success-bg: #d1fae5;
-            --danger: #ef4444; --danger-bg: #fee2e2; --bg: #f1f5f9; --card: #ffffff;
-            --text: #1e293b; --text-secondary: #64748b; --text-light: #94a3b8; --border: #e2e8f0;
-            --shadow: 0 1px 3px rgba(0,0,0,0.1); --shadow-md: 0 4px 6px rgba(0,0,0,0.07);
-            --radius-sm: 8px; --radius: 12px; --radius-lg: 16px; --radius-xl: 20px;
-            --transition: 0.25s;
+            --primary: #8B1A2B;
+            --primary-dark: #5C0E0E;
+            --primary-light: #B22222;
+            --primary-bg: #fdf0f0;
+            --primary-glow: rgba(139, 26, 43, 0.15);
+            --accent: #f59e0b;
+            --accent-light: #fef3c7;
+            --success: #10b981;
+            --success-bg: #d1fae5;
+            --danger: #ef4444;
+            --danger-bg: #fee2e2;
+            --bg: #f1f5f9;
+            --card: #ffffff;
+            --text: #1e293b;
+            --text-secondary: #64748b;
+            --text-light: #94a3b8;
+            --border: #e2e8f0;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+            --shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.12);
+            --radius-sm: 8px;
+            --radius: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+            --radius-2xl: 24px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        *{margin:0;padding:0;box-sizing:border-box}
-        body{font-family:'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh}
-        .navbar{background:rgba(255,255,255,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;padding:0 24px}
-        .navbar-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:60px}
-        .nav-logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:1.1rem;color:var(--primary-dark);cursor:pointer}
-        .school-badge{width:40px;height:40px;background:var(--primary);color:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.65rem}
-        .nav-links{display:flex;gap:6px}
-        .nav-links a{text-decoration:none;color:var(--text-secondary);font-weight:500;font-size:0.88rem;padding:8px 16px;border-radius:20px;cursor:pointer}
-        .nav-links a:hover{background:var(--primary-bg);color:var(--primary)}
-        .nav-links a.active{background:var(--primary);color:#fff;font-weight:600}
-        .nav-badge{background:var(--danger);color:#fff;font-size:0.7rem;padding:2px 8px;border-radius:10px;margin-left:2px}
-        .main-container{max-width:1200px;margin:0 auto;padding:24px}
-        .page{display:none;animation:fadeIn 0.4s}
-        .page.active{display:block}
-        @keyframes fadeIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
-        .hero-section{background:linear-gradient(135deg,#5C0E0E,#8B1A2B,#9B1B30,#B22222);border-radius:var(--radius-xl);padding:48px 40px;margin-bottom:32px;color:#fff;box-shadow:0 20px 40px rgba(0,0,0,0.12)}
-        .hero-text h1{font-size:2.2rem;font-weight:800}
-        .hero-text h1 span{color:#fbbf24}
-        .hero-school{font-size:1rem;font-weight:600;margin-bottom:8px}
-        .hero-stats{display:flex;gap:24px;margin-top:20px}
-        .hero-stat{background:rgba(255,255,255,0.12);border-radius:12px;padding:16px 20px;text-align:center}
-        .stat-num{font-size:1.8rem;font-weight:800;color:#fbbf24}
-        .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border-radius:25px;font-weight:600;font-size:0.9rem;cursor:pointer;border:none;transition:var(--transition)}
-        .btn-primary{background:#fff;color:var(--primary-dark)}
-        .btn-primary:hover{transform:translateY(-2px)}
-        .btn-outline{background:transparent;border:2px solid var(--primary);color:var(--primary)}
-        .btn-sm{padding:6px 14px;font-size:0.82rem;border-radius:18px}
-        .btn-success{background:var(--success);color:#fff}
-        .btn-danger{background:var(--danger);color:#fff}
-        .category-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin-bottom:32px}
-        .category-card{background:var(--card);border-radius:var(--radius-lg);padding:18px 16px;cursor:pointer;border:2px solid transparent;box-shadow:var(--shadow);transition:var(--transition);position:relative}
-        .category-card:hover{border-color:var(--primary-light);transform:translateY(-3px)}
-        .cat-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:10px}
-        .cat-icon.blue{background:#eef2ff;color:#4f46e5} .cat-icon.green{background:#d1fae5;color:#10b981} .cat-icon.amber{background:#fef3c7;color:#f59e0b} .cat-icon.rose{background:#ffe4e6;color:#f43f5e} .cat-icon.purple{background:#f3e8ff;color:#8b5cf6} .cat-icon.teal{background:#ccfbf1;color:#14b8a6} .cat-icon.indigo{background:#e0e7ff;color:#4338ca} .cat-icon.cyan{background:#cffafe;color:#0891b2}
-        .category-card h3{font-size:0.95rem;font-weight:700}
-        .cat-count{position:absolute;top:14px;right:14px;font-size:0.7rem;color:var(--text-light);background:#f8fafc;padding:2px 8px;border-radius:10px}
-        .progress-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:24px}
-        .progress-card{background:var(--card);border-radius:var(--radius-lg);padding:18px 16px;box-shadow:var(--shadow);display:flex;align-items:center;gap:12px}
-        .quiz-layout{display:grid;grid-template-columns:1fr 300px;gap:24px}
-        .question-card{background:var(--card);border-radius:var(--radius-lg);padding:28px 24px;box-shadow:var(--shadow-md);border-left:5px solid var(--primary)}
-        .question-card.solved-correct{border-left-color:var(--success)} .question-card.solved-wrong{border-left-color:var(--danger)}
-        .question-meta{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;font-size:0.85rem}
-        .question-tag{font-size:0.75rem;font-weight:600;padding:4px 12px;border-radius:14px}
-        .tag-design{background:#eef2ff;color:#4f46e5} .tag-observe{background:#d1fae5;color:#059669} .tag-mean{background:#fef3c7;color:#b45309} .tag-assoc{background:#ffe4e6;color:#be123c} .tag-model{background:#f3e8ff;color:#7c3aed} .tag-surv{background:#ccfbf1;color:#0f766e} .tag-diagmod{background:#ede9fe;color:#6d28d9} .tag-evid{background:#fce7f3;color:#be185d} .tag-choice{background:#e0e7ff;color:#4338ca}
-        .question-card h2{font-size:1.2rem;font-weight:700;margin-bottom:12px}
-        .question-scenario{background:#f8fafc;border-radius:var(--radius);padding:14px 16px;margin-bottom:14px;font-size:0.9rem;border:1px solid var(--border)}
-        .options-list{display:flex;flex-direction:column;gap:10px;margin:14px 0}
-        .option-item{padding:12px 16px;border:2px solid var(--border);border-radius:12px;cursor:pointer;font-weight:500;transition:var(--transition)}
-        .option-item:hover{border-color:var(--primary-light);background:var(--primary-bg)}
-        .option-item.disabled{pointer-events:none;opacity:0.7}
-        .option-item.correct-highlight{border-color:var(--success);background:#ecfdf5}
-        .option-item.selected-correct{border-color:var(--success);background:var(--success-bg);color:#065f46;font-weight:700}
-        .option-item.selected-wrong{border-color:var(--danger);background:var(--danger-bg);color:#991b1b;font-weight:700}
-        .sub-questions{list-style:none;counter-reset:sq}
-        .sub-questions li{counter-increment:sq;padding:12px 14px;margin-bottom:10px;background:#fafbfc;border-radius:var(--radius-sm);border:1px solid #eef0f4}
-        .sub-questions li::before{content:'('counter(sq,lower-alpha)') ';font-weight:700;color:var(--primary)}
-        .answer-block{background:#f0fdf6;border:1px solid #bbf7d0;border-radius:var(--radius-sm);padding:14px 16px;margin-bottom:8px}
-        .sidebar-card{background:var(--card);border-radius:var(--radius-lg);padding:18px;box-shadow:var(--shadow);margin-bottom:16px}
-        .question-nav-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
-        .q-nav-dot{aspect-ratio:1;border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.75rem;cursor:pointer;border:2px solid var(--border);background:#fff;color:var(--text-secondary)}
-        .q-nav-dot.current{border-color:var(--primary);background:var(--primary);color:#fff}
-        .q-nav-dot.correct-dot{border-color:var(--success);background:var(--success-bg);color:var(--success)}
-        .q-nav-dot.wrong-dot{border-color:var(--danger);background:var(--danger-bg);color:var(--danger)}
-        .sidebar-stat{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f1f5f9;font-size:0.82rem}
-        .wrong-list{display:flex;flex-direction:column;gap:12px}
-        .wrong-item{background:var(--card);border-radius:var(--radius-lg);padding:18px 20px;box-shadow:var(--shadow);border-left:4px solid var(--danger)}
-        .wrong-item .wrong-actions{display:flex;gap:8px;margin-top:10px}
-        .review-block{margin-top:14px;padding-top:14px;border-top:1px solid var(--border)}
-        .option-inline{display:block;padding:10px 14px;border:1px solid var(--border);border-radius:8px;margin:6px 0;cursor:pointer;background:#fff}
-        .option-inline:hover{background:var(--primary-bg)}
-        .empty-state{text-align:center;padding:60px 20px;color:var(--text-secondary)}
-        .toast{
-            position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(100px);
-            background:#1e293b;color:#fff;padding:12px 24px;border-radius:25px;
-            font-weight:600;z-index:200;transition:transform 0.35s;pointer-events:none;
+
+        /* ===== 基础重置 ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        .toast.show{transform:translateX(-50%) translateY(0);}
-        textarea.essay-input{width:100%;padding:12px;border:1px solid var(--border);border-radius:var(--radius-sm);font-family:inherit;font-size:0.9rem;resize:vertical}
-        .school-footer{text-align:center;margin-top:32px;padding:24px;background:var(--card);border-radius:var(--radius-lg);box-shadow:var(--shadow);border-top:3px solid var(--primary)}
-        .school-footer .school-name{font-size:1.05rem;font-weight:700;color:var(--primary-dark)}
-        .school-footer .school-dept{font-size:0.82rem;color:var(--text-secondary)}
-        .section-title{font-size:1.3rem;font-weight:700;margin-bottom:18px}
-        @media(max-width:900px){.quiz-layout{grid-template-columns:1fr}.hero-text h1{font-size:1.8rem}}
+        body {
+            font-family: 'Inter', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===== 背景光晕动画 ===== */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -30%;
+            right: -15%;
+            width: 70vw;
+            height: 70vw;
+            background: radial-gradient(circle, rgba(139, 26, 43, 0.06) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            animation: floatGlow 12s ease-in-out infinite alternate;
+        }
+        body::after {
+            content: '';
+            position: fixed;
+            bottom: -25%;
+            left: -10%;
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle, rgba(245, 158, 11, 0.05) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            animation: floatGlow2 15s ease-in-out infinite alternate;
+        }
+
+        @keyframes floatGlow {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+            100% {
+                transform: translate(-30px, 20px) scale(1.1);
+            }
+        }
+        @keyframes floatGlow2 {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+            100% {
+                transform: translate(40px, -30px) scale(1.15);
+            }
+        }
+
+        /* ===== 导航栏 ===== */
+        .navbar {
+            background: rgba(255, 255, 255, 0.82);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 0 24px;
+            transition: var(--transition);
+        }
+        .navbar-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+        }
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            font-size: 1.15rem;
+            color: var(--primary-dark);
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .school-badge {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-light));
+            color: #fff;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.6rem;
+            box-shadow: 0 4px 12px rgba(139, 26, 43, 0.3);
+            flex-shrink: 0;
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            list-style: none;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.88rem;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .nav-links a:hover {
+            background: var(--primary-bg);
+            color: var(--primary);
+        }
+        .nav-links a.active {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: #fff;
+            font-weight: 600;
+            box-shadow: 0 2px 12px rgba(139, 26, 43, 0.3);
+        }
+        .nav-badge {
+            background: var(--danger);
+            color: #fff;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 10px;
+            margin-left: 2px;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        /* ===== 主容器 ===== */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ===== 页面切换动画 ===== */
+        .page {
+            display: none;
+            animation: fadeSlideUp 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .page.active {
+            display: block;
+        }
+        @keyframes fadeSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== Hero 区域 ===== */
+        .hero-section {
+            background: linear-gradient(135deg, #4a0e0e, var(--primary-dark), var(--primary), var(--primary-light));
+            border-radius: var(--radius-2xl);
+            padding: 52px 44px;
+            margin-bottom: 32px;
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-xl);
+        }
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 60%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.06) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .hero-section::after {
+            content: '';
+            position: absolute;
+            bottom: -40%;
+            left: -10%;
+            width: 40%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(245, 158, 11, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        .hero-text h1 {
+            font-size: 2.4rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+        .hero-text h1 span {
+            color: #fbbf24;
+            position: relative;
+        }
+        .hero-text h1 span::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: #fbbf24;
+            border-radius: 2px;
+            opacity: 0.4;
+        }
+        .hero-text .hero-sub {
+            font-size: 1.05rem;
+            opacity: 0.85;
+            margin-top: 8px;
+            font-weight: 400;
+        }
+        .hero-text .hero-school {
+            font-size: 0.85rem;
+            font-weight: 600;
+            opacity: 0.8;
+            margin-bottom: 6px;
+            letter-spacing: 1px;
+        }
+        .hero-stats {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .hero-stat {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(4px);
+            border-radius: var(--radius);
+            padding: 16px 24px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            min-width: 80px;
+        }
+        .hero-stat .stat-num {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #fbbf24;
+        }
+        .hero-stat .stat-label {
+            font-size: 0.75rem;
+            opacity: 0.7;
+            font-weight: 500;
+        }
+
+        /* ===== 按钮 ===== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 24px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border: none;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+        .btn-primary {
+            background: #fff;
+            color: var(--primary-dark);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        .btn-outline:hover {
+            background: var(--primary);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+        .btn-success {
+            background: var(--success);
+            color: #fff;
+        }
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
+        }
+        .btn-danger {
+            background: var(--danger);
+            color: #fff;
+        }
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(239, 68, 68, 0.3);
+        }
+        .btn-ghost {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+        }
+        .btn-ghost:hover {
+            background: var(--bg);
+            transform: translateY(-2px);
+        }
+        .btn-sm {
+            padding: 6px 14px;
+            font-size: 0.8rem;
+            border-radius: 18px;
+        }
+
+        /* ===== 进度卡片 ===== */
+        .progress-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+        .progress-card {
+            background: var(--card);
+            border-radius: var(--radius-lg);
+            padding: 18px 20px;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            transition: var(--transition);
+            border: 1px solid transparent;
+        }
+        .progress-card:hover {
+            border-color: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        .progress-card .icon-box {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+        .progress-card .icon-box.green {
+            background: var(--success-bg);
+        }
+        .progress-card .icon-box.red {
+            background: var(--danger-bg);
+        }
+        .progress-card .info h4 {
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        .progress-card .info .big-num {
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+
+        /* ===== 模块网格 ===== */
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 18px;
+        }
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 14px;
+            margin-bottom: 32px;
+        }
+        .category-card {
+            background: var(--card);
+            border-radius: var(--radius-lg);
+            padding: 20px 18px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+        }
+        .category-card:hover {
+            border-color: var(--primary-light);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+        .category-card:active {
+            transform: scale(0.97);
+        }
+        .category-card .cat-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+        .cat-icon.blue {
+            background: #eef2ff;
+            color: #4f46e5;
+        }
+        .cat-icon.green {
+            background: #d1fae5;
+            color: #10b981;
+        }
+        .cat-icon.amber {
+            background: #fef3c7;
+            color: #f59e0b;
+        }
+        .cat-icon.rose {
+            background: #ffe4e6;
+            color: #f43f5e;
+        }
+        .cat-icon.purple {
+            background: #f3e8ff;
+            color: #8b5cf6;
+        }
+        .cat-icon.teal {
+            background: #ccfbf1;
+            color: #14b8a6;
+        }
+        .cat-icon.indigo {
+            background: #e0e7ff;
+            color: #4338ca;
+        }
+        .cat-icon.cyan {
+            background: #cffafe;
+            color: #0891b2;
+        }
+        .category-card h3 {
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+        .category-card p {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+        .category-card .cat-count {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--text-light);
+            background: #f8fafc;
+            padding: 2px 10px;
+            border-radius: 12px;
+        }
+
+        /* ===== 刷题布局 ===== */
+        .quiz-layout {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 24px;
+        }
+
+        /* ===== 题目卡片 ===== */
+        .question-card {
+            background: var(--card);
+            border-radius: var(--radius-lg);
+            padding: 28px 24px;
+            box-shadow: var(--shadow-md);
+            border-left: 5px solid var(--primary);
+            transition: var(--transition);
+        }
+        .question-card.solved-correct {
+            border-left-color: var(--success);
+        }
+        .question-card.solved-wrong {
+            border-left-color: var(--danger);
+        }
+        .question-meta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+        .question-number {
+            font-weight: 700;
+            font-size: 0.8rem;
+            color: var(--primary);
+            background: var(--primary-bg);
+            padding: 3px 12px;
+            border-radius: 6px;
+        }
+        .question-tag {
+            font-size: 0.72rem;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 14px;
+        }
+        .tag-design {
+            background: #eef2ff;
+            color: #4f46e5;
+        }
+        .tag-observe {
+            background: #d1fae5;
+            color: #059669;
+        }
+        .tag-mean {
+            background: #fef3c7;
+            color: #b45309;
+        }
+        .tag-assoc {
+            background: #ffe4e6;
+            color: #be123c;
+        }
+        .tag-model {
+            background: #f3e8ff;
+            color: #7c3aed;
+        }
+        .tag-surv {
+            background: #ccfbf1;
+            color: #0f766e;
+        }
+        .tag-diagmod {
+            background: #ede9fe;
+            color: #6d28d9;
+        }
+        .tag-evid {
+            background: #fce7f3;
+            color: #be185d;
+        }
+        .tag-choice {
+            background: #e0e7ff;
+            color: #4338ca;
+        }
+        .question-card h2 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .question-scenario {
+            background: #f8fafc;
+            border-radius: var(--radius);
+            padding: 14px 16px;
+            margin-bottom: 14px;
+            font-size: 0.9rem;
+            border: 1px solid var(--border);
+        }
+        .meta-info {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+        }
+        .doi-link {
+            color: var(--primary);
+            text-decoration: underline;
+            font-weight: 500;
+        }
+        .doi-link:hover {
+            color: var(--primary-dark);
+        }
+        .drug-knowledge-box {
+            background: linear-gradient(135deg, #fef2f2, #fdf0f0);
+            border-left: 4px solid var(--primary-light);
+            border-radius: 8px;
+            padding: 10px 14px;
+            margin-bottom: 12px;
+            font-size: 0.85rem;
+        }
+        .sub-questions {
+            list-style: none;
+            counter-reset: sq;
+        }
+        .sub-questions li {
+            counter-increment: sq;
+            padding: 12px 14px;
+            margin-bottom: 10px;
+            background: #fafbfc;
+            border-radius: var(--radius-sm);
+            border: 1px solid #eef0f4;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+        .sub-questions li:hover {
+            border-color: var(--primary-light);
+            background: var(--primary-bg);
+        }
+        .sub-questions li::before {
+            content: '(' counter(sq, lower-alpha) ') ';
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        /* ===== 选择题选项 ===== */
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 14px 0;
+        }
+        .option-item {
+            padding: 12px 16px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        .option-item:hover:not(.disabled) {
+            border-color: var(--primary-light);
+            background: var(--primary-bg);
+            transform: translateX(4px);
+        }
+        .option-item.disabled {
+            pointer-events: none;
+            opacity: 0.7;
+        }
+        .option-item.correct-highlight {
+            border-color: var(--success);
+            background: #ecfdf5;
+        }
+        .option-item.selected-correct {
+            border-color: var(--success);
+            background: var(--success-bg);
+            color: #065f46;
+            font-weight: 700;
+        }
+        .option-item.selected-wrong {
+            border-color: var(--danger);
+            background: var(--danger-bg);
+            color: #991b1b;
+            font-weight: 700;
+        }
+
+        /* ===== 答案区域 ===== */
+        .answer-reveal-area {
+            margin-top: 14px;
+            border-top: 2px dashed var(--border);
+            padding-top: 14px;
+        }
+        .answer-block {
+            background: #f0fdf6;
+            border: 1px solid #bbf7d0;
+            border-radius: var(--radius-sm);
+            padding: 14px 16px;
+            margin-bottom: 8px;
+        }
+        .key-points-box {
+            background: #fffbe6;
+            border: 1px solid #fde68a;
+            border-radius: 8px;
+            padding: 10px 14px;
+            margin-top: 8px;
+        }
+
+        /* ===== 侧边栏 ===== */
+        .quiz-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .sidebar-card {
+            background: var(--card);
+            border-radius: var(--radius-lg);
+            padding: 18px;
+            box-shadow: var(--shadow);
+        }
+        .sidebar-card h3 {
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .question-nav-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 6px;
+        }
+        .q-nav-dot {
+            aspect-ratio: 1;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.7rem;
+            cursor: pointer;
+            border: 2px solid var(--border);
+            background: #fff;
+            color: var(--text-secondary);
+            transition: var(--transition);
+        }
+        .q-nav-dot:hover {
+            border-color: var(--primary-light);
+            transform: scale(1.05);
+        }
+        .q-nav-dot.current {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(139, 26, 43, 0.3);
+        }
+        .q-nav-dot.correct-dot {
+            border-color: var(--success);
+            background: var(--success-bg);
+            color: var(--success);
+        }
+        .q-nav-dot.wrong-dot {
+            border-color: var(--danger);
+            background: var(--danger-bg);
+            color: var(--danger);
+        }
+        .sidebar-stat {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 0.82rem;
+        }
+        .sidebar-stat:last-child {
+            border-bottom: none;
+        }
+        .ss-val {
+            font-weight: 700;
+        }
+
+        /* ===== 错题本 ===== */
+        .wrong-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .wrong-item {
+            background: var(--card);
+            border-radius: var(--radius-lg);
+            padding: 18px 20px;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--danger);
+            transition: var(--transition);
+        }
+        .wrong-item:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateX(4px);
+        }
+        .wrong-item .wrong-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        .review-block {
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 1px solid var(--border);
+        }
+        .option-inline {
+            display: block;
+            padding: 10px 14px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin: 6px 0;
+            cursor: pointer;
+            background: #fff;
+            transition: var(--transition);
+        }
+        .option-inline:hover {
+            background: var(--primary-bg);
+            border-color: var(--primary-light);
+        }
+
+        /* ===== 空状态 ===== */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-secondary);
+        }
+        .empty-state .empty-icon {
+            font-size: 3.5rem;
+            margin-bottom: 12px;
+        }
+
+        /* ===== Toast 提示 ===== */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #1e293b;
+            color: #fff;
+            padding: 14px 28px;
+            border-radius: 25px;
+            font-weight: 600;
+            z-index: 200;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s;
+            pointer-events: none;
+            box-shadow: var(--shadow-lg);
+            opacity: 0;
+        }
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+        .toast.success {
+            background: #059669;
+        }
+        .toast.error {
+            background: #dc2626;
+        }
+
+        /* ===== 输入框 ===== */
+        textarea.essay-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-family: inherit;
+            font-size: 0.9rem;
+            margin-top: 8px;
+            resize: vertical;
+            transition: var(--transition);
+        }
+        textarea.essay-input:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(139, 26, 43, 0.1);
+        }
+        textarea.essay-input:disabled {
+            background: #f8fafc;
+            opacity: 0.7;
+        }
+
+        /* ===== 页脚 ===== */
+        .school-footer {
+            text-align: center;
+            margin-top: 32px;
+            padding: 28px 24px;
+            background: var(--card);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+            border-top: 3px solid var(--primary);
+        }
+        .school-footer .school-name {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+        }
+        .school-footer .school-dept {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+        }
+        .version-tip {
+            font-size: 0.78rem;
+            color: var(--text-light);
+            margin-top: 12px;
+            text-align: center;
+        }
+
+        /* ===== 登录遮罩 ===== */
+        #auth-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(12px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+        }
+        .auth-box {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.3);
+            animation: fadeSlideUp 0.5s ease-out;
+        }
+        .auth-box .auth-logo {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        .auth-box .auth-logo .badge {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-light));
+            color: #fff;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.8rem;
+            margin: 0 auto 12px;
+            box-shadow: 0 4px 16px rgba(139, 26, 43, 0.3);
+        }
+        .auth-box .auth-logo h2 {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        .auth-box .auth-logo p {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-top: 2px;
+        }
+        #auth-error {
+            color: #ef4444;
+            font-size: 0.82rem;
+            margin-bottom: 12px;
+            display: none;
+            background: var(--danger-bg);
+            padding: 8px 12px;
+            border-radius: 8px;
+        }
+        .auth-box input {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+            outline: none;
+            transition: var(--transition);
+        }
+        .auth-box input:focus {
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(139, 26, 43, 0.1);
+        }
+        .auth-box .btn-auth {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .auth-box .btn-auth.primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        .auth-box .btn-auth.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(139, 26, 43, 0.3);
+        }
+        .auth-box .btn-auth.outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        .auth-box .btn-auth.outline:hover {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        /* ===== 响应式 ===== */
+        @media (max-width: 900px) {
+            .quiz-layout {
+                grid-template-columns: 1fr;
+            }
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            .hero-text h1 {
+                font-size: 1.8rem;
+            }
+            .hero-stats {
+                justify-content: center;
+            }
+            .navbar-inner {
+                flex-wrap: wrap;
+                height: auto;
+                padding: 12px 0;
+                gap: 8px;
+            }
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 2px;
+            }
+            .nav-links a {
+                font-size: 0.78rem;
+                padding: 6px 12px;
+            }
+            .category-grid {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            }
+            .hero-section {
+                padding: 32px 20px;
+            }
+        }
+        @media (max-width: 480px) {
+            .category-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .question-card {
+                padding: 18px 14px;
+            }
+            .hero-text h1 {
+                font-size: 1.4rem;
+            }
+        }
     </style>
 </head>
 <body>
-<div id="auth-overlay" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.65);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;z-index:999">
-    <div style="background:white;border-radius:24px;padding:40px;max-width:400px;width:90%;box-shadow:0 25px 80px rgba(0,0,0,0.3)">
-        <div style="text-align:center;margin-bottom:24px">
-            <div class="school-badge" style="width:56px;height:56px;margin:0 auto 12px;font-size:0.8rem">山二医</div>
-            <h2 style="font-size:1.3rem;font-weight:700">流行病与卫生统计学题库</h2>
-            <p style="font-size:0.8rem;color:var(--text-light);margin-top:4px">山东第二医科大学</p>
+
+    <!-- ===== 登录遮罩 ===== -->
+    <div id="auth-overlay">
+        <div class="auth-box">
+            <div class="auth-logo">
+                <div class="badge">山二医</div>
+                <h2>流行病与卫生统计学题库</h2>
+                <p>山东第二医科大学</p>
+            </div>
+            <div id="auth-error"></div>
+            <input type="email" id="auth-email" placeholder="请输入邮箱">
+            <input type="password" id="auth-password" placeholder="请输入密码（至少6位）">
+            <button class="btn-auth primary" onclick="register()">注 册</button>
+            <button class="btn-auth outline" onclick="login()">登 录</button>
         </div>
-        <div id="auth-error" style="color:#ef4444;font-size:0.82rem;margin-bottom:12px;display:none"></div>
-        <input type="email" id="auth-email" placeholder="请输入邮箱" style="width:100%;padding:14px;border:2px solid #e5e7eb;border-radius:12px;margin-bottom:12px;font-size:0.9rem;outline:none">
-        <input type="password" id="auth-password" placeholder="请输入密码（至少6位）" style="width:100%;padding:14px;border:2px solid #e5e7eb;border-radius:12px;margin-bottom:18px;font-size:0.9rem;outline:none">
-        <button onclick="register()" style="width:100%;padding:14px;background:var(--primary);color:#fff;border:none;border-radius:12px;font-weight:600;font-size:0.95rem;cursor:pointer;margin-bottom:10px">注 册</button>
-        <button onclick="login()" style="width:100%;padding:14px;background:transparent;border:2px solid var(--primary);color:var(--primary);border-radius:12px;font-weight:600;font-size:0.95rem;cursor:pointer">登 录</button>
     </div>
-</div>
-<div id="app-main" style="display:none">
-    <nav class="navbar"><div class="navbar-inner">
-        <a class="nav-logo" onclick="navigateTo('home')"><div class="school-badge">山二医</div><span>流行病与卫生统计学题库</span></a>
-        <div class="nav-links">
-            <a onclick="navigateTo('home')" class="active" data-page="home">🏠 首页</a>
-            <a onclick="navigateTo('quiz')" data-page="quiz">📝 刷题</a>
-            <a onclick="navigateTo('wrongbook')" data-page="wrongbook">📕 错题本 <span class="nav-badge" id="navWrongBadge" style="display:none">0</span></a>
-            <a onclick="logout()" style="color:var(--danger)">🚪 退出</a>
-        </div>
-    </div></nav>
-    <div class="main-container">
-        <div class="page active" id="page-home">
-            <div class="hero-section">
-                <div class="hero-text"><p class="hero-school">山东第二医科大学 · 公共卫生学院</p><h1>流行病与卫生统计学 <span>题库</span></h1><p style="opacity:0.85;margin-top:8px">科研设计 · 观察性研究 · 均值比较 · 关联分析 · 回归建模 · 预后生存 · 诊断评价 · 证据综合</p>
-                <button class="btn btn-primary" onclick="navigateTo('quiz');startQuiz()" style="margin-top:16px">🚀 开始刷题</button></div>
-                <div class="hero-stats"><div class="hero-stat"><div class="stat-num" id="homeTotalQ">16</div><div>总题目</div></div><div class="hero-stat"><div class="stat-num" id="homeProgress">0%</div><div>整体进度</div></div></div>
+
+    <!-- ===== 主应用 ===== -->
+    <div id="app-main" style="display:none;">
+        <!-- 导航栏 -->
+        <nav class="navbar">
+            <div class="navbar-inner">
+                <a class="nav-logo" onclick="navigateTo('home')">
+                    <div class="school-badge">山二医</div>
+                    <span>流行病与卫生统计学题库</span>
+                </a>
+                <div class="nav-links">
+                    <a onclick="navigateTo('home')" class="active" data-page="home">🏠 首页</a>
+                    <a onclick="navigateTo('quiz')" data-page="quiz">📝 刷题</a>
+                    <a onclick="navigateTo('wrongbook')" data-page="wrongbook">
+                        📕 错题本 <span class="nav-badge" id="navWrongBadge" style="display:none;">0</span>
+                    </a>
+                    <a onclick="logout()" style="color:var(--danger);">🚪 退出</a>
+                </div>
             </div>
-            <div class="progress-row">
-                <div class="progress-card"><span style="font-size:1.5rem">✅</span><div><h4>已掌握</h4><span style="font-size:1.4rem;font-weight:800;color:#10b981" id="homeCorrect">0</span></div></div>
-                <div class="progress-card"><span style="font-size:1.5rem">❌</span><div><h4>待复习</h4><span style="font-size:1.4rem;font-weight:800;color:#ef4444" id="homeWrong">0</span></div></div>
-            </div>
-            <div class="section-title">📂 按模块浏览</div>
-            <div class="category-grid" id="categoryGrid"></div>
-            <div class="school-footer"><p class="school-name">山东第二医科大学</p><p class="school-dept">公共卫生学院 · 流行病与卫生统计学系</p></div>
-        </div>
-        <div class="page" id="page-quiz">
-            <div class="quiz-layout">
-                <div class="quiz-main" id="quizMain"></div>
-                <div>
-                    <div class="sidebar-card"><h3>📍 题目导航</h3><div class="question-nav-grid" id="questionNavGrid"></div></div>
-                    <div class="sidebar-card"><h3>📊 模块统计</h3>
-                        <div class="sidebar-stat"><span>已掌握</span><span style="color:#10b981" id="sidebarCorrect">0</span></div>
-                        <div class="sidebar-stat"><span>待复习</span><span style="color:#ef4444" id="sidebarWrong">0</span></div>
-                        <div class="sidebar-stat"><span>未完成</span><span id="sidebarRemaining">0</span></div>
+        </nav>
+
+        <div class="main-container">
+            <!-- ===== 首页 ===== -->
+            <div class="page active" id="page-home">
+                <div class="hero-section">
+                    <div class="hero-content">
+                        <div class="hero-text">
+                            <div class="hero-school">山东第二医科大学 · 公共卫生学院</div>
+                            <h1>流行病与卫生统计学 <span>题库</span></h1>
+                            <p class="hero-sub">科研设计 · 观察性研究 · 均值比较 · 关联分析 · 回归建模 · 预后生存 · 诊断评价 · 证据综合</p>
+                            <button class="btn btn-primary" onclick="navigateTo('quiz');startQuiz();">
+                                🚀 开始刷题
+                            </button>
+                        </div>
+                        <div class="hero-stats">
+                            <div class="hero-stat">
+                                <div class="stat-num" id="homeTotalQ">16</div>
+                                <div class="stat-label">总题目</div>
+                            </div>
+                            <div class="hero-stat">
+                                <div class="stat-num" id="homeProgress">0%</div>
+                                <div class="stat-label">整体进度</div>
+                            </div>
+                        </div>
                     </div>
-                    <button class="btn btn-outline btn-sm" onclick="resetAllProgress()" style="width:100%;margin-bottom:8px">🔄 重置进度</button>
-                    <button class="btn btn-sm" onclick="clearCategoryFilter()" id="clearCategoryBtn" style="width:100%;display:none;background:var(--primary);color:#fff">↩ 返回全部题库</button>
+                </div>
+
+                <div class="progress-row">
+                    <div class="progress-card">
+                        <div class="icon-box green">✅</div>
+                        <div class="info">
+                            <h4>已掌握</h4>
+                            <span class="big-num" style="color:#10b981;" id="homeCorrect">0</span>
+                        </div>
+                    </div>
+                    <div class="progress-card">
+                        <div class="icon-box red">❌</div>
+                        <div class="info">
+                            <h4>待复习</h4>
+                            <span class="big-num" style="color:#ef4444;" id="homeWrong">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-title">📂 按模块浏览</div>
+                <div class="category-grid" id="categoryGrid"></div>
+
+                <div class="school-footer">
+                    <p class="school-name">山东第二医科大学</p>
+                    <p class="school-dept">公共卫生学院 · 流行病与卫生统计学系</p>
+                    <div class="version-tip">题库版本 v3.0 · 共 <span id="versionTotalQ">16</span> 题</div>
+                </div>
+            </div>
+
+            <!-- ===== 刷题页 ===== -->
+            <div class="page" id="page-quiz">
+                <div class="quiz-layout">
+                    <div class="quiz-main" id="quizMain"></div>
+                    <div class="quiz-sidebar">
+                        <div class="sidebar-card">
+                            <h3>📍 题目导航</h3>
+                            <div class="question-nav-grid" id="questionNavGrid"></div>
+                        </div>
+                        <div class="sidebar-card">
+                            <h3>📊 模块统计</h3>
+                            <div class="sidebar-stat">
+                                <span>已掌握</span>
+                                <span class="ss-val" style="color:#10b981;" id="sidebarCorrect">0</span>
+                            </div>
+                            <div class="sidebar-stat">
+                                <span>待复习</span>
+                                <span class="ss-val" style="color:#ef4444;" id="sidebarWrong">0</span>
+                            </div>
+                            <div class="sidebar-stat">
+                                <span>未完成</span>
+                                <span class="ss-val" id="sidebarRemaining">0</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-outline btn-sm" onclick="resetAllProgress()" style="width:100%;">
+                            🔄 重置进度
+                        </button>
+                        <button class="btn btn-ghost btn-sm" onclick="clearCategoryFilter()" id="clearCategoryBtn"
+                        style="width:100%;display:none;">
+                        ↩ 返回全部题库
+                    </button>
                 </div>
             </div>
         </div>
+
+        <!-- ===== 错题本 ===== -->
         <div class="page" id="page-wrongbook">
-            <h2 style="margin-bottom:16px">📕 错题本</h2>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px;">
+                <h2 style="font-size:1.4rem;font-weight:700;">📕 错题本</h2>
+                <button class="btn btn-ghost btn-sm" onclick="clearWrongBook()" id="clearWrongBtn">🗑️ 清空</button>
+            </div>
             <div class="wrong-list" id="wrongList"></div>
-            <button class="btn btn-outline btn-sm" onclick="clearWrongBook()" style="margin-top:16px">🗑️ 清空错题本</button>
         </div>
     </div>
 </div>
+
+<!-- ===== Toast ===== -->
 <div class="toast" id="toast"></div>
 
 <script>
-    // ==================== ⚠️ 替换下面两行为你自己的值 ⚠️ ====================
-    const SUPABASE_URL = 'https://你的项目ID.supabase.co';
-    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...你的anon key...';
+    // ==================== ⚠️ 替换为你的 Supabase 配置 ====================
+    const SUPABASE_URL = 'https://firdcjtcxtywghbpufdr.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_6y4AYLWSWs2klRw9tjvxbA_J5g1voHq';
 
     const { createClient } = supabase;
     const sb = createClient(SUPABASE_URL, SUPABASE_KEY);
 
+    // ==================== 题库数据 ====================
     const questions = [
-        { id:1, type:'essay', category:'design', catLabel:'科研设计', tagClass:'tag-design',
-          title:'随机对照试验的样本量估算', journal:'N Engl J Med 2023', doi:'10.1056/NEJMoa2307563', difficulty:'⭐⭐⭐',
-          drugKnowledge:'新型降压药属于ARNI类药物。',
-          scenario:'SELECT研究纳入17604名患者，随机分配至司美格鲁肽2.4mg或安慰剂。预计δ=8 mmHg，σ=16 mmHg，α=0.05双侧。',
-          subQuestions:['功效90%时每组需要多少受试者？','脱落率15%时应招募多少？'],
-          answers:['n≈85人/组','调整后约100人/组'],keyPoints:'样本量四要素：效应量、标准差、α、功效。' },
-        { id:2, type:'choice', category:'design', catLabel:'科研设计', tagClass:'tag-choice',
-          title:'关于RCT双盲设计的描述，哪项正确？', journal:'Lancet 2023', doi:'10.1016/S0140-6736(23)01234-5', difficulty:'⭐⭐',
-          drugKnowledge:'试验药物为SGLT-2抑制剂。',scenario:'评估新药疗效的RCT中：',
-          options:[{text:'随机化消除所有偏倚',correct:false},{text:'双盲主要减少信息偏倚',correct:true},{text:'ITT只分析完成者',correct:false},{text:'样本量越大Ⅱ类错误越大',correct:false}],
-          explanation:'双盲设计减少测量偏倚和期望偏倚。' },
-        { id:3, type:'essay', category:'observe', catLabel:'观察性研究', tagClass:'tag-observe',
-          title:'吸烟与肺癌的RR与归因危险度', journal:'BMJ 2023', doi:'10.1136/bmj-2023-076512', difficulty:'⭐⭐',
-          drugKnowledge:'低剂量CT筛查可降低肺癌死亡率。',
-          scenario:'25000人队列，吸烟组12000人(360例)，非吸烟组13000人(65例)，随访15年。',
-          subQuestions:['计算RR。','计算AR和AR%。'],answers:['RR=6','AR=2.5%，AR%=83.3%'],keyPoints:'RR与AR区别。' },
-        { id:4, type:'choice', category:'observe', catLabel:'观察性研究', tagClass:'tag-choice',
-          title:'病例对照研究中关于选择偏倚正确的是？', journal:'Lancet Oncol 2023', doi:'10.1016/S1470-2045(23)00456-7', difficulty:'⭐⭐',
-          drugKnowledge:'HPV疫苗可预防高危型HPV。',scenario:'医院对照可能引入：',
-          options:[{text:'回忆偏倚',correct:false},{text:'Berkson偏倚',correct:true},{text:'失访偏倚',correct:false},{text:'测量偏倚',correct:false}],
-          explanation:'医院对照不代表源人群。' },
-        { id:5, type:'essay', category:'mean', catLabel:'均值比较', tagClass:'tag-mean',
-          title:'独立样本t检验的应用', journal:'JAMA Intern Med 2024', doi:'10.1001/jamainternmed.2024.0123', difficulty:'⭐⭐',
-          drugKnowledge:'A药为ARB类，B药为ACEI类。',
-          scenario:'60人，A药组降压15.2(SD=8.6)，B药组降压12.8(SD=9.1)。',
-          subQuestions:['写出零假设。','t=1.42, p=0.16解释。'],answers:['H₀:μA=μB','p>0.05，不拒绝H₀'],keyPoints:'t检验假设。' },
-        { id:6, type:'choice', category:'mean', catLabel:'均值比较', tagClass:'tag-choice',
-          title:'数据偏态时两组比较应首选？', journal:'BMJ 2024', doi:'10.1136/bmj-2024-045678', difficulty:'⭐⭐',
-          drugKnowledge:'VAS评分评估止痛效果。',scenario:'比较两种止痛药：',
-          options:[{text:'独立样本t检验',correct:false},{text:'Wilcoxon秩和检验',correct:true},{text:'配对t检验',correct:false},{text:'方差分析',correct:false}],
-          explanation:'秩和检验是非参数方法。' },
-        { id:7, type:'essay', category:'assoc', catLabel:'关联分析', tagClass:'tag-assoc',
-          title:'卡方检验的应用', journal:'Lancet Public Health 2024', doi:'10.1016/S2468-2667(24)00123-4', difficulty:'⭐⭐',
-          drugKnowledge:'疫苗接种率与教育水平的关系。',
-          scenario:'500名居民，2×2列联表。',
-          subQuestions:['χ²=6.78,p=0.009解释。','理论频数<5怎么办？'],answers:['教育水平与接种率显著关联','Fisher确切概率法'],keyPoints:'理论频数≥5。' },
-        { id:8, type:'choice', category:'assoc', catLabel:'关联分析', tagClass:'tag-choice',
-          title:'关于Pearson r的描述正确的是？', journal:'BMJ 2024', doi:'10.1136/bmj-2024-056789', difficulty:'⭐⭐',
-          drugKnowledge:'维生素D与骨密度的相关性。',scenario:'分析两连续变量：',
-          options:[{text:'r范围-∞到+∞',correct:false},{text:'r=0表示独立',correct:false},{text:'|r|越接近1线性越强',correct:true},{text:'r=0.3比-0.8强',correct:false}],
-          explanation:'r∈[-1,1]，r=0只表示无线性关系。' },
-        { id:9, type:'essay', category:'model', catLabel:'回归建模', tagClass:'tag-model',
-          title:'Logistic回归的应用', journal:'Lancet 2023', doi:'10.1016/S0140-6736(23)01234-5', difficulty:'⭐⭐⭐',
-          drugKnowledge:'他汀类药物使用情况。',
-          scenario:'3500人横断面研究。',
-          subQuestions:['吸烟OR=2.35解释。','血糖加入后BMI的OR下降解释。'],answers:['吸烟者CHD优势是非吸烟者2.35倍','血糖是中介因素'],keyPoints:'OR解释、中介效应。' },
-        { id:10, type:'choice', category:'model', catLabel:'回归建模', tagClass:'tag-choice',
-          title:'Logistic回归中OR的正确解释是？', journal:'Lancet 2023', doi:'10.1016/S0140-6736(23)01234-5', difficulty:'⭐⭐',
-          drugKnowledge:'他汀与心血管事件关联。',scenario:'OR=3.2(95%CI 2.1-4.8)：',
-          options:[{text:'风险是3.2倍',correct:false},{text:'优势是3.2倍',correct:true},{text:'发病率3.2%',correct:false},{text:'CI包含1不显著',correct:false}],
-          explanation:'OR解释为"优势"。' },
-        { id:11, type:'essay', category:'surv', catLabel:'预后生存', tagClass:'tag-surv',
-          title:'KM与Cox回归', journal:'J Clin Oncol 2023', doi:'10.1200/JCO.23.01234', difficulty:'⭐⭐⭐',
-          drugKnowledge:'AC-T化疗方案。',
-          scenario:'480名乳腺癌患者，中位随访6.5年。',
-          subQuestions:['3年生存率78%解释。','log-rank p<0.001解释。'],answers:['78%患者存活','两组生存有显著差异'],keyPoints:'KM删失处理、log-rank。' },
-        { id:12, type:'choice', category:'surv', catLabel:'预后生存', tagClass:'tag-choice',
-          title:'关于KM曲线的错误描述是？', journal:'J Clin Oncol 2023', doi:'10.1200/JCO.23.01234', difficulty:'⭐⭐',
-          drugKnowledge:'紫杉醇化疗。',scenario:'分析肿瘤生存数据：',
-          options:[{text:'可估计中位生存',correct:false},{text:'能处理删失',correct:false},{text:'假设概率恒定',correct:true},{text:'可分组比较',correct:false}],
-          explanation:'KM法不假设恒定风险。' },
-        { id:13, type:'essay', category:'diagmod', catLabel:'诊断评价', tagClass:'tag-diagmod',
-          title:'敏感性与特异性', journal:'BMJ 2023', doi:'10.1136/bmj-2023-075832', difficulty:'⭐⭐',
-          drugKnowledge:'ctDNA甲基化检测。',
-          scenario:'2000人筛查，TP=180，FP=60，TN=1720，FN=40。',
-          subQuestions:['计算敏感性和特异性。','计算Youden指数。'],answers:['敏感性81.8%，特异性96.6%','Youden指数0.784'],keyPoints:'敏感性=TP/(TP+FN)。' },
-        { id:14, type:'choice', category:'diagmod', catLabel:'诊断评价', tagClass:'tag-choice',
-          title:'关于ROC曲线正确的是？', journal:'BMJ 2023', doi:'10.1136/bmj-2023-075832', difficulty:'⭐⭐',
-          drugKnowledge:'ctDNA甲基化检测。',scenario:'比较诊断方法：',
-          options:[{text:'AUC=0.5完美',correct:false},{text:'越靠近左上角越准确',correct:true},{text:'Youden=敏感性+特异性',correct:false},{text:'截断点在对角线交点',correct:false}],
-          explanation:'越靠近左上角AUC越大。' },
-        { id:15, type:'essay', category:'evid', catLabel:'证据综合', tagClass:'tag-evid',
-          title:'Meta分析异质性', journal:'JAMA 2024', doi:'10.1001/jama.2024.0123', difficulty:'⭐⭐⭐',
-          drugKnowledge:'他汀类药物。',
-          scenario:'12个RCT，汇总OR=0.76。',
-          subQuestions:['I²=62%,p=0.002解释。','为何随机效应模型？'],answers:['中等异质性','考虑研究间方差τ²'],keyPoints:'I²评价异质性。' },
-        { id:16, type:'choice', category:'evid', catLabel:'证据综合', tagClass:'tag-choice',
-          title:'I²=75%,p<0.01应优先考虑？', journal:'JAMA 2024', doi:'10.1001/jama.2024.0123', difficulty:'⭐⭐⭐',
-          drugKnowledge:'他汀获益差异。',scenario:'高度异质性：',
-          options:[{text:'固定效应模型',correct:false},{text:'随机效应+探索异质性来源',correct:true},{text:'直接合并',correct:false},{text:'只选阳性结果',correct:false}],
-          explanation:'应使用随机效应模型。' }
+        { id: 1, type: 'essay', category: 'design', catLabel: '科研设计', tagClass: 'tag-design', icon: '💊',
+            iconClass: 'blue', title: '随机对照试验的样本量估算', journal: 'N Engl J Med', doi: '10.1056/NEJMoa2307563',
+            difficulty: '⭐⭐⭐', drugKnowledge: '新型降压药属于血管紧张素受体脑啡肽酶抑制剂(ARNI)。',
+            scenario: 'SELECT研究纳入17604名患者，随机分配至司美格鲁肽2.4mg或安慰剂，中位随访39.8个月。预计效应量δ=8 mmHg，σ=16 mmHg，α=0.05双侧。',
+            subQuestions: ['若希望功效达到90%，每组至少需要多少名受试者？', '若脱落率为15%，初始每组应招募多少人？'],
+            answers: ['n=2×(1.96+1.282)²×(16/8)²≈85人/组。', '调整后：85/(1-0.15)≈100人/组。'],
+        keyPoints: '样本量四要素：效应量、标准差、α、功效。' },
+        { id: 2, type: 'choice', category: 'design', catLabel: '科研设计', tagClass: 'tag-choice', icon: '💊',
+            iconClass: 'blue', title: '关于RCT中双盲设计的描述，哪项正确？', journal: 'Lancet', doi: '10.1016/S0140-6736(23)01234-5',
+            difficulty: '⭐⭐', drugKnowledge: '试验药物为SGLT-2抑制剂。', scenario: '在评估新药疗效的RCT中：',
+            options: [{ text: '随机化可以消除所有偏倚', correct: false }, { text: '双盲设计主要是为了减少信息偏倚', correct: true },
+            { text: 'ITT只分析完成试验的受试者', correct: false }, { text: '样本量越大，Ⅱ类错误概率越大', correct: false }],
+        explanation: '双盲设计使受试者和研究者均不知晓分组，减少测量偏倚和期望偏倚。' },
+        { id: 3, type: 'essay', category: 'observe', catLabel: '观察性研究', tagClass: 'tag-observe', icon: '👥',
+            iconClass: 'green', title: '吸烟与肺癌的RR与归因危险度', journal: 'BMJ', doi: '10.1136/bmj-2023-076512',
+            difficulty: '⭐⭐', drugKnowledge: '低剂量CT筛查在高危人群中可降低肺癌死亡率。',
+            scenario: '25000人队列，吸烟组12000人(肺癌360例)，非吸烟组13000人(肺癌65例)，随访15年。',
+            subQuestions: ['计算吸烟组和非吸烟组的累积发病率及RR。', '计算归因危险度AR和AR%，并说明公共卫生意义。'],
+            answers: ['吸烟组3.0%，非吸烟0.5%，RR=6。', 'AR=2.5%，AR%=83.3%，吸烟者中83%肺癌归因于吸烟。'],
+        keyPoints: 'RR与AR区别；AR%量化暴露的危害程度。' },
+        { id: 4, type: 'choice', category: 'observe', catLabel: '观察性研究', tagClass: 'tag-choice', icon: '👥',
+            iconClass: 'green', title: '病例对照研究中关于选择偏倚的描述正确的是？', journal: 'Lancet Oncol',
+            doi: '10.1016/S1470-2045(23)00456-7', difficulty: '⭐⭐', drugKnowledge: 'HPV疫苗可预防高危型HPV感染。',
+            scenario: '以医院为基础选择对照可能引入：', options: [{ text: '回忆偏倚', correct: false }, { text: 'Berkson偏倚（入院率偏倚）',
+                correct: true }, { text: '失访偏倚', correct: false }, { text: '测量偏倚', correct: false }],
+        explanation: '医院对照可能不代表源人群，导致Berkson偏倚。' },
+        { id: 5, type: 'essay', category: 'mean', catLabel: '均值比较', tagClass: 'tag-mean', icon: '📏', iconClass: 'amber',
+            title: '独立样本t检验在药物疗效比较中的应用', journal: 'JAMA Intern Med', doi: '10.1001/jamainternmed.2024.0123',
+            difficulty: '⭐⭐', drugKnowledge: 'A药为ARB类，B药为ACEI类降压药。',
+            scenario: '60名高血压患者，A药组(n=30)平均降压15.2 mmHg (SD=8.6)，B药组(n=30)平均降压12.8 mmHg (SD=9.1)。',
+            subQuestions: ['写出独立样本t检验的零假设和备择假设。', '若t=1.42, df=58, p=0.16，请解释结果。'],
+            answers: ['H₀: μA=μB；H₁: μA≠μB。', 'p=0.16>0.05，不能拒绝H₀，尚无足够证据认为两药降压效果不同。'],
+        keyPoints: 't检验适用条件：正态性、方差齐性、独立性。' },
+        { id: 6, type: 'choice', category: 'mean', catLabel: '均值比较', tagClass: 'tag-choice', icon: '📏',
+            iconClass: 'amber', title: '当数据严重偏态时，两组比较应首选？', journal: 'BMJ', doi: '10.1136/bmj-2024-045678',
+            difficulty: '⭐⭐', drugKnowledge: '某止痛药效果用VAS评分评估（0-10分）。', scenario: '比较两种止痛药的VAS评分，数据呈偏态分布：',
+            options: [{ text: '独立样本t检验', correct: false }, { text: 'Wilcoxon秩和检验', correct: true },
+            { text: '配对t检验', correct: false }, { text: '方差分析', correct: false }],
+        explanation: '秩和检验是非参数方法，不依赖正态分布假设。' },
+        { id: 7, type: 'essay', category: 'assoc', catLabel: '关联分析', tagClass: 'tag-assoc', icon: '🔢', iconClass: 'rose',
+            title: '卡方检验在分类变量关联性分析中的应用', journal: 'Lancet Public Health', doi: '10.1016/S2468-2667(24)00123-4',
+            difficulty: '⭐⭐', drugKnowledge: '研究某疫苗的接种率与地区教育水平的关系。',
+            scenario: '调查500名居民，按教育水平与疫苗接种状态整理成2×2列联表。',
+            subQuestions: ['若χ²=6.78, df=1, p=0.009，请解释结果。', '若有单元格理论频数<5，应如何处理？'],
+            answers: ['p=0.009<0.01，教育水平与疫苗接种率存在显著关联。', '应使用Fisher确切概率法或Yates连续性校正。'],
+        keyPoints: '卡方检验适用条件：理论频数≥5；2×2表可用四格表χ²检验。' },
+        { id: 8, type: 'choice', category: 'assoc', catLabel: '关联分析', tagClass: 'tag-choice', icon: '🔢',
+            iconClass: 'rose', title: '关于Pearson相关系数r的描述，哪项正确？', journal: 'BMJ', doi: '10.1136/bmj-2024-056789',
+            difficulty: '⭐⭐', drugKnowledge: '研究血清维生素D与骨密度的相关性。', scenario: '在分析两连续变量关系时：',
+            options: [{ text: 'r的取值范围是-∞到+∞', correct: false }, { text: 'r=0表示两变量独立', correct: false },
+            { text: 'r的绝对值越接近1，线性关系越强', correct: true }, { text: 'r=0.3比r=-0.8相关性强', correct: false }],
+        explanation: 'Pearson r取值范围[-1,1]；r=0只表示无线性关系。' },
+        { id: 9, type: 'essay', category: 'model', catLabel: '回归建模', tagClass: 'tag-model', icon: '📐',
+            iconClass: 'purple', title: 'Logistic回归在冠心病风险因素分析中的应用', journal: 'Lancet',
+            doi: '10.1016/S0140-6736(23)01234-5', difficulty: '⭐⭐⭐', drugKnowledge: '研究中评估了他汀类药物的使用情况。',
+            scenario: '3500人横断面研究，多变量Logistic回归分析CHD风险因素，包括年龄、性别、BMI、吸烟等。',
+            subQuestions: ['吸烟OR=2.35 (95%CI: 1.78-3.10)，请解释含义。', '加入血糖后BMI的OR从1.15降至1.06且不显著，请解释原因。'],
+            answers: ['吸烟者患CHD的优势是非吸烟者的2.35倍，CI不包含1说明显著。', '血糖是BMI与CHD之间的中介因素，解释了BMI的部分效应。'],
+        keyPoints: 'OR解释、置信区间判断显著性、中介效应识别。' },
+        { id: 10, type: 'choice', category: 'model', catLabel: '回归建模', tagClass: 'tag-choice', icon: '📐',
+            iconClass: 'purple', title: 'Logistic回归中关于OR值的正确解释是？', journal: 'Lancet',
+            doi: '10.1016/S0140-6736(23)01234-5', difficulty: '⭐⭐', drugKnowledge: '研究涉及他汀使用与心血管事件的关联。',
+            scenario: '调整后吸烟与肺癌的OR=3.2 (95%CI 2.1-4.8)。',
+            options: [{ text: '吸烟者患肺癌的风险是非吸烟者的3.2倍', correct: false }, { text: '吸烟者患肺癌的优势是非吸烟者的3.2倍',
+                correct: true }, { text: 'OR=3.2意味着肺癌发病率为3.2%', correct: false },
+            { text: '95%CI包含1，结果不显著', correct: false }],
+        explanation: 'OR (优势比) 解释为"优势"，而非"风险"。' },
+        { id: 11, type: 'essay', category: 'surv', catLabel: '预后生存', tagClass: 'tag-surv', icon: '⏳', iconClass: 'teal',
+            title: '乳腺癌生存分析：KM与Cox回归', journal: 'J Clin Oncol', doi: '10.1200/JCO.23.01234', difficulty: '⭐⭐⭐',
+            drugKnowledge: '辅助化疗方案为AC-T(阿霉素+环磷酰胺序贯紫杉醇)。',
+            scenario: '480名乳腺癌患者，中位随访6.5年，KM法估计生存，log-rank比较组间差异，Cox多变量分析。',
+            subQuestions: ['解释3年累积生存率78%及KM法如何处理删失数据。', 'log-rank检验χ²=15.4, p<0.001，请解释含义。'],
+            answers: ['78%患者存活；KM法利用删失前的信息进行估计。', '两组生存曲线存在统计学显著差异，淋巴结阳性组预后更差。'],
+        keyPoints: 'KM删失处理、log-rank检验原理。' },
+        { id: 12, type: 'choice', category: 'surv', catLabel: '预后生存', tagClass: 'tag-choice', icon: '⏳',
+            iconClass: 'teal', title: '关于Kaplan-Meier生存曲线的描述，哪项错误？', journal: 'J Clin Oncol',
+            doi: '10.1200/JCO.23.01234', difficulty: '⭐⭐', drugKnowledge: '辅助化疗药物紫杉醇。', scenario: '在分析肿瘤患者生存数据时：',
+            options: [{ text: '可用于估计中位生存时间', correct: false }, { text: '能处理删失数据', correct: false },
+            { text: '假设生存概率在各时间点间恒定', correct: true }, { text: '可绘制不同组别的生存曲线', correct: false }],
+        explanation: 'KM法不假设恒定风险，它是非参数方法。' },
+        { id: 13, type: 'essay', category: 'diagmod', catLabel: '诊断评价', tagClass: 'tag-diagmod', icon: '🔬',
+            iconClass: 'indigo', title: '新型筛查工具的敏感性、特异性与预测值', journal: 'BMJ', doi: '10.1136/bmj-2023-075832',
+            difficulty: '⭐⭐', drugKnowledge: '该血液生物标志物为循环肿瘤DNA(ctDNA)甲基化检测。',
+            scenario: '2000人筛查，金标准病理活检。TP=180，FP=60，TN=1720，FN=40。患病率11%。',
+            subQuestions: ['计算敏感性和特异性。', '计算Youden指数并评价该工具的综合诊断效能。'],
+            answers: ['敏感性=81.8%，特异性=96.6%。', 'Youden指数=0.784，综合效能较好。'],
+        keyPoints: '敏感性=TP/(TP+FN)；特异性=TN/(TN+FP)；Youden指数=敏感性+特异性-1。' },
+        { id: 14, type: 'choice', category: 'diagmod', catLabel: '诊断评价', tagClass: 'tag-choice', icon: '🔬',
+            iconClass: 'indigo', title: '关于ROC曲线的正确描述是？', journal: 'BMJ', doi: '10.1136/bmj-2023-075832',
+            difficulty: '⭐⭐', drugKnowledge: '新型生物标志物为ctDNA甲基化检测。', scenario: '在比较两种诊断方法的准确性时：',
+            options: [{ text: 'AUC=0.5表示诊断方法完美', correct: false }, { text: '曲线越靠近左上角，整体准确性越高', correct: true },
+            { text: 'Youden指数等于敏感性与特异性之和', correct: false }, { text: '最佳截断点位于曲线与对角线交点', correct: false }],
+        explanation: 'ROC曲线越靠近左上角，AUC越大，诊断准确性越高。' },
+        { id: 15, type: 'essay', category: 'evid', catLabel: '证据综合', tagClass: 'tag-evid', icon: '🧩', iconClass: 'cyan',
+            title: 'Meta分析异质性与效应量合并', journal: 'JAMA', doi: '10.1001/jama.2024.0123', difficulty: '⭐⭐⭐',
+            drugKnowledge: '他汀类药物通过降低LDL-C减少心血管事件。',
+            scenario: '12个RCT，他汀预防MACE，OR范围0.55-0.92，汇总OR=0.76。',
+            subQuestions: ['I²=62%, Q检验p=0.002，请解释异质性结果。', '为什么选择随机效应模型而非固定效应模型？'],
+            answers: ['I²=62%为中等异质性，p=0.002表明异质性显著。', '存在显著研究间差异，随机效应模型权重更均衡，CI更宽更保守。'],
+        keyPoints: 'I²评价异质性程度；随机效应模型考虑研究间方差τ²。' },
+        { id: 16, type: 'choice', category: 'evid', catLabel: '证据综合', tagClass: 'tag-choice', icon: '🧩', iconClass: 'cyan',
+            title: 'Meta分析中若I²=75%且Q检验p<0.01，应优先考虑？', journal: 'JAMA', doi: '10.1001/jama.2024.0123',
+            difficulty: '⭐⭐⭐', drugKnowledge: '他汀类药物获益差异可通过亚组分析探索。', scenario: '合并12个研究效应量时发现高度异质性：',
+            options: [{ text: '使用固定效应模型', correct: false }, { text: '使用随机效应模型并探索异质性来源', correct: true },
+            { text: '直接合并，忽略异质性', correct: false }, { text: '只选择阳性结果的研究', correct: false }],
+        explanation: 'I²>50%提示显著异质性，应采用随机效应模型并进行亚组分析或Meta回归。' }
     ];
 
-    let currentUser=null,solvedMap={},wrongIds=[],currentPage='home',currentCategory=null,currentList=[...questions],currentIdx=0;
-    let toastTimer=null;
+    // ==================== 全局状态 ====================
+    let currentUser = null;
+    let solvedMap = {};
+    let wrongIds = [];
+    let currentPage = 'home';
+    let currentCategory = null;
+    let currentList = [...questions];
+    let currentIdx = 0;
+    let toastTimer = null;
 
-    async function register(){
-        const e=document.getElementById('auth-email').value.trim(),p=document.getElementById('auth-password').value.trim();
-        if(!e||!p)return showAuthError('请填写邮箱和密码');
-        if(p.length<6)return showAuthError('密码至少6位');
-        try{const{data,error}=await sb.auth.signUp({email:e,password:p});if(error)throw error;if(data.user){currentUser=data.user;onLoginSuccess()}else showAuthError('注册成功，请登录')}catch(err){showAuthError(err.message)}
+    // ==================== 认证 ====================
+    async function register() {
+        const email = document.getElementById('auth-email').value.trim();
+        const password = document.getElementById('auth-password').value.trim();
+        if (!email || !password) { showAuthError('请填写邮箱和密码'); return; }
+        if (password.length < 6) { showAuthError('密码至少6位'); return; }
+        try {
+            const { data, error } = await sb.auth.signUp({ email, password });
+            if (error) throw error;
+            if (data.user) { currentUser = data.user;
+                onLoginSuccess(); } else { showAuthError('注册成功，请登录'); }
+        } catch (err) { showAuthError(err.message); }
     }
-    async function login(){
-        const e=document.getElementById('auth-email').value.trim(),p=document.getElementById('auth-password').value.trim();
-        if(!e||!p)return showAuthError('请填写邮箱和密码');
-        try{const{data,error}=await sb.auth.signInWithPassword({email:e,password:p});if(error)throw error;currentUser=data.user;onLoginSuccess()}catch(err){showAuthError('邮箱或密码错误')}
+
+    async function login() {
+        const email = document.getElementById('auth-email').value.trim();
+        const password = document.getElementById('auth-password').value.trim();
+        if (!email || !password) { showAuthError('请填写邮箱和密码'); return; }
+        try {
+            const { data, error } = await sb.auth.signInWithPassword({ email, password });
+            if (error) throw error;
+            currentUser = data.user;
+            onLoginSuccess();
+        } catch (err) { showAuthError('邮箱或密码错误'); }
     }
-    async function logout(){clearTimeout(toastTimer);solvedMap={};wrongIds=[];questions.forEach(q=>{delete q._userInput;delete q._selectedIdx});currentIdx=0;currentCategory=null;currentList=[...questions];currentUser=null;await sb.auth.signOut();document.getElementById('app-main').style.display='none';document.getElementById('auth-overlay').style.display='flex';document.getElementById('auth-email').value='';document.getElementById('auth-password').value=''}
-    function showAuthError(m){const el=document.getElementById('auth-error');el.textContent=m;el.style.display='block';setTimeout(()=>el.style.display='none',5000)}
-    async function onLoginSuccess(){clearTimeout(toastTimer);solvedMap={};wrongIds=[];questions.forEach(q=>{delete q._userInput;delete q._selectedIdx});currentIdx=0;currentCategory=null;currentList=[...questions];document.getElementById('auth-overlay').style.display='none';document.getElementById('app-main').style.display='block';await loadUserData();updateHome();updateBadge();navigateTo('home')}
-    async function loadUserData(){try{const{data}=await sb.from('user_data').select('*').eq('user_id',currentUser.id).single();if(data){solvedMap=data.solved||{};wrongIds=data.wrong_ids||[];const ei=data.essay_inputs||{};questions.forEach(q=>{if(ei[String(q.id)])q._userInput=ei[String(q.id)];else delete q._userInput})}}catch(e){}}
-    async function saveUserData(){if(!currentUser)return;const ei={};questions.forEach(q=>{if(q._userInput)ei[String(q.id)]=q._userInput});const r={user_id:currentUser.id,solved:solvedMap,wrong_ids:wrongIds,essay_inputs:ei,updated_at:new Date()};const{data:ex}=await sb.from('user_data').select('id').eq('user_id',currentUser.id).single();if(ex)await sb.from('user_data').update(r).eq('user_id',currentUser.id);else await sb.from('user_data').insert(r)}
-    function updateBadge(){const c=wrongIds.length;document.getElementById('navWrongBadge').style.display=c?'inline':'none';document.getElementById('navWrongBadge').textContent=c}
-    function showToast(m){
-        const t=document.getElementById('toast');
-        t.textContent=m;
-        t.classList.add('show');
+
+    async function logout() {
+        await sb.auth.signOut();
+        currentUser = null;
+        solvedMap = {};
+        wrongIds = [];
+        document.getElementById('auth-overlay').style.display = 'flex';
+        document.getElementById('app-main').style.display = 'none';
+        document.getElementById('auth-email').value = '';
+        document.getElementById('auth-password').value = '';
+    }
+
+    function showAuthError(msg) {
+        const el = document.getElementById('auth-error');
+        el.textContent = msg;
+        el.style.display = 'block';
+        setTimeout(() => el.style.display = 'none', 5000);
+    }
+
+    // ==================== 数据持久化 ====================
+    async function onLoginSuccess() {
+        document.getElementById('auth-overlay').style.display = 'none';
+        document.getElementById('app-main').style.display = 'block';
+        await loadUserData();
+        updateHome();
+        updateBadge();
+        navigateTo('home');
+    }
+
+    async function loadUserData() {
+        try {
+            const { data } = await sb.from('user_data').select('*').eq('user_id', currentUser.id).single();
+            if (data) {
+                solvedMap = data.solved || {};
+                wrongIds = data.wrong_ids || [];
+                const ei = data.essay_inputs || {};
+                questions.forEach(q => { if (ei[String(q.id)]) q._userInput = ei[String(q.id)]; else delete q
+                        ._userInput; });
+            }
+        } catch (e) {}
+    }
+
+    async function saveUserData() {
+        if (!currentUser) return;
+        const ei = {};
+        questions.forEach(q => { if (q._userInput) ei[String(q.id)] = q._userInput; });
+        const record = { user_id: currentUser.id, solved: solvedMap, wrong_ids: wrongIds, essay_inputs: ei,
+            updated_at: new Date() };
+        const { data: ex } = await sb.from('user_data').select('id').eq('user_id', currentUser.id).single();
+        if (ex) await sb.from('user_data').update(record).eq('user_id', currentUser.id);
+        else await sb.from('user_data').insert(record);
+    }
+
+    // ==================== 辅助函数 ====================
+    function updateBadge() {
+        const c = wrongIds.length;
+        const badge = document.getElementById('navWrongBadge');
+        badge.style.display = c ? 'inline' : 'none';
+        badge.textContent = c;
+        const clearBtn = document.getElementById('clearWrongBtn');
+        if (clearBtn) clearBtn.style.display = c ? 'inline-flex' : 'none';
+    }
+
+    function showToast(msg, type) {
+        const t = document.getElementById('toast');
+        t.textContent = msg;
+        t.className = 'toast ' + (type || '') + ' show';
         clearTimeout(toastTimer);
-        toastTimer=setTimeout(()=>{t.classList.remove('show')},2000);
+        toastTimer = setTimeout(() => t.classList.remove('show'), 2000);
     }
-    function navigateTo(p){currentPage=p;document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.getElementById('page-'+p).classList.add('active');document.querySelectorAll('.nav-links a').forEach(a=>{a.classList.remove('active');if(a.dataset.page===p)a.classList.add('active')});if(p==='quiz'){if(!currentCategory)setCategory(null);renderQuiz()}if(p==='wrongbook')renderWrongBook();if(p==='home')updateHome()}
-    function setCategory(c){if(c){currentCategory=c;currentList=questions.filter(q=>q.category===c);document.getElementById('clearCategoryBtn').style.display='inline-flex'}else{currentCategory=null;currentList=[...questions];document.getElementById('clearCategoryBtn').style.display='none'}currentIdx=0}
-    function clearCategoryFilter(){setCategory(null);renderQuiz()}
-    function startQuiz(){setCategory(null);renderQuiz();navigateTo('quiz')}
-    function filterByCategory(k){navigateTo('quiz');setCategory(k);renderQuiz()}
-    function updateHome(){const t=questions.length,c=Object.keys(solvedMap).length;document.getElementById('homeTotalQ').textContent=t;document.getElementById('homeProgress').textContent=t?Math.round(c/t*100)+'%':'0%';document.getElementById('homeCorrect').textContent=Object.values(solvedMap).filter(v=>v==='correct').length;document.getElementById('homeWrong').textContent=wrongIds.length;updateBadge();renderCats()}
-    function renderCats(){const cats=[{key:'design',label:'科研设计',icon:'💊',ic:'blue',desc:'RCT/诊断/样本量'},{key:'observe',label:'观察性研究',icon:'👥',ic:'green',desc:'队列/病例对照'},{key:'mean',label:'均值比较',icon:'📏',ic:'amber',desc:'t/方差/秩和'},{key:'assoc',label:'关联分析',icon:'🔢',ic:'rose',desc:'卡方/相关'},{key:'model',label:'回归建模',icon:'📐',ic:'purple',desc:'线性/Logistic'},{key:'surv',label:'预后生存',icon:'⏳',ic:'teal',desc:'KM/Cox'},{key:'diagmod',label:'诊断评价',icon:'🔬',ic:'indigo',desc:'ROC/敏感性'},{key:'evid',label:'证据综合',icon:'🧩',ic:'cyan',desc:'Meta/异质性'}];document.getElementById('categoryGrid').innerHTML=cats.map(c=>{const cnt=questions.filter(q=>q.category===c.key).length;return`<div class="category-card" onclick="filterByCategory('${c.key}')"><div class="cat-icon ${c.ic}">${c.icon}</div><span class="cat-count">${cnt}题</span><h3>${c.label}</h3><p>${c.desc}</p></div>`}).join('')}
-    function renderQuiz(){if(!currentList.length)return;if(currentIdx<0||currentIdx>=currentList.length)currentIdx=0;const q=currentList[currentIdx];if(q.type==='essay')renderEssay(q);else renderChoice(q);renderNav()}
-    function renderEssay(q){const s=solvedMap[String(q.id)],bc=s==='correct'?'solved-correct':(s==='wrong'?'solved-wrong':'');document.getElementById('quizMain').innerHTML=`<div class="question-card ${bc}"><div class="question-meta"><span>第${currentIdx+1}/${currentList.length}题</span><span class="question-tag ${q.tagClass}">${q.catLabel}·简答</span>${s==='correct'?'<span style="color:#10b981">✅已掌握</span>':''}${s==='wrong'?'<span style="color:#ef4444">❌待复习</span>':''}</div><h2>${q.title}</h2><div class="question-scenario"><strong>📋场景：</strong>${q.scenario}</div><div style="font-size:0.85rem;margin-bottom:8px">📖${q.journal} · 难度${q.difficulty}</div><div style="background:#f0f9ff;padding:10px;border-radius:8px;margin-bottom:12px">💊${q.drugKnowledge}</div><ol class="sub-questions">${q.subQuestions.map(sq=>`<li>${sq}</li>`).join('')}</ol><textarea class="essay-input" id="essayInput" placeholder="输入你的答案...">${q._userInput||''}</textarea><div style="margin-top:10px;display:flex;gap:10px"><button class="btn btn-primary btn-sm" onclick="submitEssay(${q.id})">📤提交答案</button><button class="btn btn-sm" id="essayReset" onclick="resetEssay()" style="display:none;background:#f1f5f9">↩重新输入</button></div><div id="essayFeedback" style="margin-top:12px">${s?feedbackHTML(q):''}</div><div style="margin-top:12px;display:flex;gap:8px"><button class="btn btn-sm" onclick="prevQ()" ${currentIdx===0?'disabled':''}>⬅上一题</button><button class="btn btn-sm" onclick="nextQ()" ${currentIdx===currentList.length-1?'disabled':''}>下一题➡</button></div></div>`;if(s){document.getElementById('essayInput').disabled=true;document.getElementById('essayReset').style.display='inline-flex'}}
-    function feedbackHTML(q){const s=solvedMap[String(q.id)];return`<div style="margin-top:12px;padding-top:12px;border-top:2px dashed var(--border)">${q.answers.map((a,i)=>`<div class="answer-block">📝(${String.fromCharCode(97+i)})${a}</div>`).join('')}<div style="background:#fffbe6;padding:10px;border-radius:8px;margin-top:8px"><strong>🔑要点：</strong>${q.keyPoints}</div><div style="margin-top:8px;display:flex;gap:8px"><button class="btn btn-success btn-sm" onclick="markEssay(${q.id},'correct')" ${s==='correct'?'disabled':''}>✅答对了</button><button class="btn btn-danger btn-sm" onclick="markEssay(${q.id},'wrong')" ${s==='wrong'?'disabled':''}>❌答错了</button></div></div>`}
-    function submitEssay(id){const q=questions.find(q=>q.id===id);q._userInput=document.getElementById('essayInput').value;document.getElementById('essayFeedback').innerHTML=feedbackHTML(q);document.getElementById('essayInput').disabled=true;document.getElementById('essayReset').style.display='inline-flex';saveUserData()}
-    function resetEssay(){document.getElementById('essayInput').disabled=false;document.getElementById('essayInput').value='';document.getElementById('essayFeedback').innerHTML='';document.getElementById('essayReset').style.display='none';delete currentList[currentIdx]._userInput;saveUserData()}
-    function markEssay(id,s){solvedMap[String(id)]=s;solvedMap=Object.assign({},solvedMap);if(s==='wrong')addWrong(id);else removeWrong(id);saveUserData();renderQuiz();updateHome();showToast(s==='correct'?'已掌握！':'已加入错题本')}
-    function renderChoice(q){const s=solvedMap[String(q.id)],bc=s==='correct'?'solved-correct':(s==='wrong'?'solved-wrong':'');document.getElementById('quizMain').innerHTML=`<div class="question-card ${bc}"><div class="question-meta"><span>第${currentIdx+1}/${currentList.length}题</span><span class="question-tag ${q.tagClass}">${q.catLabel}·选择</span>${s==='correct'?'<span style="color:#10b981">✅正确</span>':''}${s==='wrong'?'<span style="color:#ef4444">❌错误</span>':''}</div><h2>${q.title}</h2><div class="question-scenario">${q.scenario}</div><div style="font-size:0.85rem;margin-bottom:8px">📖${q.journal} · 难度${q.difficulty}</div><div style="background:#f0f9ff;padding:10px;border-radius:8px;margin-bottom:12px">💊${q.drugKnowledge}</div><div class="options-list">${q.options.map((o,i)=>{let cls=s?(o.correct?'correct-highlight':''):'';if(s&&q._selectedIdx===i)cls+=o.correct?' selected-correct':' selected-wrong';return`<div class="option-item ${cls} ${s?'disabled':''}" onclick="selectOption(${q.id},${i})">${String.fromCharCode(65+i)}. ${o.text}</div>`}).join('')}</div>${s?`<div style="margin-top:10px;background:#f8fafc;padding:10px;border-radius:8px">💡解析：${q.explanation}</div>`:''}<div style="margin-top:12px;display:flex;gap:8px"><button class="btn btn-sm" onclick="prevQ()" ${currentIdx===0?'disabled':''}>⬅上一题</button><button class="btn btn-sm" onclick="nextQ()" ${currentIdx===currentList.length-1?'disabled':''}>下一题➡</button></div></div>`}
-    function selectOption(qId,i){const q=questions.find(q=>q.id===qId);if(!q||solvedMap[String(qId)])return;q._selectedIdx=i;const correct=q.options[i].correct;solvedMap[String(qId)]=correct?'correct':'wrong';solvedMap=Object.assign({},solvedMap);if(!correct)addWrong(qId);else removeWrong(qId);saveUserData();renderQuiz();updateHome();showToast(correct?'正确！✅':'错误，已加入错题本❌')}
-    function prevQ(){if(currentIdx>0){currentIdx--;renderQuiz()}}
-    function nextQ(){if(currentIdx<currentList.length-1){currentIdx++;renderQuiz()}}
-    function addWrong(id){if(!wrongIds.includes(id)){wrongIds.push(id);updateBadge()}}
-    function removeWrong(id){wrongIds=wrongIds.filter(x=>x!==id);updateBadge()}
-    function renderNav(){document.getElementById('questionNavGrid').innerHTML=currentList.map((q,i)=>{let cls='';if(i===currentIdx)cls='current';else if(solvedMap[String(q.id)]==='correct')cls='correct-dot';else if(solvedMap[String(q.id)]==='wrong')cls='wrong-dot';return`<div class="q-nav-dot ${cls}" onclick="jumpToQ(${i})">${i+1}</div>`}).join('')}
-    function jumpToQ(i){currentIdx=i;renderQuiz()}
-    function renderWrongBook(){const l=document.getElementById('wrongList');if(!wrongIds.length){l.innerHTML='<div class="empty-state"><div style="font-size:3rem">🏆</div><h3>错题本为空</h3></div>';return}l.innerHTML=wrongIds.map(id=>{const q=questions.find(q=>q.id===id);if(!q)return'';return`<div class="wrong-item"><div><span class="question-tag ${q.tagClass}">${q.catLabel}</span><h3>${q.title}</h3></div><div class="wrong-actions"><button class="btn btn-outline btn-sm" onclick="toggleReview(${q.id})">🔄重做</button></div><div class="review-block" id="review-${q.id}" style="display:none"></div></div>`}).join('')}
-    function toggleReview(id){const a=document.getElementById('review-'+id);if(a.style.display==='none'){const q=questions.find(q=>q.id===id);if(q.type==='choice')a.innerHTML=q.options.map((o,i)=>`<div class="option-inline" onclick="retryChoice(${id},${i})">${String.fromCharCode(65+i)}. ${o.text}</div>`).join('');else a.innerHTML=`<textarea id="retryEssay-${id}" class="essay-input" placeholder="重新输入..."></textarea><button class="btn btn-primary btn-sm" onclick="retryEssaySubmit(${id})">提交答案</button><div id="retryFeedback-${id}" style="margin-top:12px"></div>`;a.style.display='block'}else a.style.display='none'}
-    function retryChoice(qId,i){const q=questions.find(q=>q.id===qId);if(q.options[i].correct){removeWrong(qId);solvedMap[String(qId)]='correct';solvedMap=Object.assign({},solvedMap);saveUserData();renderWrongBook();updateHome();showToast('已移出错题本！')}else showToast('再试试')}
-    function retryEssaySubmit(qId){const q=questions.find(q=>q.id===qId);document.getElementById('retryFeedback-'+qId).innerHTML=`<div style="margin-top:8px">${q.answers.map((a,i)=>`<div class="answer-block">📝(${String.fromCharCode(97+i)})${a}</div>`).join('')}<div style="margin-top:8px;display:flex;gap:8px"><button class="btn btn-success btn-sm" onclick="markRetryCorrect(${qId})">✅答对了</button><button class="btn btn-danger btn-sm" onclick="markRetryWrong(${qId})">❌答错了</button></div></div>`}
-    function markRetryCorrect(qId){removeWrong(qId);solvedMap[String(qId)]='correct';solvedMap=Object.assign({},solvedMap);saveUserData();renderWrongBook();updateHome();showToast('已移出错题本！')}
-    function markRetryWrong(qId){showToast('继续复习')}
-    function clearWrongBook(){if(confirm('清空所有错题？')){wrongIds=[];saveUserData();updateBadge();renderWrongBook();updateHome()}}
-    function resetAllProgress(){if(confirm('重置所有进度？')){solvedMap={};wrongIds=[];questions.forEach(q=>{delete q._userInput;delete q._selectedIdx});saveUserData();updateHome();renderQuiz();showToast('已重置')}}
-    async function init(){const{data}=await sb.auth.getSession();if(data.session){currentUser=data.session.user;onLoginSuccess()}}
-    document.addEventListener('DOMContentLoaded',init);
+
+    function getSolvedMap() { return solvedMap; }
+
+    function saveSolvedMap(map) { solvedMap = map;
+        saveUserData(); }
+
+    function getWrongIds() { return wrongIds; }
+
+    function saveWrongIds(ids) { wrongIds = ids;
+        updateBadge();
+        saveUserData(); }
+
+    function addWrongId(id) { if (!wrongIds.includes(id)) { wrongIds.push(id);
+            saveWrongIds(wrongIds); } }
+
+    function removeWrongId(id) { wrongIds = wrongIds.filter(x => x !== id);
+        saveWrongIds(wrongIds); }
+
+    // ==================== 导航 ====================
+    function navigateTo(page) {
+        currentPage = page;
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById('page-' + page).classList.add('active');
+        document.querySelectorAll('.nav-links a').forEach(a => { a.classList.remove('active'); if (a.dataset.page ===
+                page) a.classList.add('active'); });
+        if (page === 'quiz') { if (!currentCategory) setCategory(null);
+            renderQuiz(); }
+        if (page === 'wrongbook') renderWrongBook();
+        if (page === 'home') updateHome();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function setCategory(cat) {
+        if (cat) {
+            currentCategory = cat;
+            currentList = questions.filter(q => q.category === cat);
+            document.getElementById('clearCategoryBtn').style.display = 'inline-flex';
+        } else {
+            currentCategory = null;
+            currentList = [...questions];
+            document.getElementById('clearCategoryBtn').style.display = 'none';
+        }
+        currentIdx = 0;
+    }
+
+    function clearCategoryFilter() { setCategory(null);
+        renderQuiz(); }
+
+    function startQuiz() { setCategory(null);
+        renderQuiz();
+        navigateTo('quiz'); }
+
+    function filterByCategory(catKey) { navigateTo('quiz');
+        setCategory(catKey);
+        renderQuiz(); }
+
+    // ==================== 首页 ====================
+    function updateHome() {
+        const total = questions.length;
+        const solvedCount = Object.keys(solvedMap).length;
+        const correctCount = Object.values(solvedMap).filter(v => v === 'correct').length;
+        document.getElementById('homeTotalQ').textContent = total;
+        document.getElementById('homeProgress').textContent = total ? Math.round((solvedCount / total) * 100) + '%' :
+            '0%';
+        document.getElementById('homeCorrect').textContent = correctCount;
+        document.getElementById('homeWrong').textContent = wrongIds.length;
+        document.getElementById('versionTotalQ').textContent = total;
+        updateBadge();
+        renderCats();
+    }
+
+    function renderCats() {
+        const cats = [
+            { key: 'design', label: '科研设计', icon: '💊', ic: 'blue', desc: 'RCT/诊断/样本量' },
+            { key: 'observe', label: '观察性研究', icon: '👥', ic: 'green', desc: '队列/病例对照' },
+            { key: 'mean', label: '均值比较', icon: '📏', ic: 'amber', desc: 't/方差/秩和' },
+            { key: 'assoc', label: '关联分析', icon: '🔢', ic: 'rose', desc: '卡方/相关' },
+            { key: 'model', label: '回归建模', icon: '📐', ic: 'purple', desc: '线性/Logistic' },
+            { key: 'surv', label: '预后生存', icon: '⏳', ic: 'teal', desc: 'KM/Cox' },
+            { key: 'diagmod', label: '诊断评价', icon: '🔬', ic: 'indigo', desc: 'ROC/敏感性' },
+            { key: 'evid', label: '证据综合', icon: '🧩', ic: 'cyan', desc: 'Meta/异质性' }
+        ];
+        document.getElementById('categoryGrid').innerHTML = cats.map(cat => {
+            const cnt = questions.filter(q => q.category === cat.key).length;
+            return `<div class="category-card" onclick="filterByCategory('${cat.key}')">
+                        <div class="cat-icon ${cat.ic}">${cat.icon}</div>
+                        <span class="cat-count">${cnt}题</span>
+                        <h3>${cat.label}</h3>
+                        <p>${cat.desc}</p>
+                    </div>`;
+        }).join('');
+    }
+
+    // ==================== 刷题 ====================
+    function renderQuiz() {
+        if (!currentList.length) {
+            document.getElementById('quizMain').innerHTML =
+            '<div class="question-card"><p>该模块暂无题目。</p></div>';
+            document.getElementById('questionNavGrid').innerHTML = '';
+            updateSidebar();
+            return;
+        }
+        if (currentIdx < 0 || currentIdx >= currentList.length) currentIdx = 0;
+        const q = currentList[currentIdx];
+        if (q.type === 'essay') renderEssay(q);
+        else renderChoice(q);
+        renderNav();
+        updateSidebar();
+    }
+
+    function renderEssay(q) {
+        const status = solvedMap[String(q.id)];
+        const borderClass = status === 'correct' ? 'solved-correct' : (status === 'wrong' ? 'solved-wrong' : '');
+        document.getElementById('quizMain').innerHTML = `
+            <div class="question-card ${borderClass}">
+                <div class="question-meta">
+                    <span class="question-number">第${currentIdx+1}/${currentList.length}题</span>
+                    <span class="question-tag ${q.tagClass}">${q.catLabel} · 简答</span>
+                    ${status==='correct'?'<span style="color:#10b981;">✅ 已掌握</span>':''}
+                    ${status==='wrong'?'<span style="color:#ef4444;">❌ 待复习</span>':''}
+                </div>
+                <h2>${q.title}</h2>
+                <div class="question-scenario"><strong>📋 场景：</strong>${q.scenario}</div>
+                <div class="meta-info">📖 <strong>${q.journal}</strong> · <a class="doi-link" href="https://doi.org/${q.doi}" target="_blank">DOI</a> <span style="margin-left:8px;">难度：${q.difficulty}</span></div>
+                <div class="drug-knowledge-box">💊 <strong>知识点：</strong>${q.drugKnowledge}</div>
+                <ol class="sub-questions">${q.subQuestions.map(sq=>`<li>${sq}</li>`).join('')}</ol>
+                <textarea class="essay-input" id="essayAnswerInput" placeholder="请在此输入你的答案...">${q._userInput || ''}</textarea>
+                <div style="margin-top:10px;display:flex;gap:10px;">
+                    <button class="btn btn-primary btn-sm" onclick="submitEssay(${q.id})">📤 提交答案</button>
+                    <button class="btn btn-ghost btn-sm" id="essayResetBtn" onclick="resetEssayInput()" style="display:none;">↩ 重新输入</button>
+                </div>
+                <div id="essayFeedbackArea" style="margin-top:12px;">${status ? renderEssayFeedback(q) : ''}</div>
+                <div style="margin-top:12px;display:flex;gap:8px;">
+                    <button class="btn btn-ghost btn-sm" onclick="prevQ()" ${currentIdx===0?'disabled':''}>⬅ 上一题</button>
+                    <button class="btn btn-ghost btn-sm" onclick="nextQ()" ${currentIdx===currentList.length-1?'disabled':''}>下一题 ➡</button>
+                </div>
+            </div>`;
+        if (status) {
+            document.getElementById('essayAnswerInput').disabled = true;
+            document.getElementById('essayResetBtn').style.display = 'inline-flex';
+        }
+    }
+
+    function renderEssayFeedback(q) {
+        const status = solvedMap[String(q.id)];
+        return `
+            <div class="answer-reveal-area">
+                ${q.answers.map((a,i) => `<div class="answer-block">📝 (${String.fromCharCode(97+i)}) ${a}</div>`).join('')}
+                <div class="key-points-box"><strong>🔑 要点：</strong>${q.keyPoints}</div>
+                <div style="margin-top:8px;display:flex;gap:8px;">
+                    <button class="btn btn-success btn-sm" onclick="markEssay(${q.id},'correct')" ${status==='correct'?'disabled':''}>✅ 我答对了</button>
+                    <button class="btn btn-danger btn-sm" onclick="markEssay(${q.id},'wrong')" ${status==='wrong'?'disabled':''}>❌ 我答错了</button>
+                </div>
+            </div>`;
+    }
+
+    function submitEssay(id) {
+        const input = document.getElementById('essayAnswerInput').value.trim();
+        const q = questions.find(q => q.id === id);
+        if (!q) return;
+        q._userInput = input;
+        document.getElementById('essayFeedbackArea').innerHTML = renderEssayFeedback(q);
+        document.getElementById('essayAnswerInput').disabled = true;
+        document.getElementById('essayResetBtn').style.display = 'inline-flex';
+        saveUserData();
+    }
+
+    function resetEssayInput() {
+        document.getElementById('essayAnswerInput').disabled = false;
+        document.getElementById('essayAnswerInput').value = '';
+        document.getElementById('essayFeedbackArea').innerHTML = '';
+        document.getElementById('essayResetBtn').style.display = 'none';
+        delete currentList[currentIdx]._userInput;
+        saveUserData();
+    }
+
+    function markEssay(id, status) {
+        solvedMap[String(id)] = status;
+        saveSolvedMap(solvedMap);
+        if (status === 'wrong') addWrongId(id);
+        else removeWrongId(id);
+        renderQuiz();
+        updateHome();
+        updateSidebar();
+        renderNav();
+        showToast(status === 'correct' ? '已标记为掌握！' : '已加入错题本', status === 'correct' ? 'success' : 'error');
+    }
+
+    function renderChoice(q) {
+        const status = solvedMap[String(q.id)];
+        const borderClass = status === 'correct' ? 'solved-correct' : (status === 'wrong' ? 'solved-wrong' : '');
+        document.getElementById('quizMain').innerHTML = `
+            <div class="question-card ${borderClass}">
+                <div class="question-meta">
+                    <span class="question-number">第${currentIdx+1}/${currentList.length}题</span>
+                    <span class="question-tag ${q.tagClass}">${q.catLabel} · 选择题</span>
+                    ${status==='correct'?'<span style="color:#10b981;">✅ 正确</span>':''}
+                    ${status==='wrong'?'<span style="color:#ef4444;">❌ 错误</span>':''}
+                </div>
+                <h2>${q.title}</h2>
+                <div class="question-scenario">${q.scenario}</div>
+                <div class="meta-info">📖 <strong>${q.journal}</strong> · <a class="doi-link" href="https://doi.org/${q.doi}" target="_blank">DOI</a> <span style="margin-left:8px;">难度：${q.difficulty}</span></div>
+                <div class="drug-knowledge-box">💊 <strong>知识点：</strong>${q.drugKnowledge}</div>
+                <div class="options-list">
+                    ${q.options.map((opt,i) => {
+                        let cls = status ? (opt.correct ? 'correct-highlight' : '') : '';
+                        if (status && q._selectedIdx === i) cls += opt.correct ? ' selected-correct' : ' selected-wrong';
+                        return `<div class="option-item ${cls} ${status?'disabled':''}" onclick="selectOption(${q.id},${i})">${String.fromCharCode(65+i)}. ${opt.text}</div>`;
+                    }).join('')}
+                </div>
+                ${status ? `<div style="margin-top:10px;background:#f8fafc;padding:10px;border-radius:8px;">💡 <strong>解析：</strong>${q.explanation}</div>` : ''}
+                <div style="margin-top:12px;display:flex;gap:8px;">
+                    <button class="btn btn-ghost btn-sm" onclick="prevQ()" ${currentIdx===0?'disabled':''}>⬅ 上一题</button>
+                    <button class="btn btn-ghost btn-sm" onclick="nextQ()" ${currentIdx===currentList.length-1?'disabled':''}>下一题 ➡</button>
+                </div>
+            </div>`;
+    }
+
+    function selectOption(qId, optIdx) {
+        const q = questions.find(q => q.id === qId);
+        if (!q || q.type !== 'choice') return;
+        if (solvedMap[String(qId)]) return;
+        const correct = q.options[optIdx].correct;
+        q._selectedIdx = optIdx;
+        solvedMap[String(qId)] = correct ? 'correct' : 'wrong';
+        saveSolvedMap(solvedMap);
+        if (!correct) addWrongId(qId);
+        else removeWrongId(qId);
+        renderQuiz();
+        updateHome();
+        showToast(correct ? '回答正确！✅' : '回答错误，已加入错题本 ❌', correct ? 'success' : 'error');
+    }
+
+    function prevQ() { if (currentIdx > 0) { currentIdx--;
+            renderQuiz();
+            document.getElementById('quizMain').scrollIntoView({ behavior: 'smooth' }); } }
+
+    function nextQ() { if (currentIdx < currentList.length - 1) { currentIdx++;
+            renderQuiz();
+            document.getElementById('quizMain').scrollIntoView({ behavior: 'smooth' }); } }
+
+    function renderNav() {
+        document.getElementById('questionNavGrid').innerHTML = currentList.map((q, i) => {
+            let cls = '';
+            if (i === currentIdx) cls = 'current';
+            else if (solvedMap[String(q.id)] === 'correct') cls = 'correct-dot';
+            else if (solvedMap[String(q.id)] === 'wrong') cls = 'wrong-dot';
+            return `<div class="q-nav-dot ${cls}" onclick="jumpToQ(${i})">${i+1}</div>`;
+        }).join('');
+    }
+
+    function jumpToQ(i) { currentIdx = i;
+        renderQuiz(); }
+
+    function updateSidebar() {
+        let correct = 0,
+            wrong = 0;
+        currentList.forEach(q => { const s = solvedMap[String(q.id)]; if (s === 'correct') correct++;
+        else if (s === 'wrong') wrong++; });
+        document.getElementById('sidebarCorrect').textContent = correct;
+        document.getElementById('sidebarWrong').textContent = wrong;
+        document.getElementById('sidebarRemaining').textContent = Math.max(0, currentList.length - correct - wrong);
+    }
+
+    function resetAllProgress() {
+        if (confirm('确定要重置所有答题进度吗？')) {
+            solvedMap = {};
+            wrongIds = [];
+            questions.forEach(q => { delete q._userInput;
+                delete q._selectedIdx; });
+            saveSolvedMap(solvedMap);
+            saveWrongIds(wrongIds);
+            updateHome();
+            renderQuiz();
+            showToast('进度已重置', 'success');
+        }
+    }
+
+    // ==================== 错题本 ====================
+    function renderWrongBook() {
+        const list = document.getElementById('wrongList');
+        if (wrongIds.length === 0) {
+            list.innerHTML = `<div class="empty-state">
+                        <div class="empty-icon">🏆</div>
+                        <h3>错题本为空</h3>
+                        <p>继续加油，保持学习！</p>
+                    </div>`;
+        } else {
+            list.innerHTML = wrongIds.map(id => {
+                const q = questions.find(q => q.id === id);
+                if (!q) return '';
+                return `<div class="wrong-item" id="wrong-${q.id}">
+                            <div>
+                                <span class="question-tag ${q.tagClass}">${q.catLabel} · ${q.type==='choice'?'选择':'简答'}</span>
+                                <h3>${q.title}</h3>
+                            </div>
+                            <div class="wrong-actions">
+                                <button class="btn btn-outline btn-sm" onclick="toggleReview(${q.id})">🔄 重做</button>
+                            </div>
+                            <div class="review-block" id="review-${q.id}" style="display:none;"></div>
+                        </div>`;
+            }).join('');
+        }
+        updateBadge();
+    }
+
+    function toggleReview(id) {
+        const area = document.getElementById('review-' + id);
+        if (area.style.display === 'none') {
+            const q = questions.find(q => q.id === id);
+            if (!q) return;
+            if (q.type === 'choice') {
+                area.innerHTML = q.options.map((opt, i) =>
+                    `<div class="option-inline" onclick="retryChoice(${id},${i})">${String.fromCharCode(65+i)}. ${opt.text}</div>`
+                ).join('');
+            } else {
+                area.innerHTML = `<textarea id="retryEssay-${id}" class="essay-input" placeholder="重新输入答案..."></textarea>
+                            <button class="btn btn-primary btn-sm" onclick="retryEssaySubmit(${id})">提交并查看答案</button>
+                            <div id="retryFeedback-${id}" style="margin-top:12px;"></div>`;
+            }
+            area.style.display = 'block';
+        } else {
+            area.style.display = 'none';
+        }
+    }
+
+    function retryChoice(qId, optIdx) {
+        const q = questions.find(q => q.id === qId);
+        if (!q) return;
+        if (q.options[optIdx].correct) {
+            removeWrongId(qId);
+            solvedMap[String(qId)] = 'correct';
+            saveSolvedMap(solvedMap);
+            renderWrongBook();
+            updateHome();
+            showToast('回答正确，已移出错题本！', 'success');
+        } else {
+            showToast('回答错误，请重试', 'error');
+        }
+    }
+
+    function retryEssaySubmit(qId) {
+        const q = questions.find(q => q.id === qId);
+        if (!q) return;
+        document.getElementById('retryFeedback-' + qId).innerHTML = `
+                    <div class="answer-reveal-area">
+                        ${q.answers.map((a,i) => `<div class="answer-block">📝 (${String.fromCharCode(97+i)}) ${a}</div>`).join('')}
+                        <div class="key-points-box"><strong>🔑 要点：</strong>${q.keyPoints}</div>
+                        <div style="margin-top:8px;display:flex;gap:8px;">
+                            <button class="btn btn-success btn-sm" onclick="markRetryCorrect(${qId})">✅ 答对了</button>
+                            <button class="btn btn-danger btn-sm" onclick="markRetryWrong(${qId})">❌ 答错了</button>
+                        </div>
+                    </div>`;
+    }
+
+    function markRetryCorrect(qId) {
+        removeWrongId(qId);
+        solvedMap[String(qId)] = 'correct';
+        saveSolvedMap(solvedMap);
+        renderWrongBook();
+        updateHome();
+        showToast('已移出错题本！', 'success');
+    }
+
+    function markRetryWrong(qId) { showToast('继续复习', 'error'); }
+
+    function clearWrongBook() {
+        if (confirm('清空所有错题？')) {
+            wrongIds = [];
+            saveWrongIds(wrongIds);
+            renderWrongBook();
+            updateHome();
+            showToast('错题本已清空', 'success');
+        }
+    }
+
+    // ==================== 初始化 ====================
+    async function init() {
+        const { data } = await sb.auth.getSession();
+        if (data.session) {
+            currentUser = data.session.user;
+            onLoginSuccess();
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
 </script>
 </body>
 </html>
