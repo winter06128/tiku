@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>流行病与卫生统计学题库 · 山东第二医科大学</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+    <style>
+        :root {
+            --primary: #8B1A2B; --primary-dark: #5C0E0E; --primary-light: #B22222; --primary-bg: #fdf0f0;
+            --accent: #f59e0b; --accent-light: #fef3c7; --success: #10b981; --success-bg: #d1fae5;
+            --danger: #ef4444; --danger-bg: #fee2e2; --bg: #f1f5f9; --card: #ffffff;
+            --text: #1e293b; --text-secondary: #64748b; --text-light: #94a3b8; --border: #e2e8f0;
+            --shadow: 0 1px 3px rgba(0,0,0,0.1); --shadow-md: 0 4px 6px rgba(0,0,0,0.07);
+            --radius-sm: 8px; --radius: 12px; --radius-lg: 16px; --radius-xl: 20px;
+            --transition: 0.25s;
+        }
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh}
+        .navbar{background:rgba(255,255,255,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;padding:0 24px}
+        .navbar-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:60px}
+        .nav-logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:1.1rem;color:var(--primary-dark);cursor:pointer}
+        .school-badge{width:40px;height:40px;background:var(--primary);color:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.65rem}
+        .nav-links{display:flex;gap:6px}
+        .nav-links a{text-decoration:none;color:var(--text-secondary);font-weight:500;font-size:0.88rem;padding:8px 16px;border-radius:20px;cursor:pointer}
+        .nav-links a:hover{background:var(--primary-bg);color:var(--primary)}
+        .nav-links a.active{background:var(--primary);color:#fff;font-weight:600}
+        .nav-badge{background:var(--danger);color:#fff;font-size:0.7rem;padding:2px 8px;border-radius:10px;margin-left:2px}
+        .main-container{max-width:1200px;margin:0 auto;padding:24px}
+        .page{display:none;animation:fadeIn 0.4s}
+        .page.active{display:block}
+        @keyframes fadeIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+        .hero-section{background:linear-gradient(135deg,#5C0E0E,#8B1A2B,#9B1B30,#B22222);border-radius:var(--radius-xl);padding:48px 40px;margin-bottom:32px;color:#fff;box-shadow:0 20px 40px rgba(0,0,0,0.12)}
+        .hero-text h1{font-size:2.2rem;font-weight:800}
+        .hero-text h1 span{color:#fbbf24}
+        .hero-school{font-size:1rem;font-weight:600;margin-bottom:8px}
+        .hero-stats{display:flex;gap:24px;margin-top:20px}
+        .hero-stat{background:rgba(255,255,255,0.12);border-radius:12px;padding:16px 20px;text-align:center}
+        .stat-num{font-size:1.8rem;font-weight:800;color:#fbbf24}
+        .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border-radius:25px;font-weight:600;font-size:0.9rem;cursor:pointer;border:none;transition:var(--transition)}
+        .btn-primary{background:#fff;color:var(--primary-dark)}
+        .btn-primary:hover{transform:translateY(-2px)}
+        .btn-outline{background:transparent;border:2px solid var(--primary);color:var(--primary)}
+        .btn-sm{padding:6px 14px;font-size:0.82rem;border-radius:18px}
+        .btn-success{background:var(--success);color:#fff}
+        .btn-danger{background:var(--danger);color:#fff}
+        .category-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin-bottom:32px}
+        .category-card{background:var(--card);border-radius:var(--radius-lg);padding:18px 16px;cursor:pointer;border:2px solid transparent;box-shadow:var(--shadow);transition:var(--transition);position:relative}
+        .category-card:hover{border-color:var(--primary-light);transform:translateY(-3px)}
+        .cat-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:10px}
+        .cat-icon.blue{background:#eef2ff;color:#4f46e5} .cat-icon.green{background:#d1fae5;color:#10b981} .cat-icon.amber{background:#fef3c7;color:#f59e0b} .cat-icon.rose{background:#ffe4e6;color:#f43f5e} .cat-icon.purple{background:#f3e8ff;color:#8b5cf6} .cat-icon.teal{background:#ccfbf1;color:#14b8a6} .cat-icon.indigo{background:#e0e7ff;color:#4338ca} .cat-icon.cyan{background:#cffafe;color:#0891b2}
+        .category-card h3{font-size:0.95rem;font-weight:700}
+        .cat-count{position:absolute;top:14px;right:14px;font-size:0.7rem;color:var(--text-light);background:#f8fafc;padding:2px 8px;border-radius:10px}
+        .progress-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:24px}
+        .progress-card{background:var(--card);border-radius:var(--radius-lg);padding:18px 16px;box-shadow:var(--shadow);display:flex;align-items:center;gap:12px}
+        .quiz-layout{display:grid;grid-template-columns:1fr 300px;gap:24px}
+        .question-card{background:var(--card);border-radius:var(--radius-lg);padding:28px 24px;box-shadow:var(--shadow-md);border-left:5px solid var(--primary)}
+        .question-card.solved-correct{border-left-color:var(--success)} .question-card.solved-wrong{border-left-color:var(--danger)}
+        .question-meta{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;font-size:0.85rem}
+        .question-tag{font-size:0.75rem;font-weight:600;padding:4px 12px;border-radius:14px}
+        .tag-design{background:#eef2ff;color:#4f46e5} .tag-observe{background:#d1fae5;color:#059669} .tag-mean{background:#fef3c7;color:#b45309} .tag-assoc{background:#ffe4e6;color:#be123c} .tag-model{background:#f3e8ff;color:#7c3aed} .tag-surv{background:#ccfbf1;color:#0f766e} .tag-diagmod{background:#ede9fe;color:#6d28d9} .tag-evid{background:#fce7f3;color:#be185d} .tag-choice{background:#e0e7ff;color:#4338ca}
+        .question-card h2{font-size:1.2rem;font-weight:700;margin-bottom:12px}
+        .question-scenario{background:#f8fafc;border-radius:var(--radius);padding:14px 16px;margin-bottom:14px;font-size:0.9rem;border:1px solid var(--border)}
+        .options-list{display:flex;flex-direction:column;gap:10px;margin:14px 0}
+        .option-item{padding:12px 16px;border:2px solid var(--border);border-radius:12px;cursor:pointer;font-weight:500;transition:var(--transition)}
+        .option-item:hover{border-color:var(--primary-light);background:var(--primary-bg)}
+        .option-item.disabled{pointer-events:none;opacity:0.7}
+        .option-item.correct-highlight{border-color:var(--success);background:#ecfdf5}
+        .option-item.selected-correct{border-color:var(--success);background:var(--success-bg);color:#065f46;font-weight:700}
+        .option-item.selected-wrong{border-color:var(--danger);background:var(--danger-bg);color:#991b1b;font-weight:700}
+        .sub-questions{list-style:none;counter-reset:sq}
+        .sub-questions li{counter-increment:sq;padding:12px 14px;margin-bottom:10px;background:#fafbfc;border-radius:var(--radius-sm);border:1px solid #eef0f4}
+        .sub-questions li::before{content:'('counter(sq,lower-alpha)') ';font-weight:700;color:var(--primary)}
+        .answer-block{background:#f0fdf6;border:1px solid #bbf7d0;border-radius:var(--radius-sm);padding:14px 16px;margin-bottom:8px}
+        .sidebar-card{background:var(--card);border-radius:var(--radius-lg);padding:18px;box-shadow:var(--shadow);margin-bottom:16px}
+        .question-nav-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+        .q-nav-dot{aspect-ratio:1;border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.75rem;cursor:pointer;border:2px solid var(--border);background:#fff;color:var(--text-secondary)}
+        .q-nav-dot.current{border-color:var(--primary);background:var(--primary);color:#fff}
+        .q-nav-dot.correct-dot{border-color:var(--success);background:var(--success-bg);color:var(--success)}
+        .q-nav-dot.wrong-dot{border-color:var(--danger);background:var(--danger-bg);color:var(--danger)}
+        .sidebar-stat{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f1f5f9;font-size:0.82rem}
+        .wrong-list{display:flex;flex-direction:column;gap:12px}
+        .wrong-item{background:var(--card);border-radius:var(--radius-lg);padding:18px 20px;box-shadow:var(--shadow);border-left:4px solid var(--danger)}
+        .wrong-item .wrong-actions{display:flex;gap:8px;margin-top:10px}
+        .review-block{margin-top:14px;padding-top:14px;border-top:1px solid var(--border)}
+        .option-inline{display:block;padding:10px 14px;border:1px solid var(--border);border-radius:8px;margin:6px 0;cursor:pointer;background:#fff}
+        .option-inline:hover{background:var(--primary-bg)}
+        .empty-state{text-align:center;padding:60px 20px;color:var(--text-secondary)}
+        .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#1e293b;color:#fff;padding:12px 24px;border-radius:25px;font-weight:600;z-index:200}
+        textarea.essay-input{width:100%;padding:12px;border:1px solid var(--border);border-radius:var(--radius-sm);font-family:inherit;font-size:0.9rem;resize:vertical}
+        .school-footer{text-align:center;margin-top:32px;padding:24px;background:var(--card);border-radius:var(--radius-lg);box-shadow:var(--shadow);border-top:3px solid var(--primary)}
+        .school-footer .school-name{font-size:1.05rem;font-weight:700;color:var(--primary-dark)}
+        .school-footer .school-dept{font-size:0.82rem;color:var(--text-secondary)}
+        .section-title{font-size:1.3rem;font-weight:700;margin-bottom:18px}
+        @media(max-width:900px){.quiz-layout{grid-template-columns:1fr}.hero-text h1{font-size:1.8rem}}
+    </style>
+</head>
+<body>
+<div id="auth-overlay" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.65);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;z-index:999">
+    <div style="background:white;border-radius:24px;padding:40px;max-width:400px;width:90%;box-shadow:0 25px 80px rgba(0,0,0,0.3)">
+        <div style="text-align:center;margin-bottom:24px">
+            <div class="school-badge" style="width:56px;height:56px;margin:0 auto 12px;font-size:0.8rem">山二医</div>
+            <h2 style="font-size:1.3rem;font-weight:700">流行病与卫生统计学题库</h2>
+            <p style="font-size:0.8rem;color:var(--text-light);margin-top:4px">山东第二医科大学</p>
+        </div>
+        <div id="auth-error" style="color:#ef4444;font-size:0.82rem;margin-bottom:12px;display:none"></div>
+        <input type="email" id="auth-email" placeholder="请输入邮箱" style="width:100%;padding:14px;border:2px solid #e5e7eb;border-radius:12px;margin-bottom:12px;font-size:0.9rem;outline:none">
+        <input type="password" id="auth-password" placeholder="请输入密码（至少6位）" style="width:100%;padding:14px;border:2px solid #e5e7eb;border-radius:12px;margin-bottom:18px;font-size:0.9rem;outline:none">
+        <button onclick="register()" style="width:100%;padding:14px;background:var(--primary);color:#fff;border:none;border-radius:12px;font-weight:600;font-size:0.95rem;cursor:pointer;margin-bottom:10px">注 册</button>
+        <button onclick="login()" style="width:100%;padding:14px;background:transparent;border:2px solid var(--primary);color:var(--primary);border-radius:12px;font-weight:600;font-size:0.95rem;cursor:pointer">登 录</button>
+    </div>
+</div>
+<div id="app-main" style="display:none">
+    <nav class="navbar"><div class="navbar-inner">
+        <a class="nav-logo" onclick="navigateTo('home')"><div class="school-badge">山二医</div><span>流行病与卫生统计学题库</span></a>
+        <div class="nav-links">
+            <a onclick="navigateTo('home')" class="active" data-page="home">🏠 首页</a>
+            <a onclick="navigateTo('quiz')" data-page="quiz">📝 刷题</a>
+            <a onclick="navigateTo('wrongbook')" data-page="wrongbook">📕 错题本 <span class="nav-badge" id="navWrongBadge" style="display:none">0</span></a>
+            <a onclick="logout()" style="color:var(--danger)">🚪 退出</a>
+        </div>
+    </div></nav>
+    <div class="main-container">
+        <div class="page active" id="page-home">
+            <div class="hero-section">
+                <div class="hero-text"><p class="hero-school">山东第二医科大学 · 公共卫生学院</p><h1>流行病与卫生统计学 <span>题库</span></h1><p style="opacity:0.85;margin-top:8px">科研设计 · 观察性研究 · 均值比较 · 关联分析 · 回归建模 · 预后生存 · 诊断评价 · 证据综合</p>
+                <button class="btn btn-primary" onclick="navigateTo('quiz');startQuiz()" style="margin-top:16px">🚀 开始刷题</button></div>
+                <div class="hero-stats"><div class="hero-stat"><div class="stat-num" id="homeTotalQ">16</div><div>总题目</div></div><div class="hero-stat"><div class="stat-num" id="homeProgress">0%</div><div>整体进度</div></div></div>
+            </div>
+            <div class="progress-row">
+                <div class="progress-card"><span style="font-size:1.5rem">✅</span><div><h4>已掌握</h4><span style="font-size:1.4rem;font-weight:800;color:#10b981" id="homeCorrect">0</span></div></div>
+                <div class="progress-card"><span style="font-size:1.5rem">❌</span><div><h4>待复习</h4><span style="font-size:1.4rem;font-weight:800;color:#ef4444" id="homeWrong">0</span></div></div>
+            </div>
+            <div class="section-title">📂 按模块浏览</div>
+            <div class="category-grid" id="categoryGrid"></div>
+            <div class="school-footer"><p class="school-name">山东第二医科大学</p><p class="school-dept">公共卫生学院 · 流行病与卫生统计学系</p></div>
+        </div>
+        <div class="page" id="page-quiz">
+            <div class="quiz-layout">
+                <div class="quiz-main" id="quizMain"></div>
+                <div>
+                    <div class="sidebar-card"><h3>📍 题目导航</h3><div class="question-nav-grid" id="questionNavGrid"></div></div>
+                    <div class="sidebar-card"><h3>📊 模块统计</h3>
+                        <div class="sidebar-stat"><span>已掌握</span><span style="color:#10b981" id="sidebarCorrect">0</span></div>
+                        <div class="sidebar-stat"><span>待复习</span><span style="color:#ef4444" id="sidebarWrong">0</span></div>
+                        <div class="sidebar-stat"><span>未完成</span><span id="sidebarRemaining">0</span></div>
+                    </div>
+                    <button class="btn btn-outline btn-sm" onclick="resetAllProgress()" style="width:100%;margin-bottom:8px">🔄 重置进度</button>
+                    <button class="btn btn-sm" onclick="clearCategoryFilter()" id="clearCategoryBtn" style="width:100%;display:none;background:var(--primary);color:#fff">↩ 返回全部题库</button>
+                </div>
+            </div>
+        </div>
+        <div class="page" id="page-wrongbook">
+            <h2 style="margin-bottom:16px">📕 错题本</h2>
+            <div class="wrong-list" id="wrongList"></div>
+            <button class="btn btn-outline btn-sm" onclick="clearWrongBook()" style="margin-top:16px">🗑️ 清空错题本</button>
+        </div>
+    </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+    // ==================== ⚠️ 替换下面两行为你自己的值 ⚠️ ====================
+    const SUPABASE_URL = 'https://firdcjtcxtywghbpufdr.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_6y4AYLWSWs2klRw9tjvxbA_J5g1voHq';
+    
+    const { createClient } = supabase;
+    const sb = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    const questions = [
+        { id:1, type:'essay', category:'design', catLabel:'科研设计', tagClass:'tag-design',
+          title:'随机对照试验的样本量估算', journal:'N Engl J Med 2023', doi:'10.1056/NEJMoa2307563', difficulty:'⭐⭐⭐',
+          drugKnowledge:'新型降压药属于ARNI类药物。',
+          scenario:'SELECT研究纳入17604名患者，随机分配至司美格鲁肽2.4mg或安慰剂。预计δ=8 mmHg，σ=16 mmHg，α=0.05双侧。',
+          subQuestions:['功效90%时每组需要多少受试者？','脱落率15%时应招募多少？'],
+          answers:['n≈85人/组','调整后约100人/组'],keyPoints:'样本量四要素：效应量、标准差、α、功效。' },
+        { id:2, type:'choice', category:'design', catLabel:'科研设计', tagClass:'tag-choice',
+          title:'关于RCT双盲设计的描述，哪项正确？', journal:'Lancet 2023', doi:'10.1016/S0140-6736(23)01234-5', difficulty:'⭐⭐',
+          drugKnowledge:'试验药物为SGLT-2抑制剂。',scenario:'评估新药疗效的RCT中：',
+          options:[{text:'随机化消除所有偏倚',correct:false},{text:'双盲主要减少信息偏倚',correct:true},{text:'ITT只分析完成者',correct:false},{text:'样本量越大Ⅱ类错误越大',correct:false}],
+          explanation:'双盲设计减少测量偏倚和期望偏倚。' },
+        { id:3, type:'essay', category:'observe', catLabel:'观察性研究', tagClass:'tag-observe',
+          title:'吸烟与肺癌的RR与归因危险度', journal:'BMJ 2023', doi:'10.1136/bmj-2023-076512', difficulty:'⭐⭐',
+          drugKnowledge:'低剂量CT筛查可降低肺癌死亡率。',
+          scenario:'25000人队列，吸烟组12000人(360例)，非吸烟组13000人(65例)，随访15年。',
+          subQuestions:['计算RR。','计算AR和AR%。'],answers:['RR=6','AR=2.5%，AR%=83.3%'],keyPoints:'RR与AR区别。' },
+        { id:4, type:'choice', category:'observe', catLabel:'观察性研究', tagClass:'tag-choice',
+          title:'病例对照研究中关于选择偏倚正确的是？', journal:'Lancet Oncol 2023', doi:'10.1016/S1470-2045(23)00456-7', difficulty:'⭐⭐',
+          drugKnowledge:'HPV疫苗可预防高危型HPV。',scenario:'医院对照可能引入：',
+          options:[{text:'回忆偏倚',correct:false},{text:'Berkson偏倚',correct:true},{text:'失访偏倚',correct:false},{text:'测量偏倚',correct:false}],
+          explanation:'医院对照不代表源人群。' },
+        { id:5, type:'essay', category:'mean', catLabel:'均值比较', tagClass:'tag-mean',
+          title:'独立样本t检验的应用', journal:'JAMA Intern Med 2024', doi:'10.1001/jamainternmed.2024.0123', difficulty:'⭐⭐',
+          drugKnowledge:'A药为ARB类，B药为ACEI类。',
+          scenario:'60人，A药组降压15.2(SD=8.6)，B药组降压12.8(SD=9.1)。',
+          subQuestions:['写出零假设。','t=1.42, p=0.16解释。'],answers:['H₀:μA=μB','p>0.05，不拒绝H₀'],keyPoints:'t检验假设。' },
+        { id:6, type:'choice', category:'mean', catLabel:'均值比较', tagClass:'tag-choice',
+          title:'数据偏态时两组比较应首选？', journal:'BMJ 2024', doi:'10.1136/bmj-2024-045678', difficulty:'⭐⭐',
+          drugKnowledge:'VAS评分评估止痛效果。',scenario:'比较两种止痛药：',
+          options:[{text:'独立样本t检验',correct:false},{text:'Wilcoxon秩和检验',correct:true},{text:'配对t检验',correct:false},{text:'方差分析',correct:false}],
+          explanation:'秩和检验是非参数方法。' },
+        { id:7, type:'essay', category:'assoc', catLabel:'关联分析', tagClass:'tag-assoc',
+          title:'卡方检验的应用', journal:'Lancet Public Health 2024', doi:'10.1016/S2468-2667(24)00123-4', difficulty:'⭐⭐',
+          drugKnowledge:'疫苗接种率与教育水平的关系。',
+          scenario:'500名居民，2×2列联表。',
+          subQuestions:['χ²=6.78,p=0.009解释。','理论频数<5怎么办？'],answers:['教育水平与接种率显著关联','Fisher确切概率法'],keyPoints:'理论频数≥5。' },
+        { id:8, type:'choice', category:'assoc', catLabel:'关联分析', tagClass:'tag-choice',
+          title:'关于Pearson r的描述正确的是？', journal:'BMJ 2024', doi:'10.1136/bmj-2024-056789', difficulty:'⭐⭐',
+          drugKnowledge:'维生素D与骨密度的相关性。',scenario:'分析两连续变量：',
+          options:[{text:'r范围-∞到+∞',correct:false},{text:'r=0表示独立',correct:false},{text:'|r|越接近1线性越强',correct:true},{text:'r=0.3比-0.8强',correct:false}],
+          explanation:'r∈[-1,1]，r=0只表示无线性关系。' },
+        { id:9, type:'essay', category:'model', catLabel:'回归建模', tagClass:'tag-model',
+          title:'Logistic回归的应用', journal:'Lancet 2023', doi:'10.1016/S0140-6736(23)01234-5', difficulty:'⭐⭐⭐',
+          drugKnowledge:'他汀类药物使用情况。',
+          scenario:'3500人横断面研究。',
+          subQuestions:['吸烟OR=2.35解释。','血糖加入后BMI的OR下降解释。'],answers:['吸烟者CHD优势是非吸烟者2.35倍','血糖是中介因素'],keyPoints:'OR解释、中介效应。' },
+        { id:10, type:'choice', category:'model', catLabel:'回归建模', tagClass:'tag-choice',
+          title:'Logistic回归中OR的正确解释是？', journal:'Lancet 2023', doi:'10.1016/S0140-6736(23)01234-5', difficulty:'⭐⭐',
+          drugKnowledge:'他汀与心血管事件关联。',scenario:'OR=3.2(95%CI 2.1-4.8)：',
+          options:[{text:'风险是3.2倍',correct:false},{text:'优势是3.2倍',correct:true},{text:'发病率3.2%',correct:false},{text:'CI包含1不显著',correct:false}],
+          explanation:'OR解释为"优势"。' },
+        { id:11, type:'essay', category:'surv', catLabel:'预后生存', tagClass:'tag-surv',
+          title:'KM与Cox回归', journal:'J Clin Oncol 2023', doi:'10.1200/JCO.23.01234', difficulty:'⭐⭐⭐',
+          drugKnowledge:'AC-T化疗方案。',
+          scenario:'480名乳腺癌患者，中位随访6.5年。',
+          subQuestions:['3年生存率78%解释。','log-rank p<0.001解释。'],answers:['78%患者存活','两组生存有显著差异'],keyPoints:'KM删失处理、log-rank。' },
+        { id:12, type:'choice', category:'surv', catLabel:'预后生存', tagClass:'tag-choice',
+          title:'关于KM曲线的错误描述是？', journal:'J Clin Oncol 2023', doi:'10.1200/JCO.23.01234', difficulty:'⭐⭐',
+          drugKnowledge:'紫杉醇化疗。',scenario:'分析肿瘤生存数据：',
+          options:[{text:'可估计中位生存',correct:false},{text:'能处理删失',correct:false},{text:'假设概率恒定',correct:true},{text:'可分组比较',correct:false}],
+          explanation:'KM法不假设恒定风险。' },
+        { id:13, type:'essay', category:'diagmod', catLabel:'诊断评价', tagClass:'tag-diagmod',
+          title:'敏感性与特异性', journal:'BMJ 2023', doi:'10.1136/bmj-2023-075832', difficulty:'⭐⭐',
+          drugKnowledge:'ctDNA甲基化检测。',
+          scenario:'2000人筛查，TP=180，FP=60，TN=1720，FN=40。',
+          subQuestions:['计算敏感性和特异性。','计算Youden指数。'],answers:['敏感性81.8%，特异性96.6%','Youden指数0.784'],keyPoints:'敏感性=TP/(TP+FN)。' },
+        { id:14, type:'choice', category:'diagmod', catLabel:'诊断评价', tagClass:'tag-choice',
+          title:'关于ROC曲线正确的是？', journal:'BMJ 2023', doi:'10.1136/bmj-2023-075832', difficulty:'⭐⭐',
+          drugKnowledge:'ctDNA甲基化检测。',scenario:'比较诊断方法：',
+          options:[{text:'AUC=0.5完美',correct:false},{text:'越靠近左上角越准确',correct:true},{text:'Youden=敏感性+特异性',correct:false},{text:'截断点在对角线交点',correct:false}],
+          explanation:'越靠近左上角AUC越大。' },
+        { id:15, type:'essay', category:'evid', catLabel:'证据综合', tagClass:'tag-evid',
+          title:'Meta分析异质性', journal:'JAMA 2024', doi:'10.1001/jama.2024.0123', difficulty:'⭐⭐⭐',
+          drugKnowledge:'他汀类药物。',
+          scenario:'12个RCT，汇总OR=0.76。',
+          subQuestions:['I²=62%,p=0.002解释。','为何随机效应模型？'],answers:['中等异质性','考虑研究间方差τ²'],keyPoints:'I²评价异质性。' },
+        { id:16, type:'choice', category:'evid', catLabel:'证据综合', tagClass:'tag-choice',
+          title:'I²=75%,p<0.01应优先考虑？', journal:'JAMA 2024', doi:'10.1001/jama.2024.0123', difficulty:'⭐⭐⭐',
+          drugKnowledge:'他汀获益差异。',scenario:'高度异质性：',
+          options:[{text:'固定效应模型',correct:false},{text:'随机效应+探索异质性来源',correct:true},{text:'直接合并',correct:false},{text:'只选阳性结果',correct:false}],
+          explanation:'应使用随机效应模型。' }
+    ];
+
+    let currentUser=null,solvedMap={},wrongIds=[],currentPage='home',currentCategory=null,currentList=[...questions],currentIdx=0;
+
+    async function register(){
+        const e=document.getElementById('auth-email').value.trim(),p=document.getElementById('auth-password').value.trim();
+        if(!e||!p)return showAuthError('请填写邮箱和密码');
+        if(p.length<6)return showAuthError('密码至少6位');
+        try{const{data,error}=await sb.auth.signUp({email:e,password:p});if(error)throw error;if(data.user){currentUser=data.user;onLoginSuccess()}else showAuthError('注册成功，请登录')}catch(err){showAuthError(err.message)}
+    }
+    async function login(){
+        const e=document.getElementById('auth-email').value.trim(),p=document.getElementById('auth-password').value.trim();
+        if(!e||!p)return showAuthError('请填写邮箱和密码');
+        try{const{data,error}=await sb.auth.signInWithPassword({email:e,password:p});if(error)throw error;currentUser=data.user;onLoginSuccess()}catch(err){showAuthError('邮箱或密码错误')}
+    }
+    async function logout(){solvedMap={};wrongIds=[];questions.forEach(q=>{delete q._userInput;delete q._selectedIdx});currentIdx=0;currentCategory=null;currentList=[...questions];currentUser=null;await sb.auth.signOut();document.getElementById('app-main').style.display='none';document.getElementById('auth-overlay').style.display='flex';document.getElementById('auth-email').value='';document.getElementById('auth-password').value=''}
+    function showAuthError(m){const el=document.getElementById('auth-error');el.textContent=m;el.style.display='block';setTimeout(()=>el.style.display='none',5000)}
+    async function onLoginSuccess(){solvedMap={};wrongIds=[];questions.forEach(q=>{delete q._userInput;delete q._selectedIdx});currentIdx=0;currentCategory=null;currentList=[...questions];document.getElementById('auth-overlay').style.display='none';document.getElementById('app-main').style.display='block';await loadUserData();updateHome();updateBadge();navigateTo('home')}
+    async function loadUserData(){try{const{data}=await sb.from('user_data').select('*').eq('user_id',currentUser.id).single();if(data){solvedMap=data.solved||{};wrongIds=data.wrong_ids||[];const ei=data.essay_inputs||{};questions.forEach(q=>{if(ei[String(q.id)])q._userInput=ei[String(q.id)];else delete q._userInput})}}catch(e){}}
+    async function saveUserData(){if(!currentUser)return;const ei={};questions.forEach(q=>{if(q._userInput)ei[String(q.id)]=q._userInput});const r={user_id:currentUser.id,solved:solvedMap,wrong_ids:wrongIds,essay_inputs:ei,updated_at:new Date()};const{data:ex}=await sb.from('user_data').select('id').eq('user_id',currentUser.id).single();if(ex)await sb.from('user_data').update(r).eq('user_id',currentUser.id);else await sb.from('user_data').insert(r)}
+    function updateBadge(){const c=wrongIds.length;document.getElementById('navWrongBadge').style.display=c?'inline':'none';document.getElementById('navWrongBadge').textContent=c}
+    function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000)}
+    function navigateTo(p){currentPage=p;document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.getElementById('page-'+p).classList.add('active');document.querySelectorAll('.nav-links a').forEach(a=>{a.classList.remove('active');if(a.dataset.page===p)a.classList.add('active')});if(p==='quiz'){if(!currentCategory)setCategory(null);renderQuiz()}if(p==='wrongbook')renderWrongBook();if(p==='home')updateHome()}
+    function setCategory(c){if(c){currentCategory=c;currentList=questions.filter(q=>q.category===c);document.getElementById('clearCategoryBtn').style.display='inline-flex'}else{currentCategory=null;currentList=[...questions];document.getElementById('clearCategoryBtn').style.display='none'}currentIdx=0}
+    function clearCategoryFilter(){setCategory(null);renderQuiz()}
+    function startQuiz(){setCategory(null);renderQuiz();navigateTo('quiz')}
+    function filterByCategory(k){navigateTo('quiz');setCategory(k);renderQuiz()}
+    function updateHome(){const t=questions.length,c=Object.keys(solvedMap).length;document.getElementById('homeTotalQ').textContent=t;document.getElementById('homeProgress').textContent=t?Math.round(c/t*100)+'%':'0%';document.getElementById('homeCorrect').textContent=Object.values(solvedMap).filter(v=>v==='correct').length;document.getElementById('homeWrong').textContent=wrongIds.length;updateBadge();renderCats()}
+    function renderCats(){const cats=[{key:'design',label:'科研设计',icon:'💊',ic:'blue',desc:'RCT/诊断/样本量'},{key:'observe',label:'观察性研究',icon:'👥',ic:'green',desc:'队列/病例对照'},{key:'mean',label:'均值比较',icon:'📏',ic:'amber',desc:'t/方差/秩和'},{key:'assoc',label:'关联分析',icon:'🔢',ic:'rose',desc:'卡方/相关'},{key:'model',label:'回归建模',icon:'📐',ic:'purple',desc:'线性/Logistic'},{key:'surv',label:'预后生存',icon:'⏳',ic:'teal',desc:'KM/Cox'},{key:'diagmod',label:'诊断评价',icon:'🔬',ic:'indigo',desc:'ROC/敏感性'},{key:'evid',label:'证据综合',icon:'🧩',ic:'cyan',desc:'Meta/异质性'}];document.getElementById('categoryGrid').innerHTML=cats.map(c=>{const cnt=questions.filter(q=>q.category===c.key).length;return`<div class="category-card" onclick="filterByCategory('${c.key}')"><div class="cat-icon ${c.ic}">${c.icon}</div><span class="cat-count">${cnt}题</span><h3>${c.label}</h3><p>${c.desc}</p></div>`}).join('')}
+    function renderQuiz(){if(!currentList.length)return;if(currentIdx<0||currentIdx>=currentList.length)currentIdx=0;const q=currentList[currentIdx];if(q.type==='essay')renderEssay(q);else renderChoice(q);renderNav()}
+    function renderEssay(q){const s=solvedMap[String(q.id)],bc=s==='correct'?'solved-correct':(s==='wrong'?'solved-wrong':'');document.getElementById('quizMain').innerHTML=`<div class="question-card ${bc}"><div class="question-meta"><span>第${currentIdx+1}/${currentList.length}题</span><span class="question-tag ${q.tagClass}">${q.catLabel}·简答</span>${s==='correct'?'<span style="color:#10b981">✅已掌握</span>':''}${s==='wrong'?'<span style="color:#ef4444">❌待复习</span>':''}</div><h2>${q.title}</h2><div class="question-scenario"><strong>📋场景：</strong>${q.scenario}</div><div style="font-size:0.85rem;margin-bottom:8px">📖${q.journal} · 难度${q.difficulty}</div><div style="background:#f0f9ff;padding:10px;border-radius:8px;margin-bottom:12px">💊${q.drugKnowledge}</div><ol class="sub-questions">${q.subQuestions.map(sq=>`<li>${sq}</li>`).join('')}</ol><textarea class="essay-input" id="essayInput" placeholder="输入你的答案...">${q._userInput||''}</textarea><div style="margin-top:10px;display:flex;gap:10px"><button class="btn btn-primary btn-sm" onclick="submitEssay(${q.id})">📤提交答案</button><button class="btn btn-sm" id="essayReset" onclick="resetEssay()" style="display:none;background:#f1f5f9">↩重新输入</button></div><div id="essayFeedback" style="margin-top:12px">${s?feedbackHTML(q):''}</div><div style="margin-top:12px;display:flex;gap:8px"><button class="btn btn-sm" onclick="prevQ()" ${currentIdx===0?'disabled':''}>⬅上一题</button><button class="btn btn-sm" onclick="nextQ()" ${currentIdx===currentList.length-1?'disabled':''}>下一题➡</button></div></div>`;if(s){document.getElementById('essayInput').disabled=true;document.getElementById('essayReset').style.display='inline-flex'}}
+    function feedbackHTML(q){const s=solvedMap[String(q.id)];return`<div style="margin-top:12px;padding-top:12px;border-top:2px dashed var(--border)">${q.answers.map((a,i)=>`<div class="answer-block">📝(${String.fromCharCode(97+i)})${a}</div>`).join('')}<div style="background:#fffbe6;padding:10px;border-radius:8px;margin-top:8px"><strong>🔑要点：</strong>${q.keyPoints}</div><div style="margin-top:8px;display:flex;gap:8px"><button class="btn btn-success btn-sm" onclick="markEssay(${q.id},'correct')" ${s==='correct'?'disabled':''}>✅答对了</button><button class="btn btn-danger btn-sm" onclick="markEssay(${q.id},'wrong')" ${s==='wrong'?'disabled':''}>❌答错了</button></div></div>`}
+    function submitEssay(id){const q=questions.find(q=>q.id===id);q._userInput=document.getElementById('essayInput').value;document.getElementById('essayFeedback').innerHTML=feedbackHTML(q);document.getElementById('essayInput').disabled=true;document.getElementById('essayReset').style.display='inline-flex';saveUserData()}
+    function resetEssay(){document.getElementById('essayInput').disabled=false;document.getElementById('essayInput').value='';document.getElementById('essayFeedback').innerHTML='';document.getElementById('essayReset').style.display='none';delete currentList[currentIdx]._userInput;saveUserData()}
+    function markEssay(id,s){solvedMap[String(id)]=s;solvedMap=Object.assign({},solvedMap);if(s==='wrong')addWrong(id);else removeWrong(id);saveUserData();renderQuiz();updateHome();showToast(s==='correct'?'已掌握！':'已加入错题本')}
+    function renderChoice(q){const s=solvedMap[String(q.id)],bc=s==='correct'?'solved-correct':(s==='wrong'?'solved-wrong':'');document.getElementById('quizMain').innerHTML=`<div class="question-card ${bc}"><div class="question-meta"><span>第${currentIdx+1}/${currentList.length}题</span><span class="question-tag ${q.tagClass}">${q.catLabel}·选择</span>${s==='correct'?'<span style="color:#10b981">✅正确</span>':''}${s==='wrong'?'<span style="color:#ef4444">❌错误</span>':''}</div><h2>${q.title}</h2><div class="question-scenario">${q.scenario}</div><div style="font-size:0.85rem;margin-bottom:8px">📖${q.journal} · 难度${q.difficulty}</div><div style="background:#f0f9ff;padding:10px;border-radius:8px;margin-bottom:12px">💊${q.drugKnowledge}</div><div class="options-list">${q.options.map((o,i)=>{let cls=s?(o.correct?'correct-highlight':''):'';if(s&&q._selectedIdx===i)cls+=o.correct?' selected-correct':' selected-wrong';return`<div class="option-item ${cls} ${s?'disabled':''}" onclick="selectOption(${q.id},${i})">${String.fromCharCode(65+i)}. ${o.text}</div>`}).join('')}</div>${s?`<div style="margin-top:10px;background:#f8fafc;padding:10px;border-radius:8px">💡解析：${q.explanation}</div>`:''}<div style="margin-top:12px;display:flex;gap:8px"><button class="btn btn-sm" onclick="prevQ()" ${currentIdx===0?'disabled':''}>⬅上一题</button><button class="btn btn-sm" onclick="nextQ()" ${currentIdx===currentList.length-1?'disabled':''}>下一题➡</button></div></div>`}
+    function selectOption(qId,i){const q=questions.find(q=>q.id===qId);if(!q||solvedMap[String(qId)])return;q._selectedIdx=i;const correct=q.options[i].correct;solvedMap[String(qId)]=correct?'correct':'wrong';solvedMap=Object.assign({},solvedMap);if(!correct)addWrong(qId);else removeWrong(qId);saveUserData();renderQuiz();updateHome();showToast(correct?'正确！✅':'错误，已加入错题本❌')}
+    function prevQ(){if(currentIdx>0){currentIdx--;renderQuiz()}}
+    function nextQ(){if(currentIdx<currentList.length-1){currentIdx++;renderQuiz()}}
+    function addWrong(id){if(!wrongIds.includes(id)){wrongIds.push(id);updateBadge()}}
+    function removeWrong(id){wrongIds=wrongIds.filter(x=>x!==id);updateBadge()}
+    function renderNav(){document.getElementById('questionNavGrid').innerHTML=currentList.map((q,i)=>{let cls='';if(i===currentIdx)cls='current';else if(solvedMap[String(q.id)]==='correct')cls='correct-dot';else if(solvedMap[String(q.id)]==='wrong')cls='wrong-dot';return`<div class="q-nav-dot ${cls}" onclick="jumpToQ(${i})">${i+1}</div>`}).join('')}
+    function jumpToQ(i){currentIdx=i;renderQuiz()}
+    function renderWrongBook(){const l=document.getElementById('wrongList');if(!wrongIds.length){l.innerHTML='<div class="empty-state"><div style="font-size:3rem">🏆</div><h3>错题本为空</h3></div>';return}l.innerHTML=wrongIds.map(id=>{const q=questions.find(q=>q.id===id);if(!q)return'';return`<div class="wrong-item"><div><span class="question-tag ${q.tagClass}">${q.catLabel}</span><h3>${q.title}</h3></div><div class="wrong-actions"><button class="btn btn-outline btn-sm" onclick="toggleReview(${q.id})">🔄重做</button></div><div class="review-block" id="review-${q.id}" style="display:none"></div></div>`}).join('')}
+    function toggleReview(id){const a=document.getElementById('review-'+id);if(a.style.display==='none'){const q=questions.find(q=>q.id===id);if(q.type==='choice')a.innerHTML=q.options.map((o,i)=>`<div class="option-inline" onclick="retryChoice(${id},${i})">${String.fromCharCode(65+i)}. ${o.text}</div>`).join('');else a.innerHTML=`<textarea id="retryEssay-${id}" class="essay-input" placeholder="重新输入..."></textarea><button class="btn btn-primary btn-sm" onclick="retryEssaySubmit(${id})">提交答案</button><div id="retryFeedback-${id}" style="margin-top:12px"></div>`;a.style.display='block'}else a.style.display='none'}
+    function retryChoice(qId,i){const q=questions.find(q=>q.id===qId);if(q.options[i].correct){removeWrong(qId);solvedMap[String(qId)]='correct';solvedMap=Object.assign({},solvedMap);saveUserData();renderWrongBook();updateHome();showToast('已移出错题本！')}else showToast('再试试')}
+    function retryEssaySubmit(qId){const q=questions.find(q=>q.id===qId);document.getElementById('retryFeedback-'+qId).innerHTML=`<div style="margin-top:8px">${q.answers.map((a,i)=>`<div class="answer-block">📝(${String.fromCharCode(97+i)})${a}</div>`).join('')}<div style="margin-top:8px;display:flex;gap:8px"><button class="btn btn-success btn-sm" onclick="markRetryCorrect(${qId})">✅答对了</button><button class="btn btn-danger btn-sm" onclick="markRetryWrong(${qId})">❌答错了</button></div></div>`}
+    function markRetryCorrect(qId){removeWrong(qId);solvedMap[String(qId)]='correct';solvedMap=Object.assign({},solvedMap);saveUserData();renderWrongBook();updateHome();showToast('已移出错题本！')}
+    function markRetryWrong(qId){showToast('继续复习')}
+    function clearWrongBook(){if(confirm('清空所有错题？')){wrongIds=[];saveUserData();updateBadge();renderWrongBook();updateHome()}}
+    function resetAllProgress(){if(confirm('重置所有进度？')){solvedMap={};wrongIds=[];questions.forEach(q=>{delete q._userInput;delete q._selectedIdx});saveUserData();updateHome();renderQuiz();showToast('已重置')}}
+    async function init(){const{data}=await sb.auth.getSession();if(data.session){currentUser=data.session.user;onLoginSuccess()}}
+    document.addEventListener('DOMContentLoaded',init);
+</script>
+</body>
+</html>
