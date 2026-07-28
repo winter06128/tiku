@@ -89,7 +89,24 @@
         .option-inline{display:block;padding:10px 14px;border:1px solid var(--border);border-radius:8px;margin:6px 0;cursor:pointer;background:#fff}
         .option-inline:hover{background:var(--primary-bg)}
         .empty-state{text-align:center;padding:60px 20px;color:var(--text-secondary)}
-        .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#1e293b;color:#fff;padding:12px 24px;border-radius:25px;font-weight:600;z-index:200}
+       .toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: #1e293b;
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-weight: 600;
+    z-index: 200;
+    transition: transform 0.35s;
+    pointer-events: none;
+    opacity: 1;
+}
+.toast.show {
+    transform: translateX(-50%) translateY(0);
+}
         textarea.essay-input{width:100%;padding:12px;border:1px solid var(--border);border-radius:var(--radius-sm);font-family:inherit;font-size:0.9rem;resize:vertical}
         .school-footer{text-align:center;margin-top:32px;padding:24px;background:var(--card);border-radius:var(--radius-lg);box-shadow:var(--shadow);border-top:3px solid var(--primary)}
         .school-footer .school-name{font-size:1.05rem;font-weight:700;color:var(--primary-dark)}
@@ -273,7 +290,19 @@
     async function loadUserData(){try{const{data}=await sb.from('user_data').select('*').eq('user_id',currentUser.id).single();if(data){solvedMap=data.solved||{};wrongIds=data.wrong_ids||[];const ei=data.essay_inputs||{};questions.forEach(q=>{if(ei[String(q.id)])q._userInput=ei[String(q.id)];else delete q._userInput})}}catch(e){}}
     async function saveUserData(){if(!currentUser)return;const ei={};questions.forEach(q=>{if(q._userInput)ei[String(q.id)]=q._userInput});const r={user_id:currentUser.id,solved:solvedMap,wrong_ids:wrongIds,essay_inputs:ei,updated_at:new Date()};const{data:ex}=await sb.from('user_data').select('id').eq('user_id',currentUser.id).single();if(ex)await sb.from('user_data').update(r).eq('user_id',currentUser.id);else await sb.from('user_data').insert(r)}
     function updateBadge(){const c=wrongIds.length;document.getElementById('navWrongBadge').style.display=c?'inline':'none';document.getElementById('navWrongBadge').textContent=c}
-    function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000)}
+    function showToast(m) {
+    const t = document.getElementById('toast');
+    t.textContent = m;
+    t.style.transform = 'translateX(-50%) translateY(0)';
+    t.classList.add('show');
+    // 清除之前的定时器，防止堆积
+    clearTimeout(t._timeout);
+    // 2秒后自动消失
+    t._timeout = setTimeout(() => {
+        t.style.transform = 'translateX(-50%) translateY(100px)';
+        t.classList.remove('show');
+    }, 2000);
+}
     function navigateTo(p){currentPage=p;document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.getElementById('page-'+p).classList.add('active');document.querySelectorAll('.nav-links a').forEach(a=>{a.classList.remove('active');if(a.dataset.page===p)a.classList.add('active')});if(p==='quiz'){if(!currentCategory)setCategory(null);renderQuiz()}if(p==='wrongbook')renderWrongBook();if(p==='home')updateHome()}
     function setCategory(c){if(c){currentCategory=c;currentList=questions.filter(q=>q.category===c);document.getElementById('clearCategoryBtn').style.display='inline-flex'}else{currentCategory=null;currentList=[...questions];document.getElementById('clearCategoryBtn').style.display='none'}currentIdx=0}
     function clearCategoryFilter(){setCategory(null);renderQuiz()}
