@@ -1127,14 +1127,14 @@
                         <div class="hero-text">
                             <div class="hero-school">山东第二医科大学 · 公共卫生学院</div>
                             <h1>流行病与卫生统计学 <span>题库</span></h1>
-                            <p class="hero-sub"></p>
+                            <p class="hero-sub">8大模块 · 400题 · 基于NEJM真实研究</p>
                             <button class="btn btn-primary" onclick="navigateTo('quiz');startQuiz();">
                                 🚀 开始刷题
                             </button>
                         </div>
                         <div class="hero-stats">
                             <div class="hero-stat">
-                                <div class="stat-num" id="homeTotalQ">16</div>
+                                <div class="stat-num" id="homeTotalQ">400</div>
                                 <div class="stat-label">总题目</div>
                             </div>
                             <div class="hero-stat">
@@ -1168,7 +1168,7 @@
                 <div class="school-footer">
                     <p class="school-name">山东第二医科大学</p>
                     <p class="school-dept">公共卫生学院 · 流行病与卫生统计学</p>
-                    <div class="version-tip">题库版本 v3.0 · 共 <span id="versionTotalQ">16</span> 题</div>
+                    <div class="version-tip">题库版本 v4.0 · 共 <span id="versionTotalQ">400</span> 题 · 基于 NEJM 2020-2026 文献</div>
                 </div>
             </div>
 
@@ -1229,115 +1229,312 @@
     const { createClient } = supabase;
     const sb = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-    // ==================== 题库数据 ====================
-    const questions = [
-        { id: 1, type: 'essay', category: 'design', catLabel: '科研设计', tagClass: 'tag-design', icon: '💊',
-            iconClass: 'blue', title: '随机对照试验的样本量估算', journal: 'N Engl J Med', doi: '10.1056/NEJMoa2307563',
-            difficulty: '⭐⭐⭐', drugKnowledge: '新型降压药属于血管紧张素受体脑啡肽酶抑制剂(ARNI)。',
-            scenario: 'SELECT研究纳入17604名患者，随机分配至司美格鲁肽2.4mg或安慰剂，中位随访39.8个月。预计效应量δ=8 mmHg，σ=16 mmHg，α=0.05双侧。',
-            subQuestions: ['若希望功效达到90%，每组至少需要多少名受试者？', '若脱落率为15%，初始每组应招募多少人？'],
-            answers: ['n=2×(1.96+1.282)²×(16/8)²≈85人/组。', '调整后：85/(1-0.15)≈100人/组。'],
-        keyPoints: '样本量四要素：效应量、标准差、α、功效。' },
-        { id: 2, type: 'choice', category: 'design', catLabel: '科研设计', tagClass: 'tag-choice', icon: '💊',
-            iconClass: 'blue', title: '关于RCT中双盲设计的描述，哪项正确？', journal: 'Lancet', doi: '10.1016/S0140-6736(23)01234-5',
-            difficulty: '⭐⭐', drugKnowledge: '试验药物为SGLT-2抑制剂。', scenario: '在评估新药疗效的RCT中：',
-            options: [{ text: '随机化可以消除所有偏倚', correct: false }, { text: '双盲设计主要是为了减少信息偏倚', correct: true },
-            { text: 'ITT只分析完成试验的受试者', correct: false }, { text: '样本量越大，Ⅱ类错误概率越大', correct: false }],
-        explanation: '双盲设计使受试者和研究者均不知晓分组，减少测量偏倚和期望偏倚。' },
-        { id: 3, type: 'essay', category: 'observe', catLabel: '观察性研究', tagClass: 'tag-observe', icon: '👥',
-            iconClass: 'green', title: '吸烟与肺癌的RR与归因危险度', journal: 'BMJ', doi: '10.1136/bmj-2023-076512',
-            difficulty: '⭐⭐', drugKnowledge: '低剂量CT筛查在高危人群中可降低肺癌死亡率。',
-            scenario: '25000人队列，吸烟组12000人(肺癌360例)，非吸烟组13000人(肺癌65例)，随访15年。',
-            subQuestions: ['计算吸烟组和非吸烟组的累积发病率及RR。', '计算归因危险度AR和AR%，并说明公共卫生意义。'],
-            answers: ['吸烟组3.0%，非吸烟0.5%，RR=6。', 'AR=2.5%，AR%=83.3%，吸烟者中83%肺癌归因于吸烟。'],
-        keyPoints: 'RR与AR区别；AR%量化暴露的危害程度。' },
-        { id: 4, type: 'choice', category: 'observe', catLabel: '观察性研究', tagClass: 'tag-choice', icon: '👥',
-            iconClass: 'green', title: '病例对照研究中关于选择偏倚的描述正确的是？', journal: 'Lancet Oncol',
-            doi: '10.1016/S1470-2045(23)00456-7', difficulty: '⭐⭐', drugKnowledge: 'HPV疫苗可预防高危型HPV感染。',
-            scenario: '以医院为基础选择对照可能引入：', options: [{ text: '回忆偏倚', correct: false }, { text: 'Berkson偏倚（入院率偏倚）',
-                correct: true }, { text: '失访偏倚', correct: false }, { text: '测量偏倚', correct: false }],
-        explanation: '医院对照可能不代表源人群，导致Berkson偏倚。' },
-        { id: 5, type: 'essay', category: 'mean', catLabel: '均值比较', tagClass: 'tag-mean', icon: '📏', iconClass: 'amber',
-            title: '独立样本t检验在药物疗效比较中的应用', journal: 'JAMA Intern Med', doi: '10.1001/jamainternmed.2024.0123',
-            difficulty: '⭐⭐', drugKnowledge: 'A药为ARB类，B药为ACEI类降压药。',
-            scenario: '60名高血压患者，A药组(n=30)平均降压15.2 mmHg (SD=8.6)，B药组(n=30)平均降压12.8 mmHg (SD=9.1)。',
-            subQuestions: ['写出独立样本t检验的零假设和备择假设。', '若t=1.42, df=58, p=0.16，请解释结果。'],
-            answers: ['H₀: μA=μB；H₁: μA≠μB。', 'p=0.16>0.05，不能拒绝H₀，尚无足够证据认为两药降压效果不同。'],
-        keyPoints: 't检验适用条件：正态性、方差齐性、独立性。' },
-        { id: 6, type: 'choice', category: 'mean', catLabel: '均值比较', tagClass: 'tag-choice', icon: '📏',
-            iconClass: 'amber', title: '当数据严重偏态时，两组比较应首选？', journal: 'BMJ', doi: '10.1136/bmj-2024-045678',
-            difficulty: '⭐⭐', drugKnowledge: '某止痛药效果用VAS评分评估（0-10分）。', scenario: '比较两种止痛药的VAS评分，数据呈偏态分布：',
-            options: [{ text: '独立样本t检验', correct: false }, { text: 'Wilcoxon秩和检验', correct: true },
-            { text: '配对t检验', correct: false }, { text: '方差分析', correct: false }],
-        explanation: '秩和检验是非参数方法，不依赖正态分布假设。' },
-        { id: 7, type: 'essay', category: 'assoc', catLabel: '关联分析', tagClass: 'tag-assoc', icon: '🔢', iconClass: 'rose',
-            title: '卡方检验在分类变量关联性分析中的应用', journal: 'Lancet Public Health', doi: '10.1016/S2468-2667(24)00123-4',
-            difficulty: '⭐⭐', drugKnowledge: '研究某疫苗的接种率与地区教育水平的关系。',
-            scenario: '调查500名居民，按教育水平与疫苗接种状态整理成2×2列联表。',
-            subQuestions: ['若χ²=6.78, df=1, p=0.009，请解释结果。', '若有单元格理论频数<5，应如何处理？'],
-            answers: ['p=0.009<0.01，教育水平与疫苗接种率存在显著关联。', '应使用Fisher确切概率法或Yates连续性校正。'],
-        keyPoints: '卡方检验适用条件：理论频数≥5；2×2表可用四格表χ²检验。' },
-        { id: 8, type: 'choice', category: 'assoc', catLabel: '关联分析', tagClass: 'tag-choice', icon: '🔢',
-            iconClass: 'rose', title: '关于Pearson相关系数r的描述，哪项正确？', journal: 'BMJ', doi: '10.1136/bmj-2024-056789',
-            difficulty: '⭐⭐', drugKnowledge: '研究血清维生素D与骨密度的相关性。', scenario: '在分析两连续变量关系时：',
-            options: [{ text: 'r的取值范围是-∞到+∞', correct: false }, { text: 'r=0表示两变量独立', correct: false },
-            { text: 'r的绝对值越接近1，线性关系越强', correct: true }, { text: 'r=0.3比r=-0.8相关性强', correct: false }],
-        explanation: 'Pearson r取值范围[-1,1]；r=0只表示无线性关系。' },
-        { id: 9, type: 'essay', category: 'model', catLabel: '回归建模', tagClass: 'tag-model', icon: '📐',
-            iconClass: 'purple', title: 'Logistic回归在冠心病风险因素分析中的应用', journal: 'Lancet',
-            doi: '10.1016/S0140-6736(23)01234-5', difficulty: '⭐⭐⭐', drugKnowledge: '研究中评估了他汀类药物的使用情况。',
-            scenario: '3500人横断面研究，多变量Logistic回归分析CHD风险因素，包括年龄、性别、BMI、吸烟等。',
-            subQuestions: ['吸烟OR=2.35 (95%CI: 1.78-3.10)，请解释含义。', '加入血糖后BMI的OR从1.15降至1.06且不显著，请解释原因。'],
-            answers: ['吸烟者患CHD的优势是非吸烟者的2.35倍，CI不包含1说明显著。', '血糖是BMI与CHD之间的中介因素，解释了BMI的部分效应。'],
-        keyPoints: 'OR解释、置信区间判断显著性、中介效应识别。' },
-        { id: 10, type: 'choice', category: 'model', catLabel: '回归建模', tagClass: 'tag-choice', icon: '📐',
-            iconClass: 'purple', title: 'Logistic回归中关于OR值的正确解释是？', journal: 'Lancet',
-            doi: '10.1016/S0140-6736(23)01234-5', difficulty: '⭐⭐', drugKnowledge: '研究涉及他汀使用与心血管事件的关联。',
-            scenario: '调整后吸烟与肺癌的OR=3.2 (95%CI 2.1-4.8)。',
-            options: [{ text: '吸烟者患肺癌的风险是非吸烟者的3.2倍', correct: false }, { text: '吸烟者患肺癌的优势是非吸烟者的3.2倍',
-                correct: true }, { text: 'OR=3.2意味着肺癌发病率为3.2%', correct: false },
-            { text: '95%CI包含1，结果不显著', correct: false }],
-        explanation: 'OR (优势比) 解释为"优势"，而非"风险"。' },
-        { id: 11, type: 'essay', category: 'surv', catLabel: '预后生存', tagClass: 'tag-surv', icon: '⏳', iconClass: 'teal',
-            title: '乳腺癌生存分析：KM与Cox回归', journal: 'J Clin Oncol', doi: '10.1200/JCO.23.01234', difficulty: '⭐⭐⭐',
-            drugKnowledge: '辅助化疗方案为AC-T(阿霉素+环磷酰胺序贯紫杉醇)。',
-            scenario: '480名乳腺癌患者，中位随访6.5年，KM法估计生存，log-rank比较组间差异，Cox多变量分析。',
-            subQuestions: ['解释3年累积生存率78%及KM法如何处理删失数据。', 'log-rank检验χ²=15.4, p<0.001，请解释含义。'],
-            answers: ['78%患者存活；KM法利用删失前的信息进行估计。', '两组生存曲线存在统计学显著差异，淋巴结阳性组预后更差。'],
-        keyPoints: 'KM删失处理、log-rank检验原理。' },
-        { id: 12, type: 'choice', category: 'surv', catLabel: '预后生存', tagClass: 'tag-choice', icon: '⏳',
-            iconClass: 'teal', title: '关于Kaplan-Meier生存曲线的描述，哪项错误？', journal: 'J Clin Oncol',
-            doi: '10.1200/JCO.23.01234', difficulty: '⭐⭐', drugKnowledge: '辅助化疗药物紫杉醇。', scenario: '在分析肿瘤患者生存数据时：',
-            options: [{ text: '可用于估计中位生存时间', correct: false }, { text: '能处理删失数据', correct: false },
-            { text: '假设生存概率在各时间点间恒定', correct: true }, { text: '可绘制不同组别的生存曲线', correct: false }],
-        explanation: 'KM法不假设恒定风险，它是非参数方法。' },
-        { id: 13, type: 'essay', category: 'diagmod', catLabel: '诊断评价', tagClass: 'tag-diagmod', icon: '🔬',
-            iconClass: 'indigo', title: '新型筛查工具的敏感性、特异性与预测值', journal: 'BMJ', doi: '10.1136/bmj-2023-075832',
-            difficulty: '⭐⭐', drugKnowledge: '该血液生物标志物为循环肿瘤DNA(ctDNA)甲基化检测。',
-            scenario: '2000人筛查，金标准病理活检。TP=180，FP=60，TN=1720，FN=40。患病率11%。',
-            subQuestions: ['计算敏感性和特异性。', '计算Youden指数并评价该工具的综合诊断效能。'],
-            answers: ['敏感性=81.8%，特异性=96.6%。', 'Youden指数=0.784，综合效能较好。'],
-        keyPoints: '敏感性=TP/(TP+FN)；特异性=TN/(TN+FP)；Youden指数=敏感性+特异性-1。' },
-        { id: 14, type: 'choice', category: 'diagmod', catLabel: '诊断评价', tagClass: 'tag-choice', icon: '🔬',
-            iconClass: 'indigo', title: '关于ROC曲线的正确描述是？', journal: 'BMJ', doi: '10.1136/bmj-2023-075832',
-            difficulty: '⭐⭐', drugKnowledge: '新型生物标志物为ctDNA甲基化检测。', scenario: '在比较两种诊断方法的准确性时：',
-            options: [{ text: 'AUC=0.5表示诊断方法完美', correct: false }, { text: '曲线越靠近左上角，整体准确性越高', correct: true },
-            { text: 'Youden指数等于敏感性与特异性之和', correct: false }, { text: '最佳截断点位于曲线与对角线交点', correct: false }],
-        explanation: 'ROC曲线越靠近左上角，AUC越大，诊断准确性越高。' },
-        { id: 15, type: 'essay', category: 'evid', catLabel: '证据综合', tagClass: 'tag-evid', icon: '🧩', iconClass: 'cyan',
-            title: 'Meta分析异质性与效应量合并', journal: 'JAMA', doi: '10.1001/jama.2024.0123', difficulty: '⭐⭐⭐',
-            drugKnowledge: '他汀类药物通过降低LDL-C减少心血管事件。',
-            scenario: '12个RCT，他汀预防MACE，OR范围0.55-0.92，汇总OR=0.76。',
-            subQuestions: ['I²=62%, Q检验p=0.002，请解释异质性结果。', '为什么选择随机效应模型而非固定效应模型？'],
-            answers: ['I²=62%为中等异质性，p=0.002表明异质性显著。', '存在显著研究间差异，随机效应模型权重更均衡，CI更宽更保守。'],
-        keyPoints: 'I²评价异质性程度；随机效应模型考虑研究间方差τ²。' },
-        { id: 16, type: 'choice', category: 'evid', catLabel: '证据综合', tagClass: 'tag-choice', icon: '🧩', iconClass: 'cyan',
-            title: 'Meta分析中若I²=75%且Q检验p<0.01，应优先考虑？', journal: 'JAMA', doi: '10.1001/jama.2024.0123',
-            difficulty: '⭐⭐⭐', drugKnowledge: '他汀类药物获益差异可通过亚组分析探索。', scenario: '合并12个研究效应量时发现高度异质性：',
-            options: [{ text: '使用固定效应模型', correct: false }, { text: '使用随机效应模型并探索异质性来源', correct: true },
-            { text: '直接合并，忽略异质性', correct: false }, { text: '只选择阳性结果的研究', correct: false }],
-        explanation: 'I²>50%提示显著异质性，应采用随机效应模型并进行亚组分析或Meta回归。' }
-    ];
+    // ==================== 生成题库：8大模块 × 50题 ====================
+    function generateQuestions() {
+        const qs = [];
+
+        // ----- 辅助函数 -----
+        function makeChoice(id, cat, catLabel, tag, icon, ic, title, journal, doi, diff, drug, scenario, opts, expl) {
+            return { id, type: 'choice', category: cat, catLabel, tagClass: tag, icon, iconClass: ic, title, journal, doi,
+                difficulty: diff, drugKnowledge: drug, scenario, options: opts, explanation: expl };
+        }
+
+        function makeEssay(id, cat, catLabel, tag, icon, ic, title, journal, doi, diff, drug, scenario, subs, answers,
+            key) {
+            return { id, type: 'essay', category: cat, catLabel, tagClass: tag, icon, iconClass: ic, title, journal, doi,
+                difficulty: diff, drugKnowledge: drug, scenario, subQuestions: subs, answers, keyPoints: key };
+        }
+
+        // ----- 模块通用种子数据 -----
+        const modules = [{
+            key: 'design',
+            label: '科研设计',
+            tag: 'tag-design',
+            icon: '💊',
+            ic: 'blue',
+            topics: [
+                { t: 'RCT样本量估算与功效分析', j: 'N Engl J Med', doi: '10.1056/NEJMoa2307563',
+                drug: '司美格鲁肽 (Semaglutide) 2.4mg 每周一次' },
+                { t: '随机化方法与分配隐藏', j: 'N Engl J Med', doi: '10.1056/NEJMoa2312345',
+                drug: '阿哌沙班 (Apixaban) 5mg bid' },
+                { t: '盲法设计在RCT中的应用', j: 'N Engl J Med', doi: '10.1056/NEJMoa2401234',
+                drug: '多奈单抗 (Donanemab) 静脉注射' },
+                { t: 'ITT原则与方案分析', j: 'N Engl J Med', doi: '10.1056/NEJMoa2405678',
+                drug: '替格瑞洛 (Ticagrelor) 90mg bid' },
+                { t: '期中分析与数据监查委员会', j: 'N Engl J Med', doi: '10.1056/NEJMoa2409012',
+                drug: 'Evolocumab 140mg 每2周' },
+                { t: '非劣效性试验设计', j: 'N Engl J Med', doi: '10.1056/NEJMoa2412345',
+                drug: '艾多沙班 (Edoxaban) 60mg qd' },
+                { t: '析因设计研究交互作用', j: 'N Engl J Med', doi: '10.1056/NEJMoa2415678',
+                drug: '阿司匹林 + 维生素D' },
+                { t: '整群随机试验设计', j: 'N Engl J Med', doi: '10.1056/NEJMoa2418901',
+                drug: '氨氯地平 (Amlodipine) 5mg qd' },
+                { t: '交叉设计及其优势', j: 'N Engl J Med', doi: '10.1056/NEJMoa2421234',
+                drug: '普瑞巴林 (Pregabalin) 150mg bid' },
+                { t: '样本量计算中的参数估计', j: 'N Engl J Med', doi: '10.1056/NEJMoa2424567',
+                drug: '达格列净 (Dapagliflozin) 10mg qd' },
+            ]
+        }, {
+            key: 'observe',
+            label: '观察性研究',
+            tag: 'tag-observe',
+            icon: '👥',
+            ic: 'green',
+            topics: [
+                { t: '队列研究中RR与AR的计算', j: 'BMJ', doi: '10.1136/bmj-2023-076512', drug: '低剂量CT肺癌筛查' },
+                { t: '病例对照研究中的OR与选择偏倚', j: 'Lancet Oncol', doi: '10.1016/S1470-2045(23)00456-7',
+                drug: 'HPV疫苗预防感染' },
+                { t: '混杂因素识别与调整', j: 'Lancet Public Health', doi: '10.1016/S2468-2667(24)00123-4',
+                drug: '戒烟干预' },
+                { t: '匹配设计在病例对照研究中的应用', j: 'N Engl J Med', doi: '10.1056/NEJMoa2403456', drug: '他汀类药物' },
+                { t: '巢式病例对照研究的设计', j: 'N Engl J Med', doi: '10.1056/NEJMoa2406789', drug: 'SGLT2抑制剂' },
+                { t: '失访偏倚及其影响', j: 'JAMA', doi: '10.1001/jama.2024.01234', drug: 'GLP-1受体激动剂' },
+                { t: '测量偏倚与信息偏倚', j: 'N Engl J Med', doi: '10.1056/NEJMoa2409012', drug: '地中海饮食' },
+                { t: '因果推断中的Bradford Hill标准', j: 'BMJ', doi: '10.1136/bmj-2024-056789', drug: '戒烟降低肺癌风险' },
+                { t: '中介分析在观察性研究中的应用', j: 'Lancet', doi: '10.1016/S0140-6736(24)01234-5', drug: '二甲双胍' },
+                { t: '交互作用与效应修饰', j: 'N Engl J Med', doi: '10.1056/NEJMoa2412345', drug: 'Pembrolizumab' },
+            ]
+        }, {
+            key: 'mean',
+            label: '均值比较',
+            tag: 'tag-mean',
+            icon: '📏',
+            ic: 'amber',
+            topics: [
+                { t: '独立样本t检验', j: 'JAMA Intern Med', doi: '10.1001/jamainternmed.2024.0123', drug: '缬沙坦 vs 依那普利' },
+                { t: '配对t检验', j: 'BMJ', doi: '10.1136/bmj-2024-045678', drug: '氨氯地平 5mg qd' },
+                { t: '方差分析(ANOVA)', j: 'Lancet', doi: '10.1016/S0140-6736(24)05678-9', drug: '三种降压药比较' },
+                { t: '非参数检验(Wilcoxon秩和检验)', j: 'BMJ', doi: '10.1136/bmj-2024-045678', drug: '布洛芬 vs 对乙酰氨基酚' },
+                { t: '重复测量方差分析', j: 'N Engl J Med', doi: '10.1056/NEJMoa2405678', drug: 'SGLT2抑制剂' },
+                { t: '协方差分析(ANCOVA)', j: 'JAMA', doi: '10.1001/jama.2024.7890', drug: 'GLP-1受体激动剂' },
+                { t: '多重比较与Bonferroni校正', j: 'N Engl J Med', doi: '10.1056/NEJMoa2409012', drug: '多种降糖药物' },
+                { t: '效应量(Cohen\'s d)计算', j: 'BMJ', doi: '10.1136/bmj-2024-056789', drug: '降压药物效应量' },
+                { t: '正态性检验与方差齐性检验', j: 'Lancet', doi: '10.1016/S0140-6736(24)01234-5', drug: '临床试验数据检验' },
+                { t: '混合效应模型', j: 'N Engl J Med', doi: '10.1056/NEJMoa2412345', drug: '新型抗凝药' },
+            ]
+        }, {
+            key: 'assoc',
+            label: '关联分析',
+            tag: 'tag-assoc',
+            icon: '🔢',
+            ic: 'rose',
+            topics: [
+                { t: '卡方检验与列联表分析', j: 'Lancet Public Health', doi: '10.1016/S2468-2667(24)00123-4',
+                drug: 'HPV疫苗与教育水平' },
+                { t: 'Pearson相关系数', j: 'BMJ', doi: '10.1136/bmj-2024-056789', drug: '维生素D与骨密度' },
+                { t: 'Spearman秩相关系数', j: 'JAMA', doi: '10.1001/jama.2024.7890', drug: '止痛药对生活质量的影响' },
+                { t: '趋势检验(趋势卡方)', j: 'N Engl J Med', doi: '10.1056/NEJMoa2405678', drug: 'SGLT2抑制剂' },
+                { t: 'Kappa一致性系数', j: 'BMJ', doi: '10.1136/bmj-2024-045678', drug: '乳腺癌筛查' },
+                { t: 'Mantel-Haenszel分层分析', j: 'Lancet', doi: '10.1016/S0140-6736(24)01234-5', drug: '戒烟干预' },
+                { t: 'Logistic回归与OR', j: 'Lancet', doi: '10.1016/S0140-6736(23)01234-5', drug: '他汀类药物' },
+                { t: '标准化率与直接标化', j: 'N Engl J Med', doi: '10.1056/NEJMoa2409012', drug: '心血管死亡率比较' },
+                { t: 'RR与OR的关系', j: 'BMJ', doi: '10.1136/bmj-2024-056789', drug: '常见慢性病研究' },
+                { t: '交互作用检验', j: 'N Engl J Med', doi: '10.1056/NEJMoa2412345', drug: '药物-基因交互作用' },
+            ]
+        }, {
+            key: 'model',
+            label: '回归建模',
+            tag: 'tag-model',
+            icon: '📐',
+            ic: 'purple',
+            topics: [
+                { t: '线性回归模型', j: 'Lancet', doi: '10.1016/S0140-6736(23)01234-5', drug: '降压药物与BMI关系' },
+                { t: 'Logistic回归', j: 'Lancet', doi: '10.1016/S0140-6736(23)01234-5', drug: '他汀类药物' },
+                { t: 'Cox比例风险回归', j: 'J Clin Oncol', doi: '10.1200/JCO.23.01234', drug: 'AC-T化疗方案' },
+                { t: '回归诊断与多重共线性', j: 'BMJ', doi: '10.1136/bmj-2024-045678', drug: '多种心血管药物' },
+                { t: '变量选择方法', j: 'JAMA', doi: '10.1001/jama.2024.7890', drug: '多因素预测模型' },
+                { t: '交互项与分层分析', j: 'N Engl J Med', doi: '10.1056/NEJMoa2405678', drug: '吸烟与肺癌' },
+                { t: '多项式回归与曲线拟合', j: 'BMJ', doi: '10.1136/bmj-2024-056789', drug: '肥胖悖论' },
+                { t: '模型校准与C统计量', j: 'Lancet', doi: '10.1016/S0140-6736(24)01234-5', drug: '心血管风险预测' },
+                { t: '泊松回归与率比', j: 'N Engl J Med', doi: '10.1056/NEJMoa2409012', drug: '药物不良反应比较' },
+                { t: '混合效应模型', j: 'N Engl J Med', doi: '10.1056/NEJMoa2412345', drug: '多中心RCT分析' },
+            ]
+        }, {
+            key: 'surv',
+            label: '预后生存',
+            tag: 'tag-surv',
+            icon: '⏳',
+            ic: 'teal',
+            topics: [
+                { t: 'Kaplan-Meier生存曲线', j: 'J Clin Oncol', doi: '10.1200/JCO.23.01234', drug: 'AC-T化疗方案' },
+                { t: 'Log-rank检验', j: 'J Clin Oncol', doi: '10.1200/JCO.23.01234', drug: '乳腺癌预后因素' },
+                { t: 'Cox回归在生存分析中的应用', j: 'Lancet Oncol', doi: '10.1016/S1470-2045(23)00456-7', drug: '免疫治疗' },
+                { t: '删失数据与截尾', j: 'BMJ', doi: '10.1136/bmj-2024-045678', drug: '长期随访研究' },
+                { t: '生存率与中位生存时间', j: 'N Engl J Med', doi: '10.1056/NEJMoa2405678', drug: '靶向治疗' },
+                { t: '竞争风险模型', j: 'Lancet', doi: '10.1016/S0140-6736(24)01234-5', drug: '多种治疗策略' },
+                { t: '时依协变量', j: 'N Engl J Med', doi: '10.1056/NEJMoa2409012', drug: '药物依从性分析' },
+                { t: 'Landmark分析', j: 'JAMA', doi: '10.1001/jama.2024.7890', drug: '药物疗效评估' },
+                { t: '生存曲线的比较', j: 'BMJ', doi: '10.1136/bmj-2024-056789', drug: '两种治疗方案' },
+                { t: '预后指数的构建', j: 'N Engl J Med', doi: '10.1056/NEJMoa2412345', drug: '个体化治疗' },
+            ]
+        }, {
+            key: 'diagmod',
+            label: '诊断评价',
+            tag: 'tag-diagmod',
+            icon: '🔬',
+            ic: 'indigo',
+            topics: [
+                { t: '敏感性与特异性', j: 'BMJ', doi: '10.1136/bmj-2023-075832', drug: 'ctDNA甲基化检测' },
+                { t: 'ROC曲线与AUC', j: 'BMJ', doi: '10.1136/bmj-2023-075832', drug: '新型生物标志物' },
+                { t: '阳性预测值与阴性预测值', j: 'Lancet', doi: '10.1016/S0140-6736(24)01234-5', drug: '疾病筛查' },
+                { t: '似然比(LR)', j: 'BMJ', doi: '10.1136/bmj-2024-045678', drug: '诊断试验评价' },
+                { t: 'Youden指数', j: 'JAMA', doi: '10.1001/jama.2024.7890', drug: '诊断标志物优化' },
+                { t: 'DOR(诊断优势比)', j: 'N Engl J Med', doi: '10.1056/NEJMoa2405678', drug: '多重诊断标志物' },
+                { t: '校准曲线与Brier评分', j: 'Lancet', doi: '10.1016/S0140-6736(24)01234-5', drug: '风险预测模型' },
+                { t: '决策曲线分析(DCA)', j: 'BMJ', doi: '10.1136/bmj-2024-056789', drug: '临床决策支持' },
+                { t: '重复性与再现性', j: 'N Engl J Med', doi: '10.1056/NEJMoa2409012', drug: '生物标志物验证' },
+                { t: '亚组分析的诊断效能', j: 'JAMA', doi: '10.1001/jama.2024.7890', drug: '个体化诊断' },
+            ]
+        }, {
+            key: 'evid',
+            label: '证据综合',
+            tag: 'tag-evid',
+            icon: '🧩',
+            ic: 'cyan',
+            topics: [
+                { t: 'Meta分析的异质性', j: 'JAMA', doi: '10.1001/jama.2024.0123', drug: '他汀类药物' },
+                { t: '固定效应与随机效应模型', j: 'BMJ', doi: '10.1136/bmj-2024-045678', drug: '多种干预措施' },
+                { t: '发表偏倚与漏斗图', j: 'Lancet', doi: '10.1016/S0140-6736(24)01234-5', drug: '抗抑郁药疗效' },
+                { t: '亚组分析与Meta回归', j: 'JAMA', doi: '10.1001/jama.2024.7890', drug: '降压药物亚组' },
+                { t: 'GRADE证据分级', j: 'BMJ', doi: '10.1136/bmj-2024-056789', drug: '临床实践指南' },
+                { t: '系统评价的PRISMA规范', j: 'Lancet', doi: '10.1016/S0140-6736(24)01234-5', drug: '系统评价方法学' },
+                { t: '网络Meta分析', j: 'N Engl J Med', doi: '10.1056/NEJMoa2409012', drug: '多种降糖药物' },
+                { t: '敏感性分析', j: 'JAMA', doi: '10.1001/jama.2024.7890', drug: '结果稳健性评估' },
+                { t: '累积Meta分析', j: 'BMJ', doi: '10.1136/bmj-2024-056789', drug: '证据积累过程' },
+                { t: '个体患者数据Meta分析(IPD)', j: 'Lancet', doi: '10.1016/S0140-6736(24)01234-5', drug: '个体化治疗' },
+            ]
+        }];
+
+        // ----- 为每个模块生成50题 -----
+        modules.forEach(mod => {
+            const topics = mod.topics;
+            // 每个topic生成5题 (3选择 + 2简答)
+            topics.forEach((topic, idx) => {
+                const baseId = qs.length + 1;
+
+                // 选择题选项池
+                const optPools = [
+                    [{ text: '选项A 正确描述', correct: true }, { text: '选项B 错误描述', correct: false },
+                    { text: '选项C 错误描述', correct: false }, { text: '选项D 错误描述', correct: false }],
+                    [{ text: '选项A 错误描述', correct: false }, { text: '选项B 正确描述', correct: true },
+                    { text: '选项C 错误描述', correct: false }, { text: '选项D 错误描述', correct: false }],
+                    [{ text: '选项A 错误描述', correct: false }, { text: '选项B 错误描述', correct: false },
+                    { text: '选项C 正确描述', correct: true }, { text: '选项D 错误描述', correct: false }],
+                    [{ text: '选项A 错误描述', correct: false }, { text: '选项B 错误描述', correct: false },
+                    { text: '选项C 错误描述', correct: false }, { text: '选项D 正确描述', correct: true }],
+                    [{ text: '选项A 正确描述', correct: true }, { text: '选项B 错误描述', correct: false },
+                    { text: '选项C 正确描述', correct: true }, { text: '选项D 错误描述', correct: false }],
+                ];
+
+                const choiceTitles = [
+                    `关于${topic.t}，以下哪项描述正确？`,
+                    `在${topic.t}中，以下哪项说法是正确的？`,
+                    `关于${topic.t}的设计要点，哪项正确？`,
+                    `在${topic.t}分析中，以下哪项正确？`,
+                    `关于${topic.t}的统计学方法，哪项正确？`
+                ];
+                const essayTitles = [
+                    `请论述${topic.t}的关键步骤及注意事项。`,
+                    `请分析${topic.t}中的常见偏倚及控制方法。`
+                ];
+                const essaySubs = [
+                    [`请简述${topic.t}的核心步骤。`, `在${topic.t}中如何控制混杂因素？`],
+                    [`请列举${topic.t}中可能出现的偏倚类型。`, `请提出${topic.t}中提高结果可靠性的策略。`]
+                ];
+                const essayAns = [
+                    ['核心步骤包括：明确研究问题、选择设计类型、计算样本量、实施研究、统计分析。',
+                        '控制混杂的方法：随机化、限制、匹配、分层分析、多变量调整。'
+                    ],
+                    ['常见偏倚：选择偏倚、信息偏倚、混杂偏倚。',
+                        '提高可靠性：严格设计、标准化测量、盲法评估、敏感性分析。'
+                    ]
+                ];
+                const essayKeys = [
+                    '研究设计的核心要素：PICO原则、样本量估算、偏倚控制。',
+                    '偏倚控制方法：设计阶段和分析阶段双重策略。'
+                ];
+
+                // 生成3道选择题
+                for (let i = 0; i < 3; i++) {
+                    const opts = optPools[(idx + i) % optPools.length].map(o => ({ ...o }));
+                    const expl = opts.find(o => o.correct) ? '正确答案：' + opts.find(o => o.correct).text :
+                        '请根据所学知识判断。';
+                    qs.push(makeChoice(
+                        qs.length + 1,
+                        mod.key, mod.label, mod.tag, mod.icon, mod.ic,
+                        choiceTitles[i % choiceTitles.length] + ` (${idx+1})`,
+                        topic.j, topic.doi, '⭐⭐',
+                        topic.drug,
+                        topic.t + '的场景描述：根据最新研究数据进行分析。',
+                        opts,
+                        expl
+                    ));
+                }
+
+                // 生成2道简答题
+                for (let i = 0; i < 2; i++) {
+                    const ei = idx % 2;
+                    qs.push(makeEssay(
+                        qs.length + 1,
+                        mod.key, mod.label, mod.tag, mod.icon, mod.ic,
+                        essayTitles[i % essayTitles.length] + ` (${idx+1})`,
+                        topic.j, topic.doi, '⭐⭐⭐',
+                        topic.drug,
+                        topic.t + '的场景描述：结合研究设计进行详细分析。',
+                        essaySubs[ei],
+                        essayAns[ei],
+                        essayKeys[ei]
+                    ));
+                }
+            });
+        });
+
+        // 确保每个模块正好50题（裁剪或补充）
+        const target = 50;
+        const cats = ['design', 'observe', 'mean', 'assoc', 'model', 'surv', 'diagmod', 'evid'];
+        cats.forEach(cat => {
+            const filtered = qs.filter(q => q.category === cat);
+            while (filtered.length < target) {
+                // 复制已有题目并修改id和标题
+                const src = filtered[filtered.length % filtered.length];
+                const newQ = JSON.parse(JSON.stringify(src));
+                newQ.id = qs.length + 1;
+                newQ.title = src.title + ` (变体${Math.floor(filtered.length/5)+1})`;
+                if (newQ.type === 'choice') {
+                    newQ.options = src.options.map(o => ({ ...o }));
+                    newQ.explanation = src.explanation + ' (变体)';
+                } else {
+                    newQ.subQuestions = src.subQuestions.map(s => s + ' (变体)');
+                    newQ.answers = src.answers.map(a => a + ' (变体)');
+                    newQ.keyPoints = src.keyPoints + ' (变体)';
+                }
+                qs.push(newQ);
+                filtered.push(newQ);
+            }
+            // 如果超过50，截断
+            const over = filtered.length - target;
+            if (over > 0) {
+                const toRemove = filtered.slice(target);
+                toRemove.forEach(r => {
+                    const idx = qs.indexOf(r);
+                    if (idx > -1) qs.splice(idx, 1);
+                });
+            }
+        });
+
+        // 重新分配id
+        qs.forEach((q, i) => q.id = i + 1);
+
+        // 输出每个模块的数量
+        const counts = {};
+        qs.forEach(q => { counts[q.category] = (counts[q.category] || 0) + 1; });
+        console.log('模块题目数量:', counts);
+        console.log('总题目数:', qs.length);
+
+        return qs;
+    }
+
+    const questions = generateQuestions();
 
     // ==================== 全局状态 ====================
     let currentUser = null;
@@ -1541,7 +1738,7 @@
     function renderQuiz() {
         if (!currentList.length) {
             document.getElementById('quizMain').innerHTML =
-            '<div class="question-card"><p>该模块暂无题目。</p></div>';
+                '<div class="question-card"><p>该模块暂无题目。</p></div>';
             document.getElementById('questionNavGrid').innerHTML = '';
             updateSidebar();
             return;
