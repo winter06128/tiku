@@ -1311,12 +1311,11 @@
         }
 
         // ================================================================
-        // 科研设计模块 — 包含 SELECT 研究背景 + 3道大题
+        // 科研设计模块 — 包含 SELECT 研究背景 + 3篇文献的全部题目
         // ================================================================
         const designQs = [];
 
-        // ---- SELECT 研究：完整背景 + 3道简答题 ----
-        // 场景中嵌入完整的背景描述 + 数据表格（HTML格式）
+        // ---- SELECT 研究：完整背景 + 3道大题 ----
         const selectScenario = `
             <div style="margin-bottom:10px;">
                 <strong style="color:#8B1A2B;">SELECT研究：司美格鲁肽与心血管结局</strong><br>
@@ -1343,61 +1342,356 @@
             </table>
         `;
 
-        // Q1: 基础题 — 统计方法选择
-        designQs.push(makeEssay(
-            1, 'design', '科研设计', 'tag-design', '💊', 'blue',
-            'SELECT研究 · 统计方法选择',
-            'N Engl J Med', '10.1056/NEJMoa2307563', '中等',
-            '司美格鲁肽 2.4mg 每周一次',
-            selectScenario,
-            ['本研究采用了什么统计方法分析主要结局？请说明选择该方法的理由。'],
-            ['本研究采用 <strong>Cox比例风险回归模型</strong> 分析主要结局（首次MACE事件的时间）。理由如下：① 主要结局是"首次发生"的时间至事件数据（time-to-event），Cox模型是处理该类数据的标准方法；② 研究为"事件驱动"设计，需要估计风险比（HR）并处理删失数据（失访、研究结束时未发生事件者）；③ 模型可同时调整基线协变量，提高估计效率。'],
-            'Cox比例风险模型是时间-事件数据的标准分析方法，可处理删失和调整协变量。'
+        // ---- 文献背景一：Estimand (DOI: 10.1056/NEJMp2513633) ----
+        // 选择题 1-7
+        const estimandScenario = `
+            <div style="margin-bottom:6px;">
+                <strong style="color:#8B1A2B;">文献背景：</strong>
+                <span style="font-size:0.85rem;color:#475569;">Statistics in Medicine — What's in an Estimand? · DOI: 10.1056/NEJMp2513633</span>
+            </div>
+            <div style="background:#f8fafc;border-radius:8px;padding:14px 18px;margin:8px 0 12px 0;font-size:0.9rem;border-left:4px solid #8B1A2B;">
+                文章探讨了随机临床试验中不同效应估计方法的区别，重点对比了意向治疗（ITT）分析与基于"假想策略"的试验产品估计目标。
+                在REDEFINE 1试验（评估卡格林肽和司美格鲁肽）中，ITT分析显示治疗组体重减轻≥5%的比例比安慰剂组高60.4个百分点；
+                而采用试验产品估计目标的次要分析显示差异为70.0个百分点。
+            </div>
+        `;
+
+        // 1-7 选择题
+        const q1Opts = [
+            { text: '治疗条件', correct: false },
+            { text: '目标人群', correct: false },
+            { text: '样本量估算方法', correct: true },
+            { text: '伴发事件处理策略', correct: false }
+        ];
+        designQs.push(makeChoice(1, 'design', '科研设计', 'tag-design', '💊', 'blue',
+            '根据ICH E9(R1)框架，估计目标(Estimand)需要明确五个属性。以下哪个选项不属于这五个属性？',
+            'N Engl J Med', '10.1056/NEJMp2513633', '中等', 'GLP-1受体激动剂（卡格林肽/司美格鲁肽）',
+            estimandScenario + '在GLP-1受体激动剂试验中，ITT分析显示治疗组体重减轻≥5%的比例比安慰剂组高60.4个百分点。',
+            q1Opts,
+            'ICH E9(R1)要求的五个属性是：治疗条件、目标人群、终点变量、伴发事件处理策略、总结指标。样本量估算是试验设计的重要部分，但不属于估计目标本身的属性。'
         ));
 
-        // Q2: 核心题 — HR与置信区间解读
-        designQs.push(makeEssay(
-            2, 'design', '科研设计', 'tag-design', '💊', 'blue',
-            'SELECT研究 · HR与置信区间解读',
-            'N Engl J Med', '10.1056/NEJMoa2307563', '中等',
-            '司美格鲁肽 2.4mg 每周一次',
-            selectScenario,
-            ['请解释 HR = 0.80（95%CI: 0.72 ~ 0.90）的含义。结合置信区间，说明该结果是否具有统计学意义。'],
-            ['HR = 0.80 表示司美格鲁肽组相比安慰剂组，主要MACE事件的发生风险 <strong>降低了20%</strong>（即风险比为0.80，1 − 0.80 = 0.20）。<br><strong>95%置信区间（0.72 ~ 0.90）</strong> 完全位于1.0的左侧（上限0.90 &lt; 1.0），说明该结果在α=0.05水平上具有 <strong>统计学意义</strong>（P &lt; 0.001）。同时，区间较窄（宽度0.18），说明估计精度较高，结果较为可靠。从临床角度，该效应在各类患者亚组中具有较好的一致性。'],
-            'HR<1表示保护效应；置信区间不包含1说明差异有统计学意义。'
+        const q2Opts = [
+            { text: '反映真实临床实践中"推荐该药"策略的效果', correct: false },
+            { text: '估计所有患者能坚持用药的理论情景下的效果', correct: true },
+            { text: '将停药患者的后续数据全部删除', correct: false },
+            { text: '低估药物的真实疗效', correct: false }
+        ];
+        designQs.push(makeChoice(2, 'design', '科研设计', 'tag-design', '💊', 'blue',
+            '在GLP-1受体激动剂试验中，因胃肠道副作用导致停药率约15%。如果采用"假想策略"处理停药这一伴发事件，其结果是：',
+            'N Engl J Med', '10.1056/NEJMp2513633', '中等', 'GLP-1受体激动剂（卡格林肽/司美格鲁肽）',
+            estimandScenario + '在GLP-1受体激动剂试验中，ITT分析显示治疗组体重减轻≥5%的比例比安慰剂组高60.4个百分点。',
+            q2Opts,
+            '假想策略假设所有参与者都能坚持治疗方案、无任何治疗中断，估计的是"如果所有患者都能耐受药物"的理论效应。'
         ));
 
-        // Q3: 综合题 — 事件驱动设计、竞争风险、临床价值
-        designQs.push(makeEssay(
-            3, 'design', '科研设计', 'tag-design', '💊', 'blue',
-            'SELECT研究 · 设计策略与临床解读',
-            'N Engl J Med', '10.1056/NEJMoa2307563', '中等',
-            '司美格鲁肽 2.4mg 每周一次',
-            selectScenario,
-            ['假设你是该研究的统计分析师，请回答以下问题：',
-                '1. 该研究"事件驱动"的设计对样本量估算有何影响？',
-                '2. 研究将主要结局定义为"首次发生"的复合终点，在统计分析时如何处理"竞争风险"问题？',
-                '3. 结合效应量和绝对风险差异，向临床医生解读该疗法的临床价值。'
+        const q3Opts = [
+            { text: 'ITT分析通常得出比试验产品估计更大的效应值', correct: false },
+            { text: '试验产品估计目标回答的是"推荐该治疗策略在真实临床中能带来多大效应"', correct: false },
+            { text: 'ITT分析将所有参与者按实际接受的治疗分组', correct: false },
+            { text: '试验产品估计目标可能高估临床实践中可观察到的效应', correct: true }
+        ];
+        designQs.push(makeChoice(3, 'design', '科研设计', 'tag-design', '💊', 'blue',
+            '关于ITT分析与试验产品估计目标的区别，以下说法正确的是：',
+            'N Engl J Med', '10.1056/NEJMp2513633', '中等', 'GLP-1受体激动剂（卡格林肽/司美格鲁肽）',
+            estimandScenario + '在GLP-1受体激动剂试验中，ITT分析显示治疗组体重减轻≥5%的比例比安慰剂组高60.4个百分点。',
+            q3Opts,
+            'ITT分析按随机分组分析所有患者，回答"推荐策略"的真实效果；试验产品估计剔除或推算因非依从而中断治疗的数据，通常得出更大的效应值，可能高估实际可观察到的效果。'
+        ));
+
+        const q4Opts = [
+            { text: 'ITT分析的样本量更大', correct: false },
+            { text: '试验产品估计对治疗中断者的后续体重数据进行了"如果继续治疗"的假设性填补', correct: true },
+            { text: '试验产品估计剔除了所有发生不良事件的患者', correct: false },
+            { text: '两组的基线特征不均衡', correct: false }
+        ];
+        designQs.push(makeChoice(4, 'design', '科研设计', 'tag-design', '💊', 'blue',
+            'REDEFINE 1试验中，ITT分析显示体重减轻≥5%的患者比例差异为60.4个百分点，而试验产品估计为70.0个百分点。造成这一差异的最可能原因是：',
+            'N Engl J Med', '10.1056/NEJMp2513633', '中等', 'GLP-1受体激动剂（卡格林肽/司美格鲁肽）',
+            estimandScenario + 'REDEFINE 1试验评估卡格林肽和司美格鲁肽的减重效果。',
+            q4Opts,
+            '两种估计的差异主要源于对伴发事件（治疗中断）的处理方式不同。ITT采用疗法策略，保留所有观测数据；试验产品估计采用假想策略，对中断治疗者进行假设性填补，通常导致效应被夸大。'
+        ));
+
+        const q5Opts = [
+            { text: '符合方案分析', correct: false },
+            { text: '意向性治疗分析', correct: true },
+            { text: '实际治疗分析', correct: false },
+            { text: '敏感性分析', correct: false }
+        ];
+        designQs.push(makeChoice(5, 'design', '科研设计', 'tag-design', '💊', 'blue',
+            'ICH E9(R1)框架中，"疗法策略"对应的是以下哪种分析？',
+            'N Engl J Med', '10.1056/NEJMp2513633', '中等', 'GLP-1受体激动剂（卡格林肽/司美格鲁肽）',
+            estimandScenario + '在GLP-1受体激动剂试验中，ITT分析显示治疗组体重减轻≥5%的比例比安慰剂组高60.4个百分点。',
+            q5Opts,
+            'ITT方法对应于ICH框架中的"疗法策略"，所有参与者均被纳入其被随机分配的组别，使用所有观测数据，忽略研究终止或治疗终止等伴发事件。'
+        ));
+
+        const q6Opts = [
+            { text: '假想策略', correct: false },
+            { text: '疗法策略', correct: false },
+            { text: '复合变量策略', correct: true },
+            { text: '主层策略', correct: false }
+        ];
+        designQs.push(makeChoice(6, 'design', '科研设计', 'tag-design', '💊', 'blue',
+            '以下哪种策略将伴发事件本身纳入治疗效应的估计中，而非将其排除或假设其未发生？',
+            'N Engl J Med', '10.1056/NEJMp2513633', '中等', 'GLP-1受体激动剂（卡格林肽/司美格鲁肽）',
+            estimandScenario + '在GLP-1受体激动剂试验中，ITT分析显示治疗组体重减轻≥5%的比例比安慰剂组高60.4个百分点。',
+            q6Opts,
+            '复合变量策略将伴发事件纳入治疗效应的估计中，认为这些事件提供了信息。复合变量的一个例子是"参与者在继续接受治疗的同时满足某个定义终点的标准"。'
+        ));
+
+        const q7Opts = [
+            { text: '摘要中应同时报告ITT和试验产品估计结果', correct: false },
+            { text: '摘要和主表仅展示ITT分析结果，其他估计目标应放在补充附录中', correct: true },
+            { text: 'ITT分析应作为次要分析报告', correct: false },
+            { text: '试验产品估计目标应在正文中优先呈现', correct: false }
+        ];
+        designQs.push(makeChoice(7, 'design', '科研设计', 'tag-design', '💊', 'blue',
+            'NEJM统计学编辑团队对临床试验报告的建议中，以下哪项是正确的？',
+            'N Engl J Med', '10.1056/NEJMp2513633', '中等', 'GLP-1受体激动剂（卡格林肽/司美格鲁肽）',
+            estimandScenario + '在GLP-1受体激动剂试验中，ITT分析显示治疗组体重减轻≥5%的比例比安慰剂组高60.4个百分点。',
+            q7Opts,
+            'NEJM统计学编辑建议：摘要与主表仅展示ITT（疗法策略）；若额外报告其他estimand，必须在正文及附录给出明确定义，且通常应出现在补充附录中。'
+        ));
+
+        // ---- 文献背景一：简答题 Q1-Q3 ----
+        designQs.push(makeEssay(8, 'design', '科研设计', 'tag-design', '💊', 'blue',
+            '什么是"估计目标"（Estimand）？它与我们熟悉的"意向性分析"（ITT）有何联系和区别？',
+            'N Engl J Med', '10.1056/NEJMp2513633', '中等', 'GLP-1受体激动剂（卡格林肽/司美格鲁肽）',
+            estimandScenario + '在GLP-1受体激动剂试验中，ITT分析显示治疗组体重减轻≥5%的比例比安慰剂组高60.4个百分点。',
+            ['请简要定义"估计目标"。', 'ITT分析与估计目标框架中的哪种策略对应？二者有何区别？'],
+            ['估计目标是对目标治疗效应的精确描述，在试验设计阶段预先定义，明确"要估计什么"。ICH E9(R1)框架要求明确五个属性：治疗条件、目标人群、终点变量、伴发事件处理策略、总结指标。',
+                'ITT分析对应ICH框架中的"疗法策略"，将所有参与者纳入其被随机分配的组别，使用所有观测数据，忽略治疗终止等伴发事件，回答的是"推荐该治疗策略在真实临床情境下能带来多大效应"的临床问题。ITT是估计目标框架下的一种具体策略，而不是估计目标本身。'
             ],
-            ['<strong>1. 事件驱动设计对样本量估算的影响：</strong> 事件驱动试验以预期事件数（而非固定随访时间）为样本量计算基础。研究者需基于既往文献估计安慰剂组的MACE事件发生率，并设定预期风险比（如HR=0.80），计算在给定检验效能（如90%）和α水平（如0.05）下所需的事件数。当累积到预设事件数时，试验终止。这种设计提高了试验效率，避免因事件率低于预期而导致检验效能不足。',
-                '<strong>2. 竞争风险的处理：</strong> 主要结局为"首次MACE"，但患者可能因非心血管死亡（如癌症、感染）而无法观察到MACE。在主要分析中，通常采用 <strong>Cox模型</strong> 将非心血管死亡作为删失处理（即竞争风险存在时，将其视为独立删失）。若竞争风险显著（如老年患者中非心血管死亡比例较高），则应进行 <strong>竞争风险敏感性分析</strong>（如Fine-Gray模型），以评估结果对竞争风险假设的稳健性。在SELECT研究中，由于人群相对年轻（≥45岁）且随访时间适中，竞争风险的影响较小，Cox模型是合理的主要分析方法。',
-                '<strong>3. 临床价值解读：</strong> <strong>绝对风险差异（ARD）</strong> = 8.0% − 6.5% = <strong>1.5%</strong>（即每1000名患者治疗约3.3年，可避免15次MACE事件）。<strong>需治疗人数（NNT）</strong> = 1 / 0.015 ≈ <strong>67</strong>（即每治疗67名患者约3.3年，可预防1次MACE事件）。结合HR=0.80（相对风险降低20%）和绝对风险降低1.5%，该疗法在心血管二级预防中具有 <strong>明确的临床获益</strong>。虽然绝对风险降幅看似不大，但考虑到MACE事件的严重性和患者基数，该效应具有重要的公共卫生意义。临床决策时需权衡获益与药物成本、不良反应（如胃肠道症状）及患者偏好。'
-            ],
-            '事件驱动设计以预期事件数为基础；竞争风险可通过Cox删失或Fine-Gray模型处理；临床价值需结合绝对风险差异和NNT综合判断。'
+            '估计目标的五个属性；ITT对应疗法策略，回答真实临床效果。'
         ));
 
-        // ---- 其余科研设计题目（来自之前的 Estimand / 目标试验模拟 / 多重比较）----
-        // 为保持科研设计模块达到50题，这里添加之前已有的题目（精简版）
-        // 实际使用时可从之前的代码中复制完整题目，这里为了代码简洁，用循环生成占位题
-        for (let i = 4; i <= 50; i++) {
-            const isChoice = i % 5 !== 0 && i % 5 !== 4; // 每5题中3选择2简答
+        designQs.push(makeEssay(9, 'design', '科研设计', 'tag-design', '💊', 'blue',
+            '请解释为什么基于"假想策略"的试验产品估计目标会得出比ITT更大的效应值？这在实际临床解读中有何风险？',
+            'N Engl J Med', '10.1056/NEJMp2513633', '中等', 'GLP-1受体激动剂（卡格林肽/司美格鲁肽）',
+            estimandScenario + '在GLP-1受体激动剂试验中，ITT分析显示治疗组体重减轻≥5%的比例比安慰剂组高60.4个百分点。',
+            ['假想策略如何处理治疗中断患者的数据？', '将假想策略的结果直接解读为"实际可观察效果"有什么风险？'],
+            ['假想策略（试验产品估计目标）假设所有参与者都能坚持治疗方案、无任何治疗中断。在GLP-1受体激动剂试验中，因副作用中断治疗者往往治疗效果较差，剔除这些患者的数据并为他们推算"如果继续治疗"的反事实值，会导致效应被高估。',
+                '一个重要的实际担忧是，假想的"试验产品"效应可能被错误地解读为"如果患者能够耐受副作用并继续接受治疗将会观察到的效果"。考虑到减肥本身已伴随巨大的心理和社会压力，这在GLP-1受体激动剂研究中将是一个不幸的后果。'
+            ],
+            '假想策略通过填补反事实数据高估效应；错误解读可能误导临床决策。'
+        ));
+
+        designQs.push(makeEssay(10, 'design', '科研设计', 'tag-design', '💊', 'blue',
+            '假设你是一项GLP-1受体激动剂试验的统计师，该药因胃肠道副作用导致停药率约15%。主要分析采用ITT，你被要求在次要分析中报告试验产品估计目标。请回答相关问题。',
+            'N Engl J Med', '10.1056/NEJMp2513633', '中等', 'GLP-1受体激动剂（卡格林肽/司美格鲁肽）',
+            estimandScenario + '在GLP-1受体激动剂试验中，ITT分析显示治疗组体重减轻≥5%的比例比安慰剂组高60.4个百分点。',
+            ['你会如何处理治疗中断患者的后续数据？', '如何向临床医生清晰说明两种估计目标的区别？', '根据NEJM的规范建议，你应如何呈现这些结果？'],
+            ['对中断治疗的患者，舍弃其治疗中断后测量的终点值，并使用统计模型在"治疗持续"的假设情景下推算反事实值进行替代。需在补充方法中详细说明模型假设与推算步骤。',
+                '应向临床医生明确说明：ITT的60.4%是"推荐该药"策略在实际临床中的平均获益，包含了因副作用停药的患者；试验产品估计的70.0%是"所有人都能坚持用药"的理论情景，该情景在现实中不可能实现，且其幅度通常大于实际可观察到的效应。二者回答的是不同问题，临床决策应主要依据ITT结果。',
+                '根据NEJM规范：摘要与主表仅展示ITT；若额外报告试验产品估计，必须在正文及附录给出明确定义，标注"假想估计目标——假设无人停药"，强调该估计非实际观察效应，幅度可能大于ITT，且通常应放在补充附录中。'
+            ],
+            '处理中断数据用模型填补反事实值；临床解读应区分ITT与假想策略；NEJM建议主表仅展示ITT。'
+        ));
+
+        // ---- 文献背景二：目标试验模拟 (DOI: 10.1056/NEJMp2407586) ----
+        const emulationScenario = `
+            <div style="margin-bottom:6px;">
+                <strong style="color:#8B1A2B;">文献背景：</strong>
+                <span style="font-size:0.85rem;color:#475569;">"Target Trial Emulation" for Observational Studies — Potential and Pitfalls · DOI: 10.1056/NEJMp2407586</span>
+            </div>
+            <div style="background:#f8fafc;border-radius:8px;padding:14px 18px;margin:8px 0 12px 0;font-size:0.9rem;border-left:4px solid #8B1A2B;">
+                NEJM全体6位统计学编辑联合撰文，探讨RCT不可行时如何通过"目标试验模拟"方法提高观察性研究的质量。
+                该方法将观察性研究设计模拟成假定RCT，以降低混杂和偏倚。文章阐述了实施框架的4个关键维度。
+            </div>
+        `;
+
+        const q8Opts = [
+            { text: '将观察性研究结果完全等同于RCT结果', correct: false },
+            { text: '通过模拟RCT的设计要素来减少观察性研究的偏倚', correct: true },
+            { text: '将观察性研究的样本量扩大至RCT水平', correct: false },
+            { text: '用观察性数据替代RCT进行监管审批', correct: false }
+        ];
+        designQs.push(makeChoice(11, 'design', '科研设计', 'tag-design', '👥', 'green',
+            '"目标试验模拟"的核心目标是：',
+            'N Engl J Med', '10.1056/NEJMp2407586', '中等', '真实世界数据与目标试验模拟',
+            emulationScenario + 'NEJM全体6位统计学编辑联合撰文，探讨RCT不可行时如何通过"目标试验模拟"方法提高观察性研究的质量。',
+            q8Opts,
+            '目标试验模拟并非要取代RCT或将观察性结果等同于RCT，而是通过借鉴RCT的设计原则来优化观察性研究设计，减少混杂和时间相关偏倚。'
+        ));
+
+        const q9Opts = [
+            { text: '发表偏倚', correct: false },
+            { text: '永恒时间偏倚', correct: true },
+            { text: '测量偏倚', correct: false },
+            { text: '回忆偏倚', correct: false }
+        ];
+        designQs.push(makeChoice(12, 'design', '科研设计', 'tag-design', '👥', 'green',
+            '在目标试验模拟中，"时间零点"的正确设定可以避免以下哪种偏倚？',
+            'N Engl J Med', '10.1056/NEJMp2407586', '中等', '真实世界数据与目标试验模拟',
+            emulationScenario + 'NEJM全体6位统计学编辑联合撰文，探讨RCT不可行时如何通过"目标试验模拟"方法提高观察性研究的质量。',
+            q9Opts,
+            '永恒时间偏倚（immortal time bias）是指错误地将患者从入组到开始接受治疗之间的"无事件时间"归因于治疗暴露。统一设定时间零点可消除此偏倚。'
+        ));
+
+        const q10Opts = [
+            { text: '明确的纳入和排除标准', correct: false },
+            { text: '治疗分配机制', correct: false },
+            { text: '随机化分组', correct: true },
+            { text: '时间零点和结局定义', correct: false }
+        ];
+        designQs.push(makeChoice(13, 'design', '科研设计', 'tag-design', '👥', 'green',
+            '以下哪个不属于目标试验模拟框架的核心设计要素？',
+            'N Engl J Med', '10.1056/NEJMp2407586', '中等', '真实世界数据与目标试验模拟',
+            emulationScenario + 'NEJM全体6位统计学编辑联合撰文，探讨RCT不可行时如何通过"目标试验模拟"方法提高观察性研究的质量。',
+            q10Opts,
+            '目标试验模拟是观察性研究，无法真正实施随机化分组。它通过明确定义时间零点、纳排标准、治疗分配和结局等要素来模拟RCT的设计。'
+        ));
+
+        const q11Opts = [
+            { text: '数据更新频率过快', correct: false },
+            { text: '数据缺失、诊断定义不准确、治疗施用不统一', correct: true },
+            { text: '数据来源过于单一', correct: false },
+            { text: '数据存储格式不兼容', correct: false }
+        ];
+        designQs.push(makeChoice(14, 'design', '科研设计', 'tag-design', '👥', 'green',
+            '使用真实世界数据（如电子健康档案）进行目标试验模拟时，以下哪个是需要特别注意的数据质量问题？',
+            'N Engl J Med', '10.1056/NEJMp2407586', '中等', '真实世界数据与目标试验模拟',
+            emulationScenario + 'NEJM全体6位统计学编辑联合撰文，探讨RCT不可行时如何通过"目标试验模拟"方法提高观察性研究的质量。',
+            q11Opts,
+            '根据NEJM文章，RWD如电子健康档案虽然具有及时性和可推广性等优势，但研究者需注意数据的质量问题，包括数据缺失、确认和定义不准确、治疗施用不统一等。'
+        ));
+
+        const q12Opts = [
+            { text: '仅报告P值', correct: false },
+            { text: '进行敏感性分析并报告未观察混杂因素对结果的影响', correct: true },
+            { text: '增加样本量至10万以上', correct: false },
+            { text: '排除所有有混杂因素的患者', correct: false }
+        ];
+        designQs.push(makeChoice(15, 'design', '科研设计', 'tag-design', '👥', 'green',
+            '目标试验模拟研究中，以下哪种做法有助于评估结果对未观察混杂因素的稳健性？',
+            'N Engl J Med', '10.1056/NEJMp2407586', '中等', '真实世界数据与目标试验模拟',
+            emulationScenario + 'NEJM全体6位统计学编辑联合撰文，探讨RCT不可行时如何通过"目标试验模拟"方法提高观察性研究的质量。',
+            q12Opts,
+            'NEJM文章指出，敏感性分析需报告、量化未观察混杂因素和关键设计要素变化对结果的影响；评估结果对未观察混杂因素的稳健性。'
+        ));
+
+        // ---- 文献背景二：简答题 Q4-Q6 ----
+        designQs.push(makeEssay(16, 'design', '科研设计', 'tag-design', '👥', 'green',
+            '什么是"目标试验模拟"？其核心思路是什么？',
+            'N Engl J Med', '10.1056/NEJMp2407586', '中等', '真实世界数据与目标试验模拟',
+            emulationScenario + 'NEJM全体6位统计学编辑联合撰文，探讨RCT不可行时如何通过"目标试验模拟"方法提高观察性研究的质量。',
+            ['请定义目标试验模拟。', '该方法的4个关键维度是什么？'],
+            ['目标试验模拟是一种将观察性研究设计模拟成假定随机对照试验的方法。',
+                '实施框架的4个关键维度：目标试验模拟框架建立、关键因素、真实世界数据、规范要求。'
+            ],
+            '目标试验模拟通过模拟RCT设计优化观察性研究；4个维度：框架建立、关键因素、RWD、规范要求。'
+        ));
+
+        designQs.push(makeEssay(17, 'design', '科研设计', 'tag-design', '👥', 'green',
+            '目标试验模拟框架要求设定"时间零点"。请解释时间零点设定的重要性，并举例说明。',
+            'N Engl J Med', '10.1056/NEJMp2407586', '中等', '真实世界数据与目标试验模拟',
+            emulationScenario + 'NEJM全体6位统计学编辑联合撰文，探讨RCT不可行时如何通过"目标试验模拟"方法提高观察性研究的质量。',
+            ['时间零点不清晰会导致什么偏倚？', '请举例说明如何正确设定时间零点。'],
+            ['"时间零点"是患者符合入组标准并开始接受治疗或随访的起始时间点。统一设定时间零点至关重要，因为如果时间零点定义不清晰，可能引入"永恒时间偏倚"或选择偏倚。',
+                '例如，在比较两种疫苗预防SARS-CoV-2感染的效力时，以注射第一剂疫苗的日期为时间零点，可以避免将患者从入组到注射期间的"无事件时间"错误地归因于疫苗暴露，从而消除永恒时间偏倚和选择偏倚。'
+            ],
+            '时间零点设定可避免永恒时间偏倚；示例：疫苗研究以第一剂注射日期为时间零点。'
+        ));
+
+        designQs.push(makeEssay(18, 'design', '科研设计', 'tag-design', '👥', 'green',
+            '使用真实世界数据（如电子健康档案）进行目标试验模拟可能面临哪些偏倚？应如何通过敏感性分析来评估结果稳健性？',
+            'N Engl J Med', '10.1056/NEJMp2407586', '中等', '真实世界数据与目标试验模拟',
+            emulationScenario + 'NEJM全体6位统计学编辑联合撰文，探讨RCT不可行时如何通过"目标试验模拟"方法提高观察性研究的质量。',
+            ['使用RWD进行目标试验模拟的主要偏倚有哪些？', '如何通过敏感性分析评估结果的稳健性？'],
+            ['主要偏倚包括：（1）未观察协变量导致的混杂效应；（2）数据缺失、诊断定义不准确、治疗施用不统一等数据质量问题；（3）参与者和临床医师未设盲可能影响结局评估。',
+                '敏感性分析应报告未观察混杂因素和关键设计要素变化对结果的影响，评估结果对未观察混杂因素的稳健性。还可利用阴性对照（已知与治疗无关的结局）来量化残留偏倚的程度。'
+            ],
+            '主要偏倚：未观察混杂、数据质量问题、未设盲；敏感性分析应报告未观察混杂的影响。'
+        ));
+
+        // ---- 文献背景三：多重比较 (DOI: 10.1056/NEJMoa2501488) ----
+        const mcpScenario = `
+            <div style="margin-bottom:6px;">
+                <strong style="color:#8B1A2B;">文献背景：</strong>
+                <span style="font-size:0.85rem;color:#475569;">Phase 3 Trials of Inhaled Treprostinil for Idiopathic Pulmonary Fibrosis · DOI: 10.1056/NEJMoa2501488</span>
+            </div>
+            <div style="background:#f8fafc;border-radius:8px;padding:14px 18px;margin:8px 0 12px 0;font-size:0.9rem;border-left:4px solid #8B1A2B;">
+                该综述旨在让非统计学专业人员了解控制I类错误的传统方法以及被称为"图形检验"的看似复杂的程序。
+                文章指出，对多个假设进行统计检验可能会增加错误地得出某个给定终点结果具有统计学意义的结论（假阳性发现）的风险。
+            </div>
+        `;
+
+        const q13Opts = [
+            { text: 'II类错误（假阴性）增加', correct: false },
+            { text: 'I类错误（假阳性）膨胀', correct: true },
+            { text: '检验效能降低', correct: false },
+            { text: '样本量要求增加', correct: false }
+        ];
+        designQs.push(makeChoice(19, 'design', '科研设计', 'tag-design', '📊', 'amber',
+            '在临床试验中进行多个假设检验时，需要控制的主要风险是：',
+            'N Engl J Med', '10.1056/NEJMoa2501488', '简单', '吸入曲前列尼尔治疗特发性肺纤维化',
+            mcpScenario + '该综述旨在让非统计学专业人员了解控制I类错误的传统方法以及被称为"图形检验"的看似复杂的程序。',
+            q13Opts,
+            '根据NEJM Evidence综述，对多个假设进行统计检验可能会增加错误地得出某个给定终点结果具有统计学意义的结论（假阳性发现）的风险。'
+        ));
+
+        const q14Opts = [
+            { text: '大样本量', correct: false },
+            { text: '随机化分组', correct: true },
+            { text: '长期随访', correct: false },
+            { text: '多中心合作', correct: false }
+        ];
+        designQs.push(makeChoice(20, 'design', '科研设计', 'tag-design', '📊', 'amber',
+            '以下哪个研究设计要素是RCT区别于观察性研究的核心特征？',
+            'N Engl J Med', '10.1056/NEJMoa2501488', '简单', '吸入曲前列尼尔治疗特发性肺纤维化',
+            mcpScenario + '该综述旨在让非统计学专业人员了解控制I类错误的传统方法以及被称为"图形检验"的看似复杂的程序。',
+            q14Opts,
+            'RCT通过严格纳入排除标准、随机化分组和设盲来降低混杂因素和偏倚，验证干预措施与结果的关系。'
+        ));
+
+        const q15Opts = [
+            { text: '仅描述数据来源', correct: false },
+            { text: '混杂因素调整、敏感性分析', correct: true },
+            { text: '仅描述主要结局', correct: false },
+            { text: '仅描述样本量计算', correct: false }
+        ];
+        designQs.push(makeChoice(21, 'design', '科研设计', 'tag-design', '📊', 'amber',
+            '目标试验模拟研究中，研究者在统计分析计划（SAP）中应涵盖以下哪些内容？',
+            'N Engl J Med', '10.1056/NEJMoa2501488', '简单', '吸入曲前列尼尔治疗特发性肺纤维化',
+            mcpScenario + '该综述旨在让非统计学专业人员了解控制I类错误的传统方法以及被称为"图形检验"的看似复杂的程序。',
+            q15Opts,
+            '根据NEJM规范要求，SAP应涵盖混杂因素调整、敏感性分析等，以评估结果的稳健性。'
+        ));
+
+        // ---- 文献背景三：简答题 Q7-Q8 ----
+        designQs.push(makeEssay(22, 'design', '科研设计', 'tag-design', '📊', 'amber',
+            '为什么在临床试验中需要对多重比较进行控制？不控制会带来什么后果？',
+            'N Engl J Med', '10.1056/NEJMoa2501488', '简单', '吸入曲前列尼尔治疗特发性肺纤维化',
+            mcpScenario + '该综述旨在让非统计学专业人员了解控制I类错误的传统方法以及被称为"图形检验"的看似复杂的程序。',
+            ['多重比较不控制会导致什么问题？', '假阳性风险增加会带来什么后果？'],
+            ['在临床试验中，对多个假设进行统计检验可能会增加假阳性发现（即错误地认为某个终点结果具有统计学意义）的风险。',
+                '如果不加以控制，随着检验次数的增加，整个研究中至少出现一次假阳性的总概率会远高于预设的α水平（通常为5%），导致研究者可能从多个次要结局中"偶然"发现一些看似显著但实际无效的结果，并将其错误地解读为治疗有效，从而夸大疗效或产生误导性结论。'
+            ],
+            '多重比较增加假阳性风险；不控制可能夸大疗效。'
+        ));
+
+        designQs.push(makeEssay(23, 'design', '科研设计', 'tag-design', '📊', 'amber',
+            '传统的多重比较控制方法有哪些？什么是"图形检验"方法？',
+            'N Engl J Med', '10.1056/NEJMoa2501488', '简单', '吸入曲前列尼尔治疗特发性肺纤维化',
+            mcpScenario + '该综述旨在让非统计学专业人员了解控制I类错误的传统方法以及被称为"图形检验"的看似复杂的程序。',
+            ['列举传统的多重比较控制方法。', '什么是图形检验方法？'],
+            ['传统的多重比较控制方法包括Bonferroni法、Tukey HSD法、Dunnett法等。',
+                '该综述专门介绍了一种被称为"图形检验"（graphical testing）的方法，该方法看似复杂，但设计用于让非统计学专业人员理解和应用，以控制多重比较中的I类错误。'
+            ],
+            '传统方法：Bonferroni、Tukey HSD、Dunnett；图形检验是一种新的多重比较控制方法。'
+        ));
+
+        // ---- 补齐科研设计模块至50题（剩余27题用占位） ----
+        for (let i = 24; i <= 50; i++) {
+            const isChoice = i % 5 !== 0 && i % 5 !== 4;
             if (isChoice) {
                 designQs.push(makeChoice(
                     i, 'design', '科研设计', 'tag-design', '💊', 'blue',
                     `科研设计选择题 ${i}`,
                     'N Engl J Med', '10.1056/NEJMoa' + String(12345678 + i).slice(0, 8),
-                    '中等',
-                    '相关药物知识',
+                    '中等', '相关药物知识',
                     '这是一道关于科研设计的选择题，考查估计目标、ITT或试验设计相关知识。',
                     [
                         { text: '选项A 正确描述', correct: true },
@@ -1412,8 +1706,7 @@
                     i, 'design', '科研设计', 'tag-design', '💊', 'blue',
                     `科研设计简答题 ${i}`,
                     'N Engl J Med', '10.1056/NEJMoa' + String(12345678 + i).slice(0, 8),
-                    '中等',
-                    '相关药物知识',
+                    '中等', '相关药物知识',
                     '这是一道关于科研设计的简答题，请结合估计目标、ITT或试验设计原则作答。',
                     ['问题一：请简述核心概念。', '问题二：请举例说明应用场景。'],
                     ['答案一：核心概念的解释。', '答案二：应用场景的举例。'],
@@ -1441,8 +1734,7 @@
                         id, cat, moduleLabels[mi], tags[mi], moduleIcons[mi], iconClasses[mi],
                         `${moduleLabels[mi]}选择题 ${i+1}`,
                         'N Engl J Med', '10.1056/NEJMoa' + String(12345678 + id).slice(0, 8),
-                        '中等',
-                        '相关药物知识',
+                        '中等', '相关药物知识',
                         `这是关于${moduleLabels[mi]}的选择题场景描述。`,
                         [
                             { text: '选项A 正确描述', correct: true },
@@ -1457,8 +1749,7 @@
                         id, cat, moduleLabels[mi], tags[mi], moduleIcons[mi], iconClasses[mi],
                         `${moduleLabels[mi]}简答题 ${i+1}`,
                         'N Engl J Med', '10.1056/NEJMoa' + String(12345678 + id).slice(0, 8),
-                        '中等',
-                        '相关药物知识',
+                        '中等', '相关药物知识',
                         `这是关于${moduleLabels[mi]}的简答题场景。`,
                         ['问题一：请简述核心概念。', '问题二：请举例说明应用场景。'],
                         ['答案一：核心概念的解释。', '答案二：应用场景的举例。'],
@@ -1657,7 +1948,7 @@
 
     function renderCats() {
         const cats = [
-            { key: 'design', label: '科研设计', icon: '💊', ic: 'blue', desc: 'Estimand/ITT/SELECT研究' },
+            { key: 'design', label: '科研设计', icon: '💊', ic: 'blue', desc: 'Estimand/ITT/目标试验模拟' },
             { key: 'observe', label: '观察性研究', icon: '👥', ic: 'green', desc: '队列/病例对照' },
             { key: 'mean', label: '均值比较', icon: '📏', ic: 'amber', desc: 't/方差/秩和' },
             { key: 'assoc', label: '关联分析', icon: '🔢', ic: 'rose', desc: '卡方/相关' },
