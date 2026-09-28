@@ -4146,7 +4146,7 @@
                 difficulty: '⭐⭐',
                 bgSummary: `📄<strong>文献背景：</strong>该 NEJM 述评强调，临床试验中不仅要关注结局，还要关注可能改变结局解释的伴发事件。<br><strong>核心考点：</strong>伴发事件是估计目标框架中的关键概念，直接影响治疗效应的定义和分析策略。<br><strong>内容要点：</strong>伴发事件通常发生在随机化之后、主要结局之前，并可能干扰对原干预效果的判断。<br><strong>易错提醒：</strong>伴发事件不是基线分层因素，也不是结局指标本身。`,
                 options: [
-                    { text: '伴发事件（intercurrent event）', correct: ture },
+                    { text: '伴发事件（intercurrent event）', correct: true },
                     { text: '主要结局事件', correct:false },
                     { text: '随机化分层因素', correct: false },
                     { text: '缺失值填补算法', correct: false }
@@ -4209,7 +4209,7 @@
                     { text: '直接从数据库提取变量进行多因素回归', correct: false },
                     { text: '先开展 Meta 分析合并已有研究', correct: false },
                     { text: '先对所有缺失数据进行多重插补', correct: false },
-                    { text: '定义与研究问题对应的理想目标 RCT 方案', correct: ture}
+                    { text: '定义与研究问题对应的理想目标 RCT 方案', correct: true }
                 ],
                 explanation: '目标试验模拟的第一步是明确目标试验本身：研究人群、干预和对照、纳入排除标准、随访时间零点、结局定义和观察时间窗。只有先把这个假想 RCT 定义清楚，后续数据筛选和分析才有依据。<br><strong>详细解析：</strong>如果直接进入回归或缺失值插补，研究者很容易被现有数据结构牵着走，导致研究问题漂移、时间顺序混乱和选择偏倚。<br><strong>易错点：</strong>目标试验模拟不是一种特定回归模型，也不是 Meta 分析方法，而是一种因果推断的设计框架。'
             }, {
@@ -4447,8 +4447,8 @@
                 bgSummary: `📄<strong>文献背景：</strong>该NEJM Special Report系统讨论了临床试验中亚组分析与多重比较问题，明确指出多组均值比较不能反复做t检验。<br><strong>核心考点：</strong>多组均值比较的标准方法是单因素方差分析（ANOVA），其F检验同时检验所有组总体均值是否全部相等。<br><strong>内容要点：</strong>反复两两t检验会累积I类错误，必须先做ANOVA整体检验。<br><strong>易错提醒：</strong>ANOVA显著后仍需事后两两比较才能定位哪两组不同。`,
                 options: [
                     { text: '多次独立样本t检验', correct: false },
-                    { text: '单因素方差分析', correct:ture },
-                    { text: '配对t检验', correct:false },
+                    { text: '单因素方差分析', correct: true },
+                    { text: '配对t检验', correct: false },
                     { text: '卡方检验', correct: false }
                 ],
                 explanation: '单因素方差分析用于检验k个独立样本的总体均值是否全部相等，原假设H0为所有组总体均值相同。<br><strong>详细解析：</strong>如果做k组两两t检验，比较次数为k(k‑1)/2次，每次检验α=0.05时，至少出现一次假阳性的总概率远大于0.05。ANOVA通过一个F检验同时控制整体I类错误。当ANOVA的P<0.05，说明至少有两组均值不同，但不能确定具体哪两组，需要事后多重比较（Tukey、Dunnett等）。<br><strong>易错点：</strong>ANOVA显著≠每两组都有差异；ANOVA不显著也不代表任何两组都没差异（效能问题）。'
@@ -4466,9 +4466,9 @@
                 difficulty: '⭐⭐⭐',
                 bgSummary: `📄<strong>文献背景：</strong>该NEJM外科RCT比较两种术式术后疼痛评分，资料正态但方差不齐，考察非参数备选方法。<br><strong>核心考点：</strong>Mann-Whitney U检验（Wilcoxon秩和检验）用于两独立样本非参数比较。<br><strong>内容要点：</strong>两独立样本非参数检验比较总体分布位置；参数优先Welch t。<br><strong>易错提醒：</strong>Mann-Whitney U检验比较的是分布，不是均值。`,
                 options: [
-                    { text: 'Mann-Whitney U检验', correct:ture },
-                    { text: '单样本t检验', correct:false },
-                    { text: '配对t检验', correct:false },
+                    { text: 'Mann-Whitney U检验', correct: true },
+                    { text: '单样本t检验', correct: false },
+                    { text: '配对t检验', correct: false },
                     { text: '卡方检验', correct: false }
                 ],
                 explanation: '两独立样本，参数方法可选Welch校正t；非参数备选为Mann‑Whitney U检验，也叫Wilcoxon秩和检验。<br><strong>详细解析：</strong>配对t检验用于配对；单样本t检验用于单组；卡方检验用于分类资料。Mann‑Whitney U检验利用秩次，不需要正态方差齐。<br><strong>易错点：</strong>不能把Mann‑Whitney U检验当成直接比较两组均值。'
@@ -4486,9 +4486,9 @@
                 difficulty: '⭐⭐⭐',
                 bgSummary: `📄<strong>文献背景：</strong>NEJM三期临床试验设置4组剂量，方差分析整体阳性后，需要开展组间两两比较，控制整体I类错误。<br><strong>核心考点：</strong>方差分析事后两两比较，Tukey法适合组数不多的两两比较。<br><strong>内容要点：</strong>不能反复做普通t检验；Tukey、Bonferroni均为常用校正方法。<br><strong>易错提醒：</strong>只有方差分析整体P<0.05，才进行事后两两比较。`,
                 options: [
-                    { text: 'Tukey法', correct:ture },
-                    { text: '单样本t检验', correct:false },
-                    { text: '配对t检验', correct:false },
+                    { text: 'Tukey法', correct: true },
+                    { text: '单样本t检验', correct: false },
+                    { text: '配对t检验', correct: false },
                     { text: '直接多次独立样本t检验', correct: false }
                 ],
                 explanation: '方差分析后多组两两比较，Tukey法可以控制总的I类错误。<br><strong>详细解析：</strong>多次t检验会累积一类错误；配对t、单样本t不适合多组间两两比较。Bonferroni也是常用校正方法，组数少时Tukey检验效能更好。<br><strong>易错点：</strong>不要在方差分析P>0.05时，强行做两两比较寻找差异。'
@@ -4843,7 +4843,7 @@
     options: [
         { text: '模型在训练集上的表现越差，越容易发生过拟合', correct: false },
         { text: '增加自变量数量总能改善模型的外部泛化能力', correct: false },
-        { text: '过度拟合的模型通常方差较大，偏差较小', correct: true },
+        { text: '过度拟合的模型通常方差较小，偏差较大', correct: false },
         { text: '过度拟合可通过增加样本量和正则化来缓解', correct: true }
     ],
     explanation: '过度拟合模型方差大、偏差小，可通过增加样本量、正则化等缓解。'
