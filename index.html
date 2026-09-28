@@ -1428,7 +1428,8 @@
                     '如果不加以控制，随着检验次数的增加，整个研究中至少出现一次假阳性的总概率会远高于预设的α水平（通常为5%），导致研究者可能从多个次要结局中“偶然”发现一些看似显著但实际无效的结果，并将其错误地解读为治疗有效，从而夸大疗效或产生误导性结论。'
                 ],
                 keyPoints: '多重比较；假阳性'
-            },
+            }, 
+
             // ================================================================
             // 模块二：观察性研究
             // ================================================================
@@ -4086,8 +4087,2058 @@
                 subQuestions: ['本研究的频率学派Meta分析显示RR=0.96（95% CI 0.91~1.01），贝叶斯分析显示后验概率89.5%。请回答：（1）为什么同一数据集的两种分析方法会给出"不一致"的信息？（2）临床医生应如何理解"统计学不显著"与"临床上有意义的概率"之间的张力？（3）在制定临床指南时，应如何权衡这种证据？'],
                 answers: ['（1）频率学派与贝叶斯学派回答的是不同的问题。频率学派的95% CI（0.91~1.01）包含1，按α=0.05标准意味着"未能拒绝零假设"（无显著差异）；贝叶斯分析计算的是"给定数据和先验下，效应为真的后验概率"（89.5%的概率降低死亡）。前者是"检验"，后者是"概率赋值"——两者不是矛盾，而是信息呈现方式不同。（2）临床医生应认识到："统计学不显著"不等于"无效"。当RR=0.96且95% CI上限接近1时，真实效应可能从9%降低到1%增加，临床获益的可能性大于风险。贝叶斯分析的89.5%后验概率提供了更直观的临床决策信息——尽管未达到常规显著性阈值，但临床判断应结合效应大小、临床重要性和概率权衡。（3）临床指南制定需综合考虑：效应估计值（RR=0.96，方向有利于平衡晶体液）、效应估计的精确度（CI接近1）、后验概率（89.5%）、成本效益及安全性证据。ISICEM指南基于本研究和另一项BICAR-ICU试验的证据，将平衡晶体液列为中度推荐。指南决策不应仅依赖单一的P值或显著性阈值，而应整合效应大小、证据质量和临床情境。'],
                 keyPoints: '贝叶斯后验概率提供更直观的临床决策信息。'
-            }
-        ];
+            },
+                 // ================================================================
+         // 模块一：科研设计
+         // ================================================================
+            {
+                id: 153,
+                type: 'choice',
+                category: 'design',
+                catLabel: '科研设计',
+                tagClass: 'tag-design',
+                icon: '💊',
+                iconClass: 'blue',
+                title: 'ITT 意向治疗分析的核心分组原则是？',
+                journal: 'N Engl J Med',
+                doi: '10.1056/NEJMoa2304748',
+                difficulty: '⭐⭐',
+                drugKnowledge: 'ITT意向治疗分析：所有随机化分配的受试者按原始分组分析，无论是否依从治疗；核心价值是保护随机化基线均衡，避免选择偏倚。",
+                bgSummary: `📄<strong>文献背景：</strong>该文发表于《New England Journal of Medicine》，是一项大型随机对照临床试验，涉及抗感染治疗效果评价。<br><strong>核心考点：</strong>ITT 分析是确证性临床试验主分析的标准人群，其价值在于保护随机化带来的基线均衡。<br><strong>内容要点：</strong>ITT 强调所有经过随机化分配的受试者，无论后续是否依从治疗，都应按原始分组进入分析。<br><strong>易错提醒：</strong>ITT 不是只分析完成试验的人，也不是按实际接受治疗重新分组。`,
+                options: [
+                    { text: '按随机化分配的原始组别分析，无论实际是否接受治疗', correct: true },
+                    { text: '只分析完全依从试验药物的受试者', correct: false },
+                    { text: '按实际接受的治疗重新分组分析', correct: false },
+                    { text: '只分析完成全部随访且无方案违背的受试者', correct: false }
+                ],
+                explanation: 'ITT（intention-to-treat）分析的核心是「随机分组终身保留」。受试者一旦被随机分配到试验组或对照组，即使后续未服药、部分服药、换药或失访，也必须继续留在原随机分组中进行随访和分析。<br><strong>详细解析：</strong>随机化的关键作用是使两组在已知和未知基线因素上趋于平衡。如果根据依从性或实际治疗重新分组，会破坏随机化，导致病情、预后、依从性等因素在组间分布失衡，产生选择偏倚。<br><strong>易错点：</strong>PP 分析只保留依从良好、无重大方案违背的受试者，通常作为敏感性分析，不能替代 ITT 作为确证试验的主要分析集。'
+            }, {
+                id: 154,
+                type: 'choice',
+                category: 'design',
+                catLabel: '科研设计',
+                tagClass: 'tag-design',
+                icon: '💊',
+                iconClass: 'blue',
+                title: '目标试验模拟（Target Trial Emulation）的主要目的是？',
+                journal: 'N Engl J Med',
+                doi: '10.1056/NEJMoa2510226',
+                difficulty: '⭐⭐',
+                bgSummary: `📄 <strong>文献背景：</strong>该文发表于《New England Journal of Medicine》，讨论如何利用观察性数据库模拟目标试验，进行真实世界因果推断。<br><strong>核心考点：</strong>目标试验模拟是连接观察性研究与随机对照试验逻辑的重要方法，特别适用于无法或不宜开展随机试验的临床问题。<br><strong>内容要点：</strong>其思路是先定义理想 RCT 的入排标准、干预、随访时间和结局，再用真实世界数据复刻这套设计。<br><strong>易错提醒：</strong>目标试验模拟不能完全消除未测量混杂，也不能替代真正的 RCT。`,
+                options: [
+                    { text: '用真实世界数据模拟理想 RCT 设计，减少观察性研究混杂与选择偏倚', correct: ture },
+                    { text: '扩大随机对照试验的样本量', correct: false },
+                    { text: '替代 Meta 分析合并多个 RCT', correct: false },
+                    { text: '直接比较不同诊断试验的准确性', correct: false }
+                ],
+                explanation: '目标试验模拟的核心不是单纯做回归分析，而是先在方法学上构建一个「如果条件允许，我们会开展怎样的理想 RCT」，然后利用现有观察性数据库尽可能复刻该试验的纳入排除、暴露定义、随访起点和终点。<br><strong>详细解析：</strong>通过这种方式，研究者可以减少传统观察性研究中常见的适应证混杂、时间偏倚和选择偏倚，使因果推断更接近随机试验的逻辑。<br><strong>易错点：</strong>该方法仍然属于观察性研究范畴，无法处理数据库中没有记录的未测量混杂因素，因此不能宣称与真正随机化完全等价。'
+            }, {
+                id: 155,
+                type: 'choice',
+                category: 'design',
+                catLabel: '科研设计',
+                tagClass: 'tag-design',
+                icon: '💊',
+                iconClass: 'blue',
+                title: '在 Estimand 框架中，受试者随机化后、结局发生前提前停用试验药物，最适合归为哪类事件？',
+                journal: 'N Engl J Med',
+                doi: '10.1056/NEJMp2513633',
+                difficulty: '⭐⭐',
+                bgSummary: `📄<strong>文献背景：</strong>该 NEJM 述评强调，临床试验中不仅要关注结局，还要关注可能改变结局解释的伴发事件。<br><strong>核心考点：</strong>伴发事件是估计目标框架中的关键概念，直接影响治疗效应的定义和分析策略。<br><strong>内容要点：</strong>伴发事件通常发生在随机化之后、主要结局之前，并可能干扰对原干预效果的判断。<br><strong>易错提醒：</strong>伴发事件不是基线分层因素，也不是结局指标本身。`,
+                options: [
+                    { text: '伴发事件（intercurrent event）', correct: ture },
+                    { text: '主要结局事件', correct:false },
+                    { text: '随机化分层因素', correct: false },
+                    { text: '缺失值填补算法', correct: false }
+                ],
+                explanation: '提前停用试验药物、换用补救治疗、开始其他影响结局的干预等，都属于伴发事件。它们发生在随机化之后、目标结局之前，可能改变对原治疗效果的解释。<br><strong>详细解析：</strong>如果试验事先没有明确伴发事件的处理策略，研究者可能在结果出来后选择性地删除停药病例、将其视为治疗失败，或用不同方式处理不同组别的事件，从而导致偏倚。<br><strong>易错点：</strong>伴发事件不是结局本身，也不是用于随机分层的基线变量，更不是统计分析算法；它是需要在试验设计阶段预先规定处理方式的临床事件。'
+            }, {
+                id: 156,
+                type: 'choice',
+                category: 'design',
+                catLabel: '科研设计',
+                tagClass: 'tag-design',
+                icon: '💊',
+                iconClass: 'blue',
+                title: 'Per-Protocol（符合方案集）分析的最大风险是？',
+                journal: 'N Engl J Med',
+                doi: '10.1056/NEJMoa2304748',
+                difficulty: '⭐⭐',
+                bgSummary: `📄 <strong>文献背景：</strong>该 NEJM 临床试验文章系统比较了 ITT 集与 PP 集在确证性试验中的作用与局限性。<br><strong>核心考点：</strong>PP 集只纳入依从性良好、无重大方案违背的受试者，因此其证据等级和偏倚风险是考试重点。<br><strong>内容要点：</strong>PP 分析虽然可能更接近理想依从条件下的生物学效应，但会破坏随机化分组带来的基线均衡。<br><strong>易错提醒：</strong>PP 分析的主要问题不是样本量小，而是选择偏倚。`,
+                options: [
+                    { text: '样本量一定过小', correct: false },
+                    { text: '破坏随机化基线均衡，引入选择偏倚', correct: true },
+                    { text: '无法计算置信区间', correct: false },
+                    { text: '只能用于安全性分析', correct: false }
+                ],
+                explanation: 'PP 符合方案集排除了未依从治疗、失访、违反入排标准或发生重大方案违背的受试者，只保留按计划完成试验的人群。<br><strong>详细解析：</strong>由于被排除的受试者往往在病情、预后、合并症或依从性上与保留者存在系统性差异，PP 分析会破坏随机化形成的组间基线平衡，导致选择偏倚。这种偏倚可能使治疗效果被高估，因此 PP 通常作为敏感性分析，而不是确证试验的主要分析集。<br><strong>易错点：</strong>样本量减少和检验效能下降是可能后果，但不是 PP 最核心的方法学风险；PP 集也不是只能做安全性分析。'
+            }, {
+                id: 157,
+                type: 'choice',
+                category: 'design',
+                catLabel: '科研设计',
+                tagClass: 'tag-design',
+                icon: '💊',
+                iconClass: 'blue',
+                title: 'Estimand 框架中的「假设策略」最接近以下哪种理解？',
+                journal: 'N Engl J Med',
+                doi: '10.1056/NEJMp2513633',
+                difficulty: '⭐⭐',
+                bgSummary: `📄 <strong>文献背景：</strong>该 NEJM 方法学文章将伴发事件处理策略作为估计目标的重要组成部分，强调不同策略对应不同科学问题。<br><strong>核心考点：</strong>假设策略是 Estimand 中较抽象但高频出现的概念，常用于评估理想条件下的治疗效应。<br><strong>内容要点：</strong>假设策略不是简单删除病例，而是虚拟假设伴发事件不发生时的治疗效果。<br><strong>易错提醒：</strong>假设策略与 PP 分析不同，不能将其理解为「只分析依从者」。`,
+                options: [
+                    { text: '直接删除所有发生伴发事件的受试者', correct: false },
+                    { text: '假设受试者不发生该伴发事件，评估其持续接受原干预时的治疗效应', correct: true },
+                    { text: '将发生伴发事件的受试者全部归入对照组', correct: false },
+                    { text: '只分析符合方案集受试者', correct: false }
+                ],
+                explanation: '假设策略（hypothetical strategy）是 Estimand 框架中处理伴发事件的一种方式，其目标是回答：如果受试者没有发生该伴发事件并持续接受原干预，治疗效应会是多少？<br><strong>详细解析：</strong>这种策略关注的是理想依从或理想条件下的生物学效应，通常需要通过特定统计方法进行虚拟校正，而不是简单删除病例。<br><strong>易错点：</strong>选项 B、C、D 都属于事后数据处理或人群筛选，不是 Estimand 意义上的假设策略。PP 分析关注依从性，假设策略关注效应定义，二者概念不同。'
+            }, {
+                id: 158,
+                type: 'choice',
+                category: 'design',
+                catLabel: '科研设计',
+                tagClass: 'tag-design',
+                icon: '💊',
+                iconClass: 'blue',
+                title: '目标试验模拟在观察性研究中的第一步通常是？',
+                journal: 'N Engl J Med',
+                doi: '10.1056/NEJMoa2510226',
+                difficulty: '⭐⭐',
+                bgSummary: `📄<strong>文献背景：</strong>该 NEJM 文章提出，观察性研究要想更接近因果问题，应先明确目标试验，再考虑统计模型。<br><strong>核心考点：</strong>目标试验模拟强调「先设计，后分析」，这是其区别于传统回归分析的重要特征。<br><strong>内容要点：</strong>第一步不是直接建模，而是明确研究问题对应的理想试验结构。<br><strong>易错提醒：</strong>缺失值处理、回归分析和 Meta 分析都不是目标试验模拟的起点。`,
+                options: [
+                    { text: '直接从数据库提取变量进行多因素回归', correct: false },
+                    { text: '先开展 Meta 分析合并已有研究', correct: false },
+                    { text: '先对所有缺失数据进行多重插补', correct: false },
+                    { text: '定义与研究问题对应的理想目标 RCT 方案', correct: ture}
+                ],
+                explanation: '目标试验模拟的第一步是明确目标试验本身：研究人群、干预和对照、纳入排除标准、随访时间零点、结局定义和观察时间窗。只有先把这个假想 RCT 定义清楚，后续数据筛选和分析才有依据。<br><strong>详细解析：</strong>如果直接进入回归或缺失值插补，研究者很容易被现有数据结构牵着走，导致研究问题漂移、时间顺序混乱和选择偏倚。<br><strong>易错点：</strong>目标试验模拟不是一种特定回归模型，也不是 Meta 分析方法，而是一种因果推断的设计框架。'
+            }, {
+                id: 159,
+                type: 'essay',
+                category: 'design',
+                catLabel: '科研设计',
+                tagClass: 'tag-design',
+                icon: '💊',
+                iconClass: 'blue',
+                title: '简答题：简述 Estimand 估计目标框架的五大基本属性及其意义。',
+                journal: 'N Engl J Med',
+                doi: '10.1056/NEJMp2513633',
+                difficulty: '⭐⭐⭐',
+                bgSummary: `📄 <strong>文献背景：</strong>本题依据 NEJM 关于估计目标的方法学述评设计，考察对 Estimand 基本结构的系统理解。<br><strong>考察目标：</strong>考生不仅要记住五大属性，还要理解它们为什么能提高临床试验结果的清晰度和可解释性。<br><strong>答题方向：</strong>建议分别说明每个属性的内容，并总结其方法学意义。`,
+                subQuestions: ['简述 Estimand 估计目标框架的五大基本属性，并说明其方法学意义。'],
+                answers: ['<strong>Estimand 估计目标框架的五大基本属性包括：</strong><br>① 目标受试人群：明确研究结果适用的人群范围和入排标准；<br>② 治疗干预：准确说明研究比较的是哪些治疗或干预措施；<br>③ 结局变量：预先定义用于评价治疗效应的临床结局；<br>④ 伴发事件处理策略：规定发生伴发事件时如何解释和分析治疗效应；<br>⑤ 结局评价时间窗：明确在什么时间点或时间段评价结局。<br><br><strong>方法学意义：</strong>这一框架可以促使研究者在试验开始前就清晰界定要回答的科学问题，减少事后根据结果选择分析方法的风险，增强不同研究之间的可比性和结果解释的一致性。'
+                ],
+            },
+         // ================================================================
+         // 模块二：观察性研究
+         // ================================================================
+            {
+                id: 160,
+                type: 'choice',
+                category: 'observe',
+                catLabel: '观察性研究',
+                tagClass: 'tag-observe',
+                icon: '👥',
+                iconClass: 'green',
+                title: '队列研究区别于病例对照研究的核心特征是？',
+                journal: 'N Engl J Med',
+                doi: '10.1056/NEJMoa0806994',
+                difficulty: '⭐⭐',
+                bgSummary: `📄 <strong>文献背景：</strong>该 NEJM 回顾性队列研究考察了抗精神病药物与猝死风险的关系，体现了队列研究从暴露到结局的观察逻辑。<br><strong>核心考点：</strong>队列研究和病例对照研究的区分是流行病学基础考点，关键在于分组依据和时间方向。<br><strong>内容要点：</strong>队列研究先按暴露状态分组，再向前观察结局；病例对照研究先按结局分组，再回溯暴露。<br><strong>易错提醒：</strong>队列研究不一定都是前瞻性的，也可以是回顾性队列。`,
+                options: [
+                    { text: '按疾病状态分组，回溯既往暴露', correct: false },
+                    { text: ' 必须使用随机分组', correct: false },
+                    { text: ' 按暴露状态分组，随访观察结局发生', correct: true },
+                    { text: '只能用于研究罕见病', correct: false }
+                ],
+                explanation: '队列研究的核心是「由因到果」：研究者先确定人群的暴露状态，如用药与否、暴露与否，然后随访观察不同组别的结局事件是否发生。<br><strong>详细解析：</strong>这种设计允许研究者计算各组的发病率或事件风险，并直接估计相对风险。病例对照研究则是「由果溯因」，先选病例和对照，再回顾过去的暴露情况。<br><strong>易错点：</strong>队列研究不要求随机分组，随机分组是 RCT 的特征；病例对照研究更适合罕见病，而不是队列研究。'
+            }, {
+                id: 161,
+                type: 'choice',
+                category: 'observe',
+                catLabel: '观察性研究',
+                tagClass: 'tag-observe',
+                icon: '👥',
+                iconClass: 'green',
+                title: '病例对照研究特别适合以下哪种情况？',
+                journal: 'N Engl J Med',
+                doi: '10.1056/NEJM200003233421202',
+                difficulty: '⭐⭐',
+                bgSummary: `📄 <strong>文献背景：</strong>该 NEJM 嵌套病例对照研究探讨了女性心血管疾病的危险因素，体现了病例对照研究在罕见结局研究中的应用价值。<br><strong>核心考点：</strong>病例对照研究的适用场景和指标特点是高频考点。<br><strong>内容要点：</strong>病例对照研究适合发病率低、需要快速获得结果的疾病，但不能直接计算发病率。<br><strong>易错提醒：</strong>病例对照研究不能直接计算 RR，只能计算 OR。`,
+                options: [
+                    { text: '精确计算疾病发病率', correct: false },
+                    { text: ' 评估罕见暴露的影响', correct: false },
+                    { text: '研究发病率很低的疾病', correct: true },
+                    { text: '替代随机对照试验评价疗效', correct: false }
+                ],
+                explanation: '病例对照研究从结局出发，选择有病的病例和无病的对照，再比较两组过去暴露于可疑因素的比例。<br><strong>详细解析：</strong>由于病例对照研究不需要对人群进行长期随访，尤其适合研究罕见病或潜伏期很长的疾病。但该研究不能直接计算疾病发病率，因此通常只能估计比值比 OR，而不能直接得到相对风险 RR。<br><strong>易错点：</strong>病例对照研究不适合作为疗效评价的确证手段，也不是主要用于研究罕见暴露；罕见暴露更适合队列研究。'
+            }, {
+                id: 162,
+                type: 'choice',
+                category: 'observe',
+                catLabel: '观察性研究',
+                tagClass: 'tag-observe',
+                icon: '👥',
+                iconClass: 'green',
+                title: '嵌套病例对照研究的主要特点是？',
+                journal: 'N Engl J Med',
+                doi: '10.1056/NEJMsa0707719',
+                difficulty: '⭐⭐',
+                bgSummary: `📄 <strong>文献背景：</strong>该 NEJM 全国性病例对照研究讨论了吸烟与死亡风险，其中嵌套病例对照设计可以提高研究效率并减少回忆偏倚。<br><strong>核心考点：</strong>嵌套病例对照是基于已有队列的病例对照设计，兼具队列和病例对照的部分优点。<br><strong>内容要点：</strong>它在已建立的队列中抽取病例和对照，暴露信息通常在结局发生前已经记录。<br><strong>易错提醒：</strong>嵌套病例对照不是传统医院为基础的病例对照。`,
+                options: [
+                    { text: '从医院连续病例和门诊对照中抽样', correct: false },
+                    { text: '从已建立的队列中抽取病例和对照，暴露信息常先于结局记录', correct: true },
+                    { text: '必须同时开展随机化干预', correct: false },
+                    { text: '只能用于横断面调查', correct: false }
+                ],
+                explanation: '嵌套病例对照研究是在大型队列研究内部进行的病例对照抽样，即先有队列，再从队列中选择发生结局的病例和未发生结局的对照。<br><strong>详细解析：</strong>这种设计的优势在于暴露信息往往是在结局发生前前瞻性记录的，因此可以减少回忆偏倚，同时避免对整个队列进行昂贵的实验室检测或复杂调查。<br><strong>易错点：</strong>选项 B 描述的是传统医院为基础的病例对照，不是嵌套病例对照；嵌套病例对照也不涉及随机化干预。'
+            }, {
+                id: 163,
+                type: 'choice',
+                category: 'observe',
+                catLabel: '观察性研究',
+                tagClass: 'tag-observe',
+                icon: '👥',
+                iconClass: 'green',
+                title: '在非随机的观察性临床研究中，研究者常使用倾向性评分匹配（PSM）来处理组间基线不均衡问题，关于倾向性评分匹配的主要作用，下列说法正确的是？',
+                journal: 'N Engl J Med',
+                doi: '10.1056/NEJMoa2211807',
+                difficulty: '⭐⭐',
+                bgSummary: `📄 <strong>文献背景：</strong>该 NEJM 观察性研究利用倾向性评分方法分析幽门螺杆菌感染与胃癌风险的关系，强调其在控制混杂中的作用。<br><strong>核心考点：</strong>倾向性评分是观察性研究中控制已知混杂的常用方法，但其局限性也必须掌握。<br><strong>内容要点：</strong>倾向性评分通过综合多个协变量，估计个体接受暴露的概率，并据此匹配或加权。<br><strong>易错提醒：</strong>倾向性评分只能平衡已测量协变量，不能消除未测量混杂。`,
+                options: [
+                    { text: '消除所有未知混杂', correct: false },
+                    { text: '平衡已知协变量分布，减少暴露组与非暴露组之间的混杂', correct: true },
+                    { text: ' 直接估计因果效应而不需要任何假设', correct: false },
+                    { text: '替代随机化分组', correct: false }
+                ],
+                explanation: '倾向性评分是在给定一组基线协变量的条件下，个体接受某一暴露或治疗的概率。通过倾向性评分匹配、加权或分层，可以使暴露组和非暴露组在这些协变量上的分布更加均衡。<br><strong>详细解析：</strong>这种方法特别适合协变量较多、直接匹配维度太高的观察性研究。但它只能处理已经测量到的混杂因素，对于数据库中没有记录的变量仍然无能为力。<br><strong>易错点：</strong>倾向性评分不能等同于随机化，也不能消除未知或未测量混杂，因此不能声称其效果与 RCT 完全一致。'
+            }, {
+                id: 164,
+                type: 'choice',
+                category: 'observe',
+                catLabel: '观察性研究',
+                tagClass: 'tag-observe',
+                icon: '👥',
+                iconClass: 'green',
+                title: '目标试验模拟（Target Trial Emulation）是当前观察性研究因果推断的重要方法，当该方法用于基于真实世界数据开展的观察性研究时，下列说法正确的是？',
+                journal: 'N Engl J Med',
+                doi: '10.1056/NEJMoa2510226',
+                difficulty: '⭐⭐⭐',
+                bgSummary: `📄<strong>文献背景：</strong>该 NEJM 文章讨论了如何用观察性数据模拟目标试验，强调研究问题和试验结构优先于统计模型。<br><strong>核心考点：</strong>目标试验模拟的优势和局限是高频考点，尤其要区分它与真正随机试验的差异。<br><strong>内容要点：</strong>它可以减少选择偏倚和时间偏倚，但不能消除未测量混杂。<br><strong>易错提醒：</strong>目标试验模拟不是 RCT，也不能保证完全等同于随机化。`,
+                options: [
+                    { text: '可以完全替代随机对照试验', correct: false },
+                    { text: '主要用于诊断试验评价', correct: false },
+                    { text: '只能用于合并多个研究结果', correct: false },
+                    { text: '可以减少观察性研究中的选择偏倚和时间偏倚，但不能消除未测量混杂', correct: true }
+                ],
+                explanation: '目标试验模拟通过明确定义理想试验的入排标准、暴露、随访时间和结局，可以减少传统观察性研究中常见的适应证混杂、时间偏倚和选择偏倚。<br><strong>详细解析：</strong>但它仍然依赖观察性数据库，无法处理未被记录的混杂因素，因此其因果推断强度低于真正的随机对照试验。<br><strong>易错点：</strong>目标试验模拟不是诊断试验方法，也不是 Meta 分析方法；它是一种观察性研究中的因果推断框架。'
+            }, {
+                id: 165,
+                type: 'choice',
+                category: 'observe',
+                catLabel: '观察性研究',
+                tagClass: 'tag-observe',
+                icon: '👥',
+                iconClass: 'green',
+                title: '队列研究是评估暴露与疾病关联强度的经典观察性研究设计，在队列研究中，相对风险（RR，Relative Risk）的含义是？',
+                journal: 'N Engl J Med',
+                doi: '10.1056/NEJMoa0806994',
+                difficulty: '⭐⭐',
+                bgSummary: `📄 <strong>文献背景：</strong>该研究发表于《新英格兰医学杂志》（NEJM），属于大样本前瞻性队列研究。研究按照研究对象的暴露状态分为暴露组与非暴露组，长期随访观察两组人群的疾病结局发生情况，计算发病率并使用相对风险RR来量化暴露因素和疾病结局之间关联强度。队列研究的优势在于可以直接获得不同人群的发病概率，因此能够直接计算RR，这也是队列研究区别于病例对照研究的重要特点。`,
+                options: [
+                    { text: '病例组暴露比例除以对照组暴露比例', correct: false },
+                    { text: '暴露组发病率除以非暴露组发病率', correct: true },
+                    { text: '归因危险度', correct: false },
+                    { text: '阳性预测值 ', correct: false }
+                ],
+                explanation: '相对风险 RR 是队列研究中的常用指标，等于暴露组的事件发生率除以非暴露组的事件发生率。<br><strong>详细解析：</strong>如果 RR 大于 1，说明暴露组风险高于非暴露组；如果 RR 小于 1，说明暴露可能具有保护作用。由于队列研究有明确的暴露和随访时间顺序，可以直接计算发病率，因此适合估计 RR。<br><strong>易错点：</strong>选项 B 描述的是 OR 的思路；归因危险度是风险差，不是 RR；阳性预测值属于诊断试验指标。'
+            }, {
+                id: 166,
+                type: 'choice',
+                category: 'observe',
+                catLabel: '观察性研究',
+                tagClass: 'tag-observe',
+                icon: '👥',
+                iconClass: 'green',
+                title: '在罕见病研究中，病例对照研究常用 OR 近似 RR，其原因是？',
+                journal: 'N Engl J Med',
+                doi: '10.1056/NEJM200003233421202',
+                difficulty: '⭐⭐',
+                bgSummary: `📄 <strong>文献背景：</strong>该 NEJM 病例对照研究讨论了女性心血管疾病危险因素，涉及 OR 与 RR 的关系问题。<br><strong>核心考点：</strong>OR 与 RR 的近似条件是流行病学高频考点。<br><strong>内容要点：</strong>当疾病发病率很低时，OR 与 RR 的数值会比较接近。<br><strong>易错提醒：</strong>发病率高时，OR 会明显高估 RR。`,
+                options: [
+                    { text: '病例对照研究可以直接计算 RR', correct: false },
+                    { text: '疾病发病率很低时，OR 与 RR 近似相等', correct: true },
+                    { text: 'OR 总是等于 RR', correct: false },
+                    { text: 'OR 的临床解释比 RR 更直观', correct: false }
+                ],
+                explanation: '病例对照研究不能直接计算发病率，因此通常只能估计 OR。当所研究疾病在人群中非常罕见时，病例对照研究中的 OR 可以近似反映 RR。<br><strong>详细解析：</strong>这是因为在罕见病条件下，病例在人群中占比很小，暴露组和非暴露组的发病率都很低，OR 与 RR 的差异可以忽略。<br><strong>易错点：</strong>如果疾病发病率较高，OR 会明显大于 RR，此时不能再用 OR 近似解释为相对风险。'
+            }, {
+                id: 167,
+                type: 'essay',
+                category: 'observe',
+                catLabel: '观察性研究',
+                tagClass: 'tag-observe',
+                icon: '👥',
+                iconClass: 'green',
+                title: '队列研究与病例对照研究均为观察性研究的核心类型，请阐述队列研究和病例对照研究的主要区别是什么？',
+                journal: 'N Engl J Med',
+                doi: '10.1056/NEJMsa0707719',
+                difficulty: '⭐⭐',
+                bgSummary: `📄 <strong>文献背景：</strong>队列研究与病例对照研究是流行病学观察性研究体系中两大基础核心设计方案，该NEJM文献围绕全国性病例对照研究开展方法学讨论，系统对比了病例对照与队列研究各自的适用场景、偏倚来源、效应指标选择与结果解读要点。掌握两类研究设计的差异，是读懂临床真实世界文献、开展因果推断的基础，也是医学统计学与流行病学学习的重点内容。`,
+                subQuestions: ['队列研究与病例对照研究均属于观察性流行病学研究，请从分组方式、研究时序、效应指标、适用疾病类型以及主要偏倚五个方面，简述队列研究和病例对照研究的主要区别。'],
+                answers: ['<strong>队列研究：</strong>按照研究对象的暴露状态进行分组，研究时序为由因到果。先确定暴露组与非暴露组，随访观察两组人群的疾病结局事件，能够直接计算发病率，核心效应指标为相对危险度RR。适合研究常见病的病因，因果论证强度较高；缺点是研究周期长、样本需求量大，对于罕见疾病研究效率较低，易发生失访偏倚。<br><br><strong>病例对照研究：</strong>按照是否患病（疾病结局）分组，研究时序为由果溯因。先确定确诊病例组和对照组，回溯调查研究对象既往的暴露情况，无法直接计算发病率，效应指标只能计算比值比OR。适合罕见病的病因探索，研究周期短、样本量更小；缺点是容易产生回忆偏倚，因果推断的论证强度低于队列研究。<br><br><strong>总结核心差异：</strong>队列研究从暴露出发观察后续发病；病例对照研究从已患病的病例出发追溯既往暴露史。'
+                ],
+            }, 
+             // ======================================================
+             // 模块三：均值比较
+             //  =======================================================
+            {
+                id: 168,
+                type: 'choice',
+                category: 'mean',
+                catLabel: '均值比较',
+                tagClass: 'tag-mean',
+                icon: '📏',
+                iconClass: 'amber',
+                title: '两独立样本连续资料比较，方差不齐时应选用？',
+                journal: 'N Engl J Med',
+                doi: '10.1056/NEJMoa2114833',
+                difficulty: '⭐⭐',
+                bgSummary: `📄<strong>文献背景：</strong>该NEJM减重RCT将受试者随机分入不同热量限制组，主要结局为12个月体重变化（连续型指标），统计分析中需根据方差齐性选择合适的t检验变体。<br><strong>核心考点：</strong>t检验有三个核心变体：独立样本Student‑t检验、Welch校正t检验、配对t检验；选择依据是设计类型与方差齐性。<br><strong>内容要点：</strong>Student‑t检验要求两组方差齐；方差不齐时使用Welch校正；配对设计使用配对t检验。<br><strong>易错提醒：</strong>方差不齐不影响两组独立性判断，只影响t检验的具体公式。`,
+                options: [
+                    { text: '普通Student‑t检验', correct: false },
+                    { text: 'Welch校正t检验', correct: true },
+                    { text: '配对t检验', correct: false },
+                    { text: '卡方检验', correct: false }
+                ],
+                explanation: '两独立样本连续资料，当方差不齐时，普通Student‑t检验的统计量分布会偏离t分布，导致I类错误失控。Welch校正t检验通过对方差进行加权校正，不要求方差齐性，是方差不齐时的首选。<br><strong>详细解析：</strong>配对t检验用于配对设计（同一对象前后测量），本题是独立两组；卡方检验用于分类资料，不用于连续均值比较。临床研究中，若两组样本量差异大且方差不齐，尤其要使用Welch校正。<br><strong>易错点：</strong>很多同学以为方差不齐就必须用非参数检验，其实Welch t检验仍然是参数检验，只是校正了方差假设。'
+            }, {
+                id: 169,
+                type: 'choice',
+                category: 'mean',
+                catLabel: '均值比较',
+                tagClass: 'tag-mean',
+                icon: '📏',
+                iconClass: 'amber',
+                title: '同一受试者基线与随访体重比较，应选用？',
+                journal: 'N Engl J Med',
+                doi: '10.1056/NEJMoa2114833',
+                difficulty: '⭐⭐',
+                bgSummary: `📄<strong>文献背景：</strong>该NEJM减重随机对照试验，纳入肥胖受试者，分别在研究基线与干预12个月后，重复测量每一位受试者的体重，观察干预前后体重变化情况。`,
+                options: [
+                    { text: '独立样本t检验', correct: false },
+                    { text: '单因素方差分析', correct: false },
+                    { text: '配对t检验', correct: true },
+                    { text: '卡方检验', correct: false }
+                ],
+                explanation: '配对t检验用于配对设计数据，包括同一受试者前后测量、配对病例-对照对子。它计算每一对差值，再检验差值的总体均值是否为0。<br><strong>详细解析：</strong>独立样本t检验用于两组独立对象；单因素方差分析用于三组及以上均值比较；卡方检验用于分类资料。本题是同一受试者基线与随访体重比较，属于配对设计，应首选配对t检验。<br><strong>易错点：</strong>注意区分“同一对象前后比较”和“两组对象分别比较”，前者用配对t检验，后者用独立样本t检验或Welch校正。'
+            }, {
+                id: 170,
+                type: 'choice',
+                category: 'mean',
+                catLabel: '均值比较',
+                tagClass: 'tag-mean',
+                icon: '📏',
+                iconClass: 'amber',
+                title: '3组及以上独立样本连续资料均值比较，首选方法是？',
+                journal: 'N Engl J Med',
+                doi: '10.1056/NEJMsr077003',
+                difficulty: '⭐⭐',
+                bgSummary: `📄<strong>文献背景：</strong>该NEJM Special Report系统讨论了临床试验中亚组分析与多重比较问题，明确指出多组均值比较不能反复做t检验。<br><strong>核心考点：</strong>多组均值比较的标准方法是单因素方差分析（ANOVA），其F检验同时检验所有组总体均值是否全部相等。<br><strong>内容要点：</strong>反复两两t检验会累积I类错误，必须先做ANOVA整体检验。<br><strong>易错提醒：</strong>ANOVA显著后仍需事后两两比较才能定位哪两组不同。`,
+                options: [
+                    { text: '多次独立样本t检验', correct: false },
+                    { text: '单因素方差分析', correct:ture },
+                    { text: '配对t检验', correct:false },
+                    { text: '卡方检验', correct: false }
+                ],
+                explanation: '单因素方差分析用于检验k个独立样本的总体均值是否全部相等，原假设H0为所有组总体均值相同。<br><strong>详细解析：</strong>如果做k组两两t检验，比较次数为k(k‑1)/2次，每次检验α=0.05时，至少出现一次假阳性的总概率远大于0.05。ANOVA通过一个F检验同时控制整体I类错误。当ANOVA的P<0.05，说明至少有两组均值不同，但不能确定具体哪两组，需要事后多重比较（Tukey、Dunnett等）。<br><strong>易错点：</strong>ANOVA显著≠每两组都有差异；ANOVA不显著也不代表任何两组都没差异（效能问题）。'
+            }, {
+                id: 171,
+                type: 'choice',
+                category: 'mean',
+                catLabel: '均值比较',
+                tagClass: 'tag-mean',
+                icon: '📏',
+                iconClass: 'amber',
+                title: '两组独立样本连续资料严重偏态分布，首选非参数方法是？',
+                journal: 'N Engl J Med',
+                doi: '10.1056/NEJMoa2114833',
+                difficulty: '⭐⭐⭐',
+                bgSummary: `📄<strong>文献背景：</strong>该NEJM外科RCT比较两种术式术后疼痛评分，资料正态但方差不齐，考察非参数备选方法。<br><strong>核心考点：</strong>Mann-Whitney U检验（Wilcoxon秩和检验）用于两独立样本非参数比较。<br><strong>内容要点：</strong>两独立样本非参数检验比较总体分布位置；参数优先Welch t。<br><strong>易错提醒：</strong>Mann-Whitney U检验比较的是分布，不是均值。`,
+                options: [
+                    { text: 'Mann-Whitney U检验', correct:ture },
+                    { text: '单样本t检验', correct:false },
+                    { text: '配对t检验', correct:false },
+                    { text: '卡方检验', correct: false }
+                ],
+                explanation: '两独立样本，参数方法可选Welch校正t；非参数备选为Mann‑Whitney U检验，也叫Wilcoxon秩和检验。<br><strong>详细解析：</strong>配对t检验用于配对；单样本t检验用于单组；卡方检验用于分类资料。Mann‑Whitney U检验利用秩次，不需要正态方差齐。<br><strong>易错点：</strong>不能把Mann‑Whitney U检验当成直接比较两组均值。'
+            }, {
+                id: 172,
+                type: 'choice',
+                category: 'mean',
+               catLabel: '均值比较',
+                tagClass: 'tag-mean',
+                icon: '📏',
+                iconClass: 'amber',
+                title: '方差分析中，两两比较若控制整体一类错误，适合多组比较的方法是？',
+                journal: 'N Engl J Med',
+                doi: '10.1056/NEJMoa2114833',
+                difficulty: '⭐⭐⭐',
+                bgSummary: `📄<strong>文献背景：</strong>NEJM三期临床试验设置4组剂量，方差分析整体阳性后，需要开展组间两两比较，控制整体I类错误。<br><strong>核心考点：</strong>方差分析事后两两比较，Tukey法适合组数不多的两两比较。<br><strong>内容要点：</strong>不能反复做普通t检验；Tukey、Bonferroni均为常用校正方法。<br><strong>易错提醒：</strong>只有方差分析整体P<0.05，才进行事后两两比较。`,
+                options: [
+                    { text: 'Tukey法', correct:ture },
+                    { text: '单样本t检验', correct:false },
+                    { text: '配对t检验', correct:false },
+                    { text: '直接多次独立样本t检验', correct: false }
+                ],
+                explanation: '方差分析后多组两两比较，Tukey法可以控制总的I类错误。<br><strong>详细解析：</strong>多次t检验会累积一类错误；配对t、单样本t不适合多组间两两比较。Bonferroni也是常用校正方法，组数少时Tukey检验效能更好。<br><strong>易错点：</strong>不要在方差分析P>0.05时，强行做两两比较寻找差异。'
+            }, {
+                id: 173,
+                type: 'essay',
+                category: 'mean',
+                catLabel: '均值比较',
+                tagClass: 'tag-mean',
+                icon: '📏',
+                iconClass: 'amber',
+                title: '简述t检验的三种类型及其各自适用条件。',
+                journal: 'N Engl J Med',
+                doi: '10.1056/NEJMsa0707719',
+                difficulty: '⭐⭐',
+                bgSummary: `📄<strong>文献背景：</strong>t检验是临床NEJM论文中最基础的连续资料统计推断方法，该NEJM方法学文章系统总结三类t检验适用场景，是医学统计学基础考点。`,
+                  subQuestions: ['请简述单样本t检验、配对t检验、独立样本t检验（含Welch校正t检验）各自适用条件。'],
+                answers: ['<strong>单样本t检验：</strong>一组连续定量资料，服从正态分布，用于比较样本均值和已知总体均值。<br><br><strong>配对t检验：</strong>配对设计，每一对数据求差值，差值服从正态分布，比较配对数据的差异。<br><br><strong>独立样本t检验：</strong>两组独立连续资料；普通Student-t要求正态+方差齐；方差不齐时采用Welch校正t检验，仅要求两组资料正态。<br><strong>总结核心差异：</strong>单样本是一组与定值比较；配对是同一对象前后/配对对子；独立样本是两组互不相关的研究对象。'],
+            }, {
+                id: 174,
+                type: 'essay',
+                category: 'mean',
+                catLabel: '均值比较',
+                tagClass: 'tag-mean',
+                icon: '📏',
+                iconClass: 'amber',
+                title: '简述单因素方差分析的基本思想、适用条件以及事后两两比较注意事项。',
+                journal: 'N Engl J Med',
+                doi: '10.1056/NEJMsa0707719',
+                difficulty: '⭐⭐',
+                bgSummary: `📄<strong>文献背景：</strong>该NEJM多组RCT采用单因素方差分析分析多组连续结局，方法学部分介绍方差分析原理，是均值比较大题高频考点。`,
+                  subQuestions: ['简述单因素方差分析的基本思想、适用条件，以及方差分析完成后开展两两比较的注意要点。'],
+                answers: ['<strong>基本思想：</strong>将总变异拆分为组间变异和组内变异；组间变异既包含随机误差，又包含分组因素效应；组内变异仅为随机误差；通过比较组间、组内均方，构造F统计量推断各组总体均值是否不全相等。<br><br><strong>适用条件：</strong>独立性、各组资料服从正态分布、各组方差齐性。<br><br><strong>两两比较注意事项：</strong>仅当方差分析整体检验P<0.05才可开展事后两两比较；不能直接多次使用普通t检验，会增大I类错误；需要采用Tukey、Bonferroni等校正方法控制总的一类错误。<br><strong>总结核心差异：</strong>方差分析只判断“总体均值不全相等”，无法定位哪两组存在差异，必须依靠事后两两比较。'],
+            }, 
+ // ================================================================
+            // 模块四：关联分析
+            // ================================================================
+             {
+                id: 175,
+                type: 'choice',
+                category: 'assoc',
+                catLabel: '关联分析',
+                tagClass: 'tag-assoc',
+                icon: '🔢',
+                iconClass: 'rose',
+                title: 'Pearson卡方检验主要用于哪种资料？',
+                journal: 'N Engl J Med',
+                doi: '10.1056/NEJMsr077003',
+                difficulty: '⭐⭐',
+                bgSummary: `📄 <strong>文献背景：</strong>该NEJM方法学文章讨论了临床试验中分类资料的统计检验选择。<br><strong>核心考点：</strong>卡方检验用于分类变量列联表，检验行变量与列变量是否独立。<br><strong>内容要点：</strong>理论频数过小时卡方近似不成立，应改用Fisher确切概率法。<br><strong>易错提醒：</strong>卡方检验不能用于连续资料或生存资料。`,
+                options: [
+                    { text: '正态连续定量资料', correct: false },
+                    { text: '分类计数列联表资料', correct: true },
+                    { text: '带删失的生存时间资料', correct: false },
+                    { text: '配对设计差值资料', correct: false }
+                ],
+                explanation: 'Pearson卡方检验用于分类变量构成的列联表，检验两个分类变量是否独立（有关联）。例如比较两组率是否不同、暴露与疾病是否有关联。<br><strong>详细解析：</strong>卡方检验的前提是各单元格理论频数不能太小（一般要求理论频数≥5，总样本量≥40）。若理论频数过小，卡方近似分布失真，应使用Fisher确切概率法。连续资料用t检验/方差分析，生存资料用Cox/Log‑rank。<br><strong>易错点：</strong>卡方检验只能告诉你「有关联」，不能告诉你关联强度或因果方向。'
+            }, {
+                id: 176,
+                type: 'choice',
+                category: 'assoc',
+                catLabel: '关联分析',
+                tagClass: 'tag-assoc',
+                icon: '🔢',
+                iconClass: 'rose',
+                title: 'Cox回归中HR=2.5的含义是？',
+                journal: 'N Engl J Med',
+                doi: '10.1056/NEJMoa2114833',
+                difficulty: '⭐⭐',
+                bgSummary: `📄 <strong>文献背景：</strong>Cox比例风险回归是生存分析最常用的多因素方法，广泛应用于NEJM发表的临床试验与观察性研究。<br><strong>核心考点：</strong>HR（风险比）是Cox回归的核心输出，反映暴露组相对对照组的瞬时事件风险倍数。<br><strong>内容要点：</strong>HR>1提示暴露增加事件风险；HR<1提示保护效应。<br><strong>易错提醒：</strong>HR不是生存率比值，也不是概率差值。`,
+                options: [
+                    { text: '暴露组生存率是对照组的2.5倍', correct: false },
+                    { text: '暴露组事件发生概率绝对增加2.5%', correct: false },
+                    { text: '暴露组事件发生时间是对照组的2.5倍', correct: false },
+                    { text: '在比例风险假设成立下，暴露组瞬时事件风险是对照组的2.5倍', correct: true }
+                ],
+                explanation: 'HR（hazard ratio）是Cox比例风险回归的核心参数，含义是：在满足比例风险假设的前提下，暴露组相对对照组的瞬时事件发生风险之比。HR=2.5意味着暴露组在任意时间点的瞬时风险约为对照组的2.5倍。<br><strong>详细解析：</strong>HR不是生存率比值（那是累积生存概率），也不是绝对风险差值（那是RD），更不是时间倍数。HR>1表示暴露增加风险，HR<1表示保护效应。<br><strong>易错点：</strong>HR的解释依赖比例风险假设成立；如果假设违背，HR的解释就不可靠。'
+            }, {
+                id: 177,
+                type: 'choice',
+                 category: 'assoc',
+                catLabel: '关联分析',
+                tagClass: 'tag-assoc',
+                icon: '🔢',
+                iconClass: 'rose',
+                title: 'Cox回归的比例风险假设指的是？',
+                journal: 'N Engl J Med',
+                doi: '10.1056/NEJMsr077003',
+                difficulty: '⭐⭐⭐',
+                bgSummary: `📄 <strong>文献背景：</strong>该NEJM方法学文章讨论了生存分析中Cox模型假设的检验与违反后的处理。<br><strong>核心考点：</strong>比例风险假设是Cox回归的核心前提：各组风险之比不随时间变化。<br><strong>内容要点：</strong>生存曲线交叉通常提示比例风险假设违背。<br><strong>易错提醒：</strong>假设违背不代表Cox完全不能用，可改用时依协变量或RMST。`,
+                options: [
+                    { text: '各组绝对风险大小完全相等', correct: false },
+                    { text: '生存曲线必须平行不交叉', correct: false },
+                    { text: '各组风险之比不随时间变化', correct: true },
+                    { text: '删失比例在各组完全一致', correct: false }
+                ],
+                explanation: '比例风险（Proportional Hazards, PH）假设是Cox回归的核心前提：各组之间的风险函数之比（即HR）在整个随访期间保持恒定，不随时间变化。<br><strong>详细解析：</strong>如果生存曲线出现明显交叉，说明两组风险之比随时间改变，PH假设可能被违背。此时普通Cox回归HR的解释就有问题，可以考虑引入时依协变量、分层Cox模型，或改用RMST等不依赖PH假设的指标。PH假设不要求绝对风险相等，只要求比值恒定。<br><strong>易错点：</strong>生存曲线不完全平行不代表一定违背PH假设，需要通过Schoenfeld残差等正式检验判断。'
+            }, {
+                id: 178,
+                type: 'choice',
+                 category: 'assoc',
+                catLabel: '关联分析',
+                tagClass: 'tag-assoc',
+                icon: '🔢',
+                iconClass: 'rose',
+                title: 'GWAS全基因组关联分析必须使用极严格的显著性阈值（如5×10⁻⁸），原因是？',
+                journal: 'N Engl J Med',
+                doi: '10.1056/NEJMoa2114833',
+                difficulty: '⭐⭐⭐',
+                bgSummary: `📄 <strong>文献背景：</strong>GWAS同时对数十万至数百万个SNP位点进行关联检验，多重检验校正压力极大。<br><strong>核心考点：</strong>上百万次检验不校正会产生海量假阳性，必须用基因组显著阈值控制整体I类错误。<br><strong>内容要点：</strong>5×10⁻⁸是GWAS公认的全基因组显著性阈值。<br><strong>易错提醒：</strong>严格阈值不只是为了降低假阳性，也因为遗传效应通常很小。`,
+                options: [
+                    { text: '同时进行数十万至数百万次检验，必须严格控制I类错误膨胀', correct: true },
+                    { text: '提高检验效能以发现更多位点', correct: false },
+                    { text: '校正人群分层混杂', correct: false },
+                    { text: '减少样本量需求', correct: false }
+                ],
+                explanation: 'GWAS研究同时对数以百万计的SNP位点进行关联检验。如果沿用常规α=0.05，即使全部原假设为真，也会预期产生约5%×100万=5万个假阳性结果。因此必须使用极严格的基因组显著性阈值（通常5×10⁻⁸）来控制全基因组范围的I类错误。<br><strong>详细解析：</strong>严格阈值会降低检验效能，但这是控制假阳性的必要代价。人群分层混杂通常通过主成分分析（PCA）校正，与显著性阈值是两个不同问题。<br><strong>易错点：</strong>显著性阈值越严格，假阳性越少但假阴性越多；GWAS后续通常需要独立队列重复验证。'
+            }, {
+                id: 179,
+                type: 'choice',
+                category: 'assoc',
+                catLabel: '关联分析',
+                tagClass: 'tag-assoc',
+                icon: '🔢',
+                iconClass: 'rose',
+                title: '四格表卡方检验中，理论频数过小应改用？',
+                journal: 'N Engl J Med',
+                doi: '10.1056/NEJMsr077003',
+                difficulty: '⭐⭐',
+                bgSummary: `📄 <strong>文献背景：</strong>该NEJM方法学文章指出，小样本列联表分析中卡方近似不可靠。<br><strong>核心考点：</strong>当单元格理论频数<5或总样本量<40时，卡方近似分布失真。<br><strong>内容要点：</strong>Fisher确切概率法直接计算超几何分布精确P值。<br><strong>易错提醒：</strong>理论频数小不代表研究无意义，只是需要换检验方法。`,
+                options: [
+                    { text: 'Fisher确切概率法', correct: true },
+                    { text: '增大卡方检验的α值', correct: false },
+                    { text: '改用t检验', correct: false },
+                    { text: '改用Cox回归', correct: false }
+                ],
+                explanation: '当四格表中存在理论频数<5的单元格（或总样本量<40），卡方统计量的渐近卡方分布近似不再可靠，应使用Fisher确切概率法。<br><strong>详细解析：</strong>Fisher确切概率法基于超几何分布，在固定边缘频数的条件下直接计算观测表格及更极端表格出现的精确概率，不依赖大样本近似。它在小样本分类资料中比卡方检验更准确。<br><strong>易错点：</strong>增大α值是错误做法，只会增加假阳性；t检验和Cox回归不适用于分类列联表。'
+            }, {
+                id: 180,
+                type: 'choice',
+                category: 'assoc',
+                 catLabel: '关联分析',
+                tagClass: 'tag-assoc',
+                icon: '🔢',
+                iconClass: 'rose',
+                title: '关于Cox回归对删失数据的处理，正确的是？',
+                journal: 'N Engl J Med',
+                doi: '10.1056/NEJMoa2114833',
+                difficulty: '⭐⭐',
+                bgSummary: `📄<strong>文献背景：</strong>生存数据中右删失非常常见：随访结束时仍未发生事件。<br><strong>核心考点：</strong>Cox回归的核心优势之一就是可以合理利用右删失信息。<br><strong>内容要点：</strong>删失个体贡献了「在删失时点之前仍处于风险中」的信息。<br><strong>易错提醒：</strong>直接删除删失个体会浪费信息并引入偏倚。`,
+                options: [
+                    { text: 'Cox回归可以合理利用右删失数据，不需要删除删失个体', correct: true },
+                    { text: '有删失就不能做Cox回归', correct: false },
+                    { text: '删失个体应直接删除再分析', correct: false },
+                    { text: 'Cox只适用于无删失的完整数据', correct: false }
+                ],
+                explanation: 'Cox比例风险回归的核心优势之一就是能够合理处理右删失数据。在风险集（risk set）框架下，删失个体贡献了其删失时点之前仍处于事件风险中的信息，而不需要被删除。<br><strong>详细解析：</strong>如果直接删除删失个体，不仅损失样本量，更重要的是会引入偏倚——因为删失原因往往与事件风险有关。Cox回归通过部分似然（partial likelihood）框架，在不指定基线风险函数的情况下估计协变量效应。<br><strong>易错点：</strong>左删失和区间删失处理更复杂，标准Cox回归主要处理右删失。'
+            }, {
+                id: 181,
+                type: 'choice',
+                category: 'assoc',
+                 catLabel: '关联分析',
+                tagClass: 'tag-assoc',
+                icon: '🔢',
+                iconClass: 'rose',
+                title: '卡方检验结果P<0.05说明什么？',
+                journal: 'N Engl J Med',
+                doi: '10.1056/NEJMsr077003',
+                difficulty: '⭐⭐',
+                bgSummary: `📄<strong>文献背景：</strong>该NEJM方法学文章强调，统计学关联不等于因果关系。<br><strong>核心考点：</strong>卡方检验P<0.05仅说明行变量与列变量存在统计学关联（不独立）。<br><strong>内容要点：</strong>关联强度需要用OR或RR等指标衡量；因果推断需要研究设计支持。<br><strong>易错提醒：</strong>卡方显著≠因果，也≠关联强。`,
+                options: [
+                    { text: '两个变量存在因果关系', correct: false },
+                    { text: '关联强度很大', correct: false },
+                    { text: '暴露是疾病的原因', correct: false },
+                    { text: '两个分类变量存在统计学关联（不独立）', correct: true }
+                ],
+                explanation: '卡方检验的原假设是行变量与列变量相互独立。P<0.05拒绝原假设，说明两个分类变量之间存在统计学关联，即它们不独立。<br><strong>详细解析：</strong>卡方检验只能回答「是否有关联」，不能回答「关联多强」或「是否因果」。关联强度需要用OR、RR等指标衡量；因果推断需要随机化或严谨的观察性设计。大样本下即使关联很弱也可能P<0.05，因此必须结合效应量大小解释。<br><strong>易错点：</strong>卡方显著≠因果；样本量大时微小关联也可能显著。'
+            }, {
+                id: 182,
+                type: 'essay',
+                category: 'assoc',
+                catLabel: '关联分析',
+                tagClass: 'tag-assoc',
+                icon: '🔢',
+                iconClass: 'rose',
+                title: '简述Cox回归HR的含义及比例风险假设。',
+                journal: 'N Engl J Med',
+                doi: '10.1056/NEJMoa2114833',
+                difficulty: '⭐⭐⭐',
+                bgSummary: `📄<strong>文献背景：</strong>基于NEJM临床试验与观察性研究中Cox回归的应用。<br><strong>考察目标：</strong>掌握HR的解释、比例风险假设的含义及假设违背后的处理。<br><strong>答题方向：</strong>定义HR、解释PH假设、说明假设检验与替代方法。`,
+                subQuestions: ['简述Cox回归中HR风险比的含义，以及比例风险假设的内容。'],
+                answers: ['<strong>HR风险比的含义：</strong>在比例风险假设成立的前提下，HR表示暴露组相对于对照组的瞬时事件发生风险之比。例如HR=2.0意味着暴露组在任意时间点的瞬时事件风险约为对照组的2倍。HR>1表示暴露增加事件风险，HR<1表示暴露具有保护效应。<br><br><strong>比例风险假设：</strong>各组之间的风险函数之比（HR）在整个随访期间保持恒定，不随时间变化。如果生存曲线出现明显交叉，或Schoenfeld残差检验提示不满足PH假设，则普通Cox回归HR的解释不可靠。<br><strong>假设违背后的处理：</strong>可引入时依协变量、使用分层Cox模型，或改用RMST（限制性平均生存时间）等不依赖PH假设的指标。'],
+            }, {
+                id: 183,
+                type: 'essay',
+                category: 'assoc',
+                catLabel: '关联分析',
+                tagClass: 'tag-assoc',
+                icon: '🔢',
+                iconClass: 'rose',
+                title: 'GWAS为什么不能直接使用α=0.05作为显著性阈值。',
+                journal: 'N Engl J Med',
+                doi: '10.1056/NEJMoa2114833',
+                difficulty: '⭐⭐⭐',
+                bgSummary: `📄<strong>出题依据：</strong>基于NEJM发表的GWAS研究方法学讨论。<br><strong>考察目标：</strong>理解多重检验校正与基因组显著阈值的必要性。<br><strong>答题方向：</strong>从检验次数、I类错误膨胀、基因组阈值三个层次回答。`,
+                subQuestions: ['为什么GWAS不能直接使用α=0.05作为显著性阈值？应如何处理？'],
+                answers: ['<strong>原因：</strong>GWAS研究同时对数十万至数百万个SNP位点进行关联检验。如果沿用常规α=0.05，即使全部SNP与疾病都无关，也会预期产生约5%×检验数的假阳性结果。例如100万次检验会预期产生约5万个假阳性位点，I类错误严重膨胀。<br><br><strong>处理方法：</strong>必须进行严格的多重检验校正。GWAS领域公认的全基因组显著性阈值约为5×10⁻⁸（基于约100万独立常见变异的Bonferroni校正推导），只有达到该阈值的位点才被认为是全基因组显著关联。此外，GWAS发现的位点通常需要在独立队列中重复验证，以排除假阳性。人群分层混杂则通过主成分分析（PCA）等方法校正。'],
+            },
+// ================================================================
+// 模块五：回归建模
+// ================================================================
+{
+    id: 184,
+    type: 'choice',
+    category: 'model',
+    catLabel: '回归建模',
+    tagClass: 'tag-model',
+    icon: '📐',
+    iconClass: 'purple',
+    title: '在医学研究中，应用“10%法则”（EPV原则）进行样本量估算时，其核心含义是：',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJMp2000589',
+    difficulty: '⭐⭐',
+    drugKnowledge: '线性回归/变量筛选',
+    bgSummary: `📄 文献背景：本文发表于N Engl J Med 2020年，由Pencina、Goldstein和D'Agostino撰写，系统阐述了预测模型开发、评估和临床应用的方法学框架。EPV原则建议每个自变量至少需要10个结局事件，以避免过度拟合。TRIPOD声明要求模型开发必须报告样本量依据。`,
+    options: [
+        { text: '自变量每增加1个，所需样本量增加10例', correct: false },
+        { text: '每个自变量至少需要10个结局事件（EPV）', correct: true },
+        { text: '模型R²至少达到10%才有临床意义', correct: false },
+        { text: '缺失数据超过10%需剔除该变量', correct: false }
+    ],
+    explanation: 'EPV即每个自变量至少需要10个结局事件，以避免模型过度拟合。'
+}, {
+    id: 185,
+    type: 'choice',
+    category: 'model',
+    catLabel: '回归建模',
+    tagClass: 'tag-model',
+    icon: '📐',
+    iconClass: 'purple',
+    title: '在多重线性回归中，若存在多重共线性，以下哪项指标最常用于评估其严重程度？',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJMp2000589',
+    difficulty: '⭐⭐',
+    drugKnowledge: '线性回归/变量筛选',
+    bgSummary: `📄 文献背景：本文发表于N Engl J Med 2020年，系统阐述了预测模型的方法学框架。多重共线性会导致回归系数估计不稳定。VIF是评估多重共线性的核心指标，VIF>10提示严重共线性。`,
+    options: [
+        { text: '方差膨胀因子（VIF）', correct: true },
+        { text: '决定系数（R²）', correct: false },
+        { text: 'Durbin-Watson统计量', correct: false },
+        { text: 'Cook距离', correct: false }
+    ],
+    explanation: 'VIF>10提示存在严重多重共线性。'
+}, {
+    id: 186,
+    type: 'choice',
+    category: 'model',
+    catLabel: '回归建模',
+    tagClass: 'tag-model',
+    icon: '📐',
+    iconClass: 'purple',
+    title: '在建立临床预测模型时，研究者采用了LASSO回归。该方法的核心优势是：',
+    journal: 'N Engl J Med',
+    doi: '10.1056/EVIDoa2300041',
+    difficulty: '⭐⭐',
+    drugKnowledge: '变量筛选',
+    bgSummary: `📄 文献背景：NEJM Evidence 2024年发表的“Individualized Treatment Effect Prediction with Machine Learning”（DOI: 10.1056/EVIDoa2300041）讨论了机器学习在个体化治疗效应预测中的方法学。LASSO回归通过L1正则化将不重要变量系数压缩为0，实现变量筛选和正则化。`,
+    options: [
+        { text: '能够自动进行变量筛选并将部分系数压缩为0', correct: true },
+        { text: '保证所有变量均被纳入模型', correct: false },
+        { text: '适用于因变量为二分类的Cox回归', correct: false },
+        { text: '不需要设定惩罚参数λ', correct: false }
+    ],
+    explanation: 'LASSO通过L1惩罚项实现变量筛选和正则化。'
+}, {
+    id: 187,
+    type: 'choice',
+    category: 'model',
+    catLabel: '回归建模',
+    tagClass: 'tag-model',
+    icon: '📐',
+    iconClass: 'purple',
+    title: '在回归模型中引入交互项（Interaction Term）的主要目的是：',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJMp2000589',
+    difficulty: '⭐⭐',
+    drugKnowledge: '线性回归',
+    bgSummary: `📄 文献背景：本文发表于N Engl J Med 2020年，系统阐述了预测模型开发中的变量处理方法。交互作用反映联合效应，在临床研究中探索亚组间效应差异至关重要。`,
+    options: [
+        { text: '校正混杂因素', correct: false },
+        { text: '评估一个变量对另一个变量效应的影响（效应修饰）', correct: true },
+        { text: '提高模型的R²', correct: false },
+        { text: '解决多重共线性', correct: false }
+    ],
+    explanation: '交互项用于评估效应修饰作用。'
+}, {
+    id: 188,
+    type: 'choice',
+    category: 'model',
+    catLabel: '回归建模',
+    tagClass: 'tag-model',
+    icon: '📐',
+    iconClass: 'purple',
+    title: '关于线性回归模型中的残差分析，以下说法正确的是：',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJMp2000589',
+    difficulty: '⭐⭐',
+    drugKnowledge: '线性回归',
+    bgSummary: `📄 文献背景：本文发表于N Engl J Med 2020年。线性回归依赖LINE原则，残差图若呈“漏斗形”提示异方差性，违反方差齐性假设。`,
+    options: [
+        { text: '残差应呈现明显的趋势以证明模型拟合良好', correct: false },
+        { text: '残差图若呈现“漏斗形”提示方差不齐', correct: true },
+        { text: '残差必须服从F分布', correct: false },
+        { text: '残差分析仅用于评估异常值', correct: false }
+    ],
+    explanation: '残差图呈现“漏斗形”提示异方差性。'
+}, {
+    id: 189,
+    type: 'choice',
+    category: 'model',
+    catLabel: '回归建模',
+    tagClass: 'tag-model',
+    icon: '📐',
+    iconClass: 'purple',
+    title: '在临床预测模型中，区分度（Discrimination）和校准度（Calibration）的区别是：',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJMp2000589',
+    difficulty: '⭐⭐',
+    drugKnowledge: '模型评估',
+    bgSummary: `📄 文献背景：本文发表于N Engl J Med 2020年，由Pencina等系统阐述了预测模型的评估框架。区分度评价排序能力（AUC），校准度评价预测概率与实际风险的一致性。`,
+    options: [
+        { text: '区分度评价预测概率的绝对准确性，校准度评价排序能力', correct: false },
+        { text: '区分度评价排序能力（如AUC），校准度评价预测概率与实际风险的一致性', correct: true },
+        { text: '区分度仅适用于Logistic回归，校准度仅适用于Cox回归', correct: false },
+        { text: '区分度与校准度是同一概念的不同表述', correct: false }
+    ],
+    explanation: '区分度反映排序能力，校准度反映绝对风险一致性。'
+}, {
+    id: 190,
+    type: 'choice',
+    category: 'model',
+    catLabel: '回归建模',
+    tagClass: 'tag-model',
+    icon: '📐',
+    iconClass: 'purple',
+    title: '在回归模型中，关于“过度拟合”（Overfitting）的描述，以下哪项是正确的？',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJMp2000589',
+    difficulty: '⭐⭐',
+    drugKnowledge: '回归建模',
+    bgSummary: `📄 文献背景：本文发表于N Engl J Med 2020年。过度拟合指模型在训练集表现好但在新数据集上表现差。过度拟合模型方差大、偏差小，可通过增加样本量、正则化等缓解。`,
+    options: [
+        { text: '模型在训练集上的表现越差，越容易发生过拟合', correct: false },
+        { text: '增加自变量数量总能改善模型的外部泛化能力', correct: false },
+        { text: '过度拟合的模型通常方差较大，偏差较小', correct: true },
+        { text: '过度拟合可通过增加样本量和正则化来缓解', correct: true }
+    ],
+    explanation: '过度拟合模型方差大、偏差小，可通过增加样本量、正则化等缓解。'
+}, {
+    id: 191,
+    type: 'choice',
+    category: 'model',
+    catLabel: '回归建模',
+    tagClass: 'tag-model',
+    icon: '📐',
+    iconClass: 'purple',
+    title: '在Logistic回归中，回归系数β与优势比（OR）的关系是：',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJMp2000589',
+    difficulty: '⭐',
+    drugKnowledge: 'Logistic回归',
+    bgSummary: `📄 文献背景：本文发表于N Engl J Med 2020年。Logistic回归是医学研究中最常用的二分类结局建模方法，回归系数β经指数化后得到OR。`,
+    options: [
+        { text: 'OR = β', correct: false },
+        { text: 'OR = e^β', correct: true },
+        { text: 'OR = ln(β)', correct: false },
+        { text: 'OR = β²', correct: false }
+    ],
+    explanation: '在Logistic回归中，OR = e^β。'
+}, {
+    id: 192,
+    type: 'choice',
+    category: 'model',
+    catLabel: '回归建模',
+    tagClass: 'tag-model',
+    icon: '📐',
+    iconClass: 'purple',
+    title: '在回归分析中，以下哪种方法最适合处理自变量与因变量之间的非线性关系？',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJMc1006186',
+    difficulty: '⭐⭐',
+    drugKnowledge: '回归建模',
+    bgSummary: `📄 文献背景：NEJM 2010年发表的“Are All Readmissions Bad Readmissions?”（DOI: 10.1056/NEJMc1006186）中使用了限制性立方样条（RCS）进行线性回归分析。RCS可灵活拟合非线性关系。`,
+    options: [
+        { text: '强制纳入线性项', correct: false },
+        { text: '使用限制性立方样条（RCS）或多项式项', correct: true },
+        { text: '将连续变量直接变为二分类变量', correct: false },
+        { text: '删除该变量', correct: false }
+    ],
+    explanation: 'RCS可灵活拟合非线性关系，避免边界不稳定问题。'
+}, {
+    id: 193,
+    type: 'choice',
+    category: 'model',
+    catLabel: '回归建模',
+    tagClass: 'tag-model',
+    icon: '📐',
+    iconClass: 'purple',
+    title: '关于回归模型中的“自变量筛选”，以下哪项描述是错误的？',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJMp2000589',
+    difficulty: '⭐⭐',
+    drugKnowledge: '变量筛选',
+    bgSummary: `📄 文献背景：本文发表于N Engl J Med 2020年。逐步回归法不能保证全局最优，且会引入选择偏倚。基于临床先验知识纳入变量更稳健。`,
+    options: [
+        { text: '基于单因素分析P<0.1筛选变量容易导致遗漏重要混杂因素', correct: false },
+        { text: '逐步回归法能保证最终模型为最优模型', correct: true },
+        { text: '基于临床先验知识强制纳入变量比纯统计筛选更稳健', correct: false },
+        { text: 'LASSO回归可用于高维数据的变量筛选', correct: false }
+    ],
+    explanation: '逐步回归法不能保证得到全局最优模型。'
+}, {
+    id: 194,
+    type: 'choice',
+    category: 'model',
+    catLabel: '回归建模',
+    tagClass: 'tag-model',
+    icon: '📐',
+    iconClass: 'purple',
+    title: '在Cox比例风险回归模型中，若某自变量的HR=1.50（95% CI 1.20~1.88），其临床含义是：',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJMc1900410',
+    difficulty: '⭐',
+    drugKnowledge: '回归建模',
+    bgSummary: `📄 文献背景：NEJM 2019年“Radical Surgery or Watchful Waiting in Prostate Cancer”（DOI: 10.1056/NEJMc1900410）报告了前列腺癌根治术相对于观察等待的HR为0.55（95% CI 0.41~0.74）。HR=1.50表示风险增加50%。`,
+    options: [
+        { text: '该变量使死亡风险增加50%', correct: true },
+        { text: '该变量使生存时间延长50%', correct: false },
+        { text: '该变量使死亡风险降低50%', correct: false },
+        { text: '该变量使死亡风险增加150%', correct: false }
+    ],
+    explanation: 'HR=1.50表示事件风险增加50%。'
+}, {
+    id: 195,
+    type: 'choice',
+    category: 'model',
+    catLabel: '回归建模',
+    tagClass: 'tag-model',
+    icon: '📐',
+    iconClass: 'purple',
+    title: '关于回归模型中的“交互作用”与“混杂作用”，以下说法正确的是：',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJMp2000589',
+    difficulty: '⭐⭐',
+    drugKnowledge: '回归建模',
+    bgSummary: `📄 文献背景：本文发表于N Engl J Med 2020年。混杂因素需校正以控制偏倚，交互作用反映效应修饰，两者需区别对待。`,
+    options: [
+        { text: '混杂因素在模型中应始终保留，而交互项需根据统计显著性决定是否保留', correct: false },
+        { text: '混杂因素是需校正的偏倚来源，交互作用反映效应修饰，两者需区别对待', correct: true },
+        { text: '只要存在混杂，就必然存在交互', correct: false },
+        { text: '交互作用只能通过分层分析发现', correct: false }
+    ],
+    explanation: '混杂因素需校正，交互作用需根据研究假设决定是否纳入。'
+}, {
+    id: 196,
+    type: 'choice',
+    category: 'model',
+    catLabel: '回归建模',
+    tagClass: 'tag-model',
+    icon: '📐',
+    iconClass: 'purple',
+    title: '在建立预测模型时，Bootstrap自抽样方法的主要作用是：',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJMp2000589',
+    difficulty: '⭐⭐',
+    drugKnowledge: '模型验证',
+    bgSummary: `📄 文献背景：本文发表于N Engl J Med 2020年。Bootstrap重抽样用于内部验证，评估模型乐观度并校正性能指标。`,
+    options: [
+        { text: '增加原始样本量', correct: false },
+        { text: '用于内部验证，评估模型的乐观度并校正性能指标', correct: true },
+        { text: '替代外部验证', correct: false },
+        { text: '用于处理缺失数据', correct: false }
+    ],
+    explanation: 'Bootstrap用于内部验证和乐观度校正。'
+}, {
+    id: 197,
+    type: 'choice',
+    category: 'model',
+    catLabel: '回归建模',
+    tagClass: 'tag-model',
+    icon: '📐',
+    iconClass: 'purple',
+    title: '关于线性回归中调整R²（Adjusted R²）与R²的区别，正确的是：',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJMp2000589',
+    difficulty: '⭐',
+    drugKnowledge: '线性回归',
+    bgSummary: `📄 文献背景：本文发表于N Engl J Med 2020年。调整R²考虑了自变量个数，当增加无统计学意义的变量时可能下降。`,
+    options: [
+        { text: '调整R²总是大于R²', correct: false },
+        { text: '调整R²考虑了自变量个数，可用于比较不同变量数的模型', correct: true },
+        { text: 'R²可用于比较因变量不同的模型', correct: false },
+        { text: '调整R²仅适用于多重线性回归，不适用于Logistic回归', correct: false }
+    ],
+    explanation: '调整R²考虑了自变量个数，可用于比较不同变量数的模型。'
+}, {
+    id: 198,
+    type: 'choice',
+    category: 'model',
+    catLabel: '回归建模',
+    tagClass: 'tag-model',
+    icon: '📐',
+    iconClass: 'purple',
+    title: '在Logistic回归中，若样本量较小且存在完全分离（Complete Separation），应优先考虑以下哪种方法？',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJMp2000589',
+    difficulty: '⭐⭐⭐',
+    drugKnowledge: 'Logistic回归',
+    bgSummary: `📄 文献背景：本文发表于N Engl J Med 2020年。完全分离时最大似然估计不收敛，Firth惩罚似然法可有效解决。`,
+    options: [
+        { text: '增加自变量个数', correct: false },
+        { text: '使用Firth惩罚似然法', correct: true },
+        { text: '强制删除导致分离的变量', correct: false },
+        { text: '改用线性回归', correct: false }
+    ],
+    explanation: 'Firth惩罚似然法可解决完全分离导致的估计偏倚。'
+}, {
+    id: 199,
+    type: 'essay',
+    category: 'model',
+    catLabel: '回归建模',
+    tagClass: 'tag-model',
+    icon: '📐',
+    iconClass: 'purple',
+    title: '回归建模中的样本量与模型验证',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJMp2000589',
+    difficulty: '⭐⭐',
+    drugKnowledge: '回归建模/EPV',
+    bgSummary: `📄 文献背景：本文发表于N Engl J Med 2020年，由Pencina等系统阐述了预测模型从开发到临床应用的全流程方法学。文章强调样本量不足是导致模型过拟合和外部验证失败的主要原因。`,
+    subQuestions: [
+        '什么是“10%法则”（EPV）？在多因素回归模型中，如果自变量较多而样本量不足，会导致什么问题？如何防范？',
+        '请简述区分度（Discrimination）和校准度（Calibration）的概念及其在临床预测模型评价中的意义，常用的评价指标分别有哪些？'
+    ],
+    answers: [
+        '10%法则（EPV）即每个自变量至少需要10个结局事件。若EPV过低（如<10），模型容易过度拟合，表现为在训练集上表现良好但在新数据集上性能显著下降，且回归系数估计不稳定、标准误偏小、置信区间过窄。防范措施包括：增加样本量、减少自变量个数、使用LASSO等正则化方法、采用Bootstrap进行内部验证，或使用Firth惩罚似然法处理罕见事件。',
+        '区分度指模型区分发生事件与未发生事件个体的能力，常用C统计量（即AUC）衡量。校准度指模型预测概率与实际发生率的一致性，常用校准曲线和Hosmer-Lemeshow检验评估。两者缺一不可：一个模型可能区分度好但校准度差，从而导致临床决策失误。'
+    ],
+    keyPoints: 'EPV与过拟合防范；区分度与校准度的概念及评价指标。'
+}, {
+    id: 200,
+    type: 'essay',
+    category: 'model',
+    catLabel: '回归建模',
+    tagClass: 'tag-model',
+    icon: '📐',
+    iconClass: 'purple',
+    title: '预测模型的开发、评估与临床应用',
+    journal: 'N Engl J Med',
+    doi: '10.1056/EVIDoa2300041',
+    difficulty: '⭐⭐',
+    drugKnowledge: '预测模型开发',
+    bgSummary: `📄 文献背景：NEJM Evidence 2024年发表的“Individualized Treatment Effect Prediction with Machine Learning”（DOI: 10.1056/EVIDoa2300041）讨论了机器学习在个体化治疗效应预测中的方法学考虑，包括使用因果生存森林算法进行模型开发。`,
+    subQuestions: [
+        '在临床预测模型的开发过程中，TRIPOD声明要求报告哪些关键要素？为什么报告规范如此重要？',
+        '机器学习方法（如随机生存森林）与传统Cox回归在预测模型开发中的主要区别是什么？各自的优缺点是什么？'
+    ],
+    answers: [
+        'TRIPOD声明要求报告的关键要素包括：研究设计和数据来源、参与者纳入排除标准、结局定义、预测因子定义和测量、样本量计算依据、缺失数据处理方法、模型开发方法、模型性能评价、模型验证策略、以及模型的可及性和使用方法。报告规范的重要性在于确保研究可重复、提高透明度、帮助读者评估模型的适用性和局限性。',
+        '主要区别：随机生存森林不需要比例风险假设，能自动捕捉非线性关系和交互作用，对高维数据更稳健；Cox回归依赖PH假设和线性假设，但模型解释性更强。优缺点：Cox回归简单透明、易于临床应用，但在非线性关系和非比例风险下性能受限；随机生存森林灵活强大，但模型复杂、需要更大样本量和更长计算时间。'
+    ],
+    keyPoints: 'TRIPOD报告规范；机器学习与Cox回归的比较。'
+},
+// ================================================================
+// 模块六：预后生存
+// ================================================================
+{
+    id: 201,
+    type: 'choice',
+    category: 'surv',
+    catLabel: '预后生存',
+    tagClass: 'tag-surv',
+    icon: '⏳',
+    iconClass: 'teal',
+    title: '在Kaplan-Meier生存曲线中，当两条曲线发生交叉时，最可能提示：',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJMp2403318',
+    difficulty: '⭐⭐',
+    drugKnowledge: 'KM曲线',
+    bgSummary: `📄 文献背景：本文发表于N Engl J Med 2024年，由Cheng和Hogan撰写，讨论了临床试验中敏感性分析的重要性和方法学要求。生存曲线交叉提示风险比随时间变化，违反了Cox比例风险假设。`,
+    options: [
+        { text: '两种干预措施的效果完全相同', correct: false },
+        { text: '存在非比例风险（Non-proportional Hazards），需考虑时间依赖性效应', correct: true },
+        { text: '样本量不足', correct: false },
+        { text: '存在竞争风险', correct: false }
+    ],
+    explanation: '曲线交叉提示风险比随时间变化，即存在非比例风险。'
+}, {
+    id: 202,
+    type: 'choice',
+    category: 'surv',
+    catLabel: '预后生存',
+    tagClass: 'tag-surv',
+    icon: '⏳',
+    iconClass: 'teal',
+    title: '在生存分析中，关于“删失”（Censoring）的说法，正确的是：',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJMp2403318',
+    difficulty: '⭐',
+    drugKnowledge: '生存分析基础',
+    bgSummary: `📄 文献背景：本文发表于N Engl J Med 2024年，讨论了临床试验中的敏感性分析方法。右删失是最常见的类型，指研究对象在随访结束时仍未发生事件。`,
+    options: [
+        { text: '删失数据应直接从分析中剔除', correct: false },
+        { text: '右删失是最常见的类型，指事件发生在观察期之后', correct: true },
+        { text: '删失不会影响生存曲线的估计', correct: false },
+        { text: '竞争风险不属于删失范畴', correct: false }
+    ],
+    explanation: '右删失指研究对象在随访结束时仍未发生事件。'
+}, {
+    id: 203,
+    type: 'choice',
+    category: 'surv',
+    catLabel: '预后生存',
+    tagClass: 'tag-surv',
+    icon: '⏳',
+    iconClass: 'teal',
+    title: '在Cox比例风险模型中，检验比例风险假设（PH假设）最常用的方法是：',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJMp2403318',
+    difficulty: '⭐⭐',
+    drugKnowledge: 'Cox回归',
+    bgSummary: `📄 文献背景：本文发表于N Engl J Med 2024年，讨论了临床试验中敏感性分析的方法学要求。Schoenfeld残差检验是评估PH假设的标准方法。`,
+    options: [
+        { text: 'Log-rank检验', correct: false },
+        { text: 'Schoenfeld残差检验', correct: true },
+        { text: 'Hosmer-Lemeshow检验', correct: false },
+        { text: 'Durbin-Watson检验', correct: false }
+    ],
+    explanation: 'Schoenfeld残差检验是评估Cox模型比例风险假设的标准方法。'
+}, {
+    id: 204,
+    type: 'choice',
+    category: 'surv',
+    catLabel: '预后生存',
+    tagClass: 'tag-surv',
+    icon: '⏳',
+    iconClass: 'teal',
+    title: '在存在竞争风险（Competing Risks）的生存分析中，采用Fine-Gray模型与原因别Cox模型的主要区别是：',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJMp2403318',
+    difficulty: '⭐⭐⭐',
+    drugKnowledge: '竞争风险',
+    bgSummary: `📄 文献背景：本文发表于N Engl J Med 2024年。NEJM 2021年发表的“Randomized Trial of Nocturnal Oxygen in COPD”中即使用了Fine-Gray模型处理竞争风险。`,
+    options: [
+        { text: 'Fine-Gray模型估计的是累积发生率函数（CIF）的效应', correct: true },
+        { text: '原因别Cox模型估计的是CIF的效应', correct: false },
+        { text: '两者均忽略了竞争风险', correct: false },
+        { text: 'Fine-Gray模型不适用于临床研究', correct: false }
+    ],
+    explanation: 'Fine-Gray模型估计CIF的效应，原因别Cox模型估计原因别风险的效应。'
+}, {
+    id: 205,
+    type: 'choice',
+    category: 'surv',
+    catLabel: '预后生存',
+    tagClass: 'tag-surv',
+    icon: '⏳',
+    iconClass: 'teal',
+    title: '限制性平均生存时间（RMST）在生存分析中的主要优势是：',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJMp2403318',
+    difficulty: '⭐⭐',
+    drugKnowledge: 'RMST',
+    bgSummary: `📄 文献背景：本文发表于N Engl J Med 2024年，讨论了非比例风险下的替代分析方法。NEJM Evidence已发表专文介绍RMST的方法学应用。`,
+    options: [
+        { text: '不需要设定时间截点t*', correct: false },
+        { text: '不依赖比例风险假设，可直接解释为平均生存时间延长', correct: true },
+        { text: '仅适用于单变量分析', correct: false },
+        { text: '计算比HR更简单', correct: false }
+    ],
+    explanation: 'RMST不依赖比例风险假设，可解释为平均生存时间延长。'
+}, {
+    id: 206,
+    type: 'choice',
+    category: 'surv',
+    catLabel: '预后生存',
+    tagClass: 'tag-surv',
+    icon: '⏳',
+    iconClass: 'teal',
+    title: '在Kaplan-Meier生存分析中，Log-rank检验的主要作用是：',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJMp2403318',
+    difficulty: '⭐',
+    drugKnowledge: 'KM曲线',
+    bgSummary: `📄 文献背景：本文发表于N Engl J Med 2024年。Log-rank检验比较整个随访期间的事件发生情况，但不能直接给出效应大小。`,
+    options: [
+        { text: '估计风险比（HR）', correct: false },
+        { text: '比较两组生存曲线是否存在统计学差异', correct: true },
+        { text: '检验比例风险假设', correct: false },
+        { text: '计算样本量', correct: false }
+    ],
+    explanation: 'Log-rank检验用于比较生存曲线是否存在统计学差异。'
+}, {
+    id: 207,
+    type: 'choice',
+    category: 'surv',
+    catLabel: '预后生存',
+    tagClass: 'tag-surv',
+    icon: '⏳',
+    iconClass: 'teal',
+    title: '关于生存分析中的“时依协变量”（Time-Dependent Covariate），以下说法正确的是：',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJMp2403318',
+    difficulty: '⭐⭐⭐',
+    drugKnowledge: 'Cox回归',
+    bgSummary: `📄 文献背景：本文发表于N Engl J Med 2024年，讨论了时间依赖性暴露的分析方法。将时依协变量视为固定变量会导致永生时间偏倚。`,
+    options: [
+        { text: '可以将随访期间的暴露状态视为基线变量分析', correct: false },
+        { text: '时依协变量需要使用扩展的Cox模型或联合模型进行分析', correct: true },
+        { text: '时依协变量不会影响生存分析的准确性', correct: false },
+        { text: '时依协变量仅适用于线性回归', correct: false }
+    ],
+    explanation: '需使用带时依协变量的Cox模型或联合模型。'
+}, {
+    id: 208,
+    type: 'choice',
+    category: 'surv',
+    catLabel: '预后生存',
+    tagClass: 'tag-surv',
+    icon: '⏳',
+    iconClass: 'teal',
+    title: '在生存分析中，若研究对象的删失比例过高（如超过40%），可能导致：',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJMp2403318',
+    difficulty: '⭐⭐',
+    drugKnowledge: '生存分析基础',
+    bgSummary: `📄 文献背景：本文发表于N Engl J Med 2024年。高删失比例会导致生存曲线尾部估计不稳定，非随机删失会严重偏倚生存估计。`,
+    options: [
+        { text: '生存曲线估计更加精确', correct: false },
+        { text: '生存曲线的尾部估计不稳定，且可能引入偏倚', correct: true },
+        { text: 'Log-rank检验效能增加', correct: false },
+        { text: 'Cox模型不受影响', correct: false }
+    ],
+    explanation: '高删失比例会导致生存估计不稳定和偏倚。'
+}, {
+    id: 209,
+    type: 'choice',
+    category: 'surv',
+    catLabel: '预后生存',
+    tagClass: 'tag-surv',
+    icon: '⏳',
+    iconClass: 'teal',
+    title: '在Cox回归中，若某分类变量有4个水平，应引入几个哑变量？',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJMp2403318',
+    difficulty: '⭐',
+    drugKnowledge: 'Cox回归',
+    bgSummary: `📄 文献背景：本文发表于N Engl J Med 2024年。对于有k个水平的分类变量，应引入k-1个哑变量，以避免完全共线性。`,
+    options: [
+        { text: '1个', correct: false },
+        { text: '2个', correct: false },
+        { text: '3个', correct: true },
+        { text: '4个', correct: false }
+    ],
+    explanation: '4个水平需引入3个哑变量。'
+}, {
+    id: 210,
+    type: 'choice',
+    category: 'surv',
+    catLabel: '预后生存',
+    tagClass: 'tag-surv',
+    icon: '⏳',
+    iconClass: 'teal',
+    title: '关于随机生存森林（Random Survival Forest）与传统Cox模型相比，其主要优势是：',
+    journal: 'N Engl J Med',
+    doi: '10.1056/EVIDoa2300041',
+    difficulty: '⭐⭐',
+    drugKnowledge: '机器学习生存分析',
+    bgSummary: `📄 文献背景：NEJM Evidence 2024年发表的“Individualized Treatment Effect Prediction with Machine Learning”讨论了随机生存森林等方法。`,
+    options: [
+        { text: '需要更严格的假设条件', correct: false },
+        { text: '能自动处理非线性关系和交互作用，且不依赖比例风险假设', correct: true },
+        { text: '计算简单，不需要调参', correct: false },
+        { text: '只能用于单变量分析', correct: false }
+    ],
+    explanation: '随机生存森林不依赖比例风险假设，能自动捕捉非线性关系。'
+}, {
+    id: 211,
+    type: 'choice',
+    category: 'surv',
+    catLabel: '预后生存',
+    tagClass: 'tag-surv',
+    icon: '⏳',
+    iconClass: 'teal',
+    title: '在生存分析样本量估算中，影响所需事件数（Number of Events）的关键因素不包括：',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJMp2403318',
+    difficulty: '⭐⭐',
+    drugKnowledge: '样本量估算',
+    bgSummary: `📄 文献背景：本文发表于N Engl J Med 2024年。所需事件数由HR、α、检验效能及分组比例决定。`,
+    options: [
+        { text: '预期的HR大小', correct: false },
+        { text: 'α水平和检验效能', correct: false },
+        { text: '入组期间和随访时间', correct: true },
+        { text: '受试者的性别比例', correct: true }
+    ],
+    explanation: '入组期和随访时间影响所需受试者数，性别比例不是核心因素。'
+}, {
+    id: 212,
+    type: 'choice',
+    category: 'surv',
+    catLabel: '预后生存',
+    tagClass: 'tag-surv',
+    icon: '⏳',
+    iconClass: 'teal',
+    title: '若某Cox回归模型中，协变量的HR值在随访早期和晚期明显不同，以下处理方法错误的是：',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJMp2403318',
+    difficulty: '⭐⭐',
+    drugKnowledge: 'Cox回归',
+    bgSummary: `📄 文献背景：本文发表于N Engl J Med 2024年。当PH假设不成立时，强行报告整体HR会掩盖效应随时间变化的真实情况。`,
+    options: [
+        { text: '使用时依系数模型', correct: false },
+        { text: '使用RMST分析', correct: false },
+        { text: '使用加权Log-rank检验', correct: false },
+        { text: '强行忽略，仍报告整体HR', correct: true }
+    ],
+    explanation: '当PH假设不成立时，不应强行报告整体HR。'
+}, {
+    id: 213,
+    type: 'choice',
+    category: 'surv',
+    catLabel: '预后生存',
+    tagClass: 'tag-surv',
+    icon: '⏳',
+    iconClass: 'teal',
+    title: '关于竞争风险中的累积发生率函数（CIF），与Kaplan-Meier法相比，其优势在于：',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJMp2403318',
+    difficulty: '⭐⭐',
+    drugKnowledge: '竞争风险',
+    bgSummary: `📄 文献背景：本文发表于N Engl J Med 2024年。CIF考虑了竞争事件的影响，能正确估计感兴趣事件的累积绝对风险。`,
+    options: [
+        { text: 'CIF计算更简单', correct: false },
+        { text: 'CIF能正确反映绝对风险，不会因竞争事件而高估发生率', correct: true },
+        { text: 'CIF不需要考虑时间', correct: false },
+        { text: 'CIF仅适用于单因素分析', correct: false }
+    ],
+    explanation: 'CIF能正确反映绝对风险，不会高估发生率。'
+}, {
+    id: 214,
+    type: 'choice',
+    category: 'surv',
+    catLabel: '预后生存',
+    tagClass: 'tag-surv',
+    icon: '⏳',
+    iconClass: 'teal',
+    title: '在Cox回归模型中，关于“分层”（Stratification）的说法，正确的是：',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJMp2403318',
+    difficulty: '⭐⭐',
+    drugKnowledge: 'Cox回归',
+    bgSummary: `📄 文献背景：本文发表于N Engl J Med 2024年。分层Cox模型允许各层有不同的基线风险函数，但分层变量本身的效应无法直接估计。`,
+    options: [
+        { text: '分层变量可以估计其HR', correct: false },
+        { text: '分层变量允许各层有不同的基线风险函数，但不估计其效应', correct: true },
+        { text: '分层变量必须为连续变量', correct: false },
+        { text: '分层模型不能用于多因素分析', correct: false }
+    ],
+    explanation: '分层Cox模型允许各层有不同的基线风险函数。'
+}, {
+    id: 215,
+    type: 'choice',
+    category: 'surv',
+    catLabel: '预后生存',
+    tagClass: 'tag-surv',
+    icon: '⏳',
+    iconClass: 'teal',
+    title: '在生存分析中，关于“中位生存时间”的解读，正确的是：',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJMp2403318',
+    difficulty: '⭐',
+    drugKnowledge: '生存分析基础',
+    bgSummary: `📄 文献背景：本文发表于N Engl J Med 2024年。中位生存时间是生存曲线降至50%时对应的时间点。`,
+    options: [
+        { text: '中位生存时间等于平均生存时间', correct: false },
+        { text: '中位生存时间表示50%的研究对象发生事件的时间点', correct: true },
+        { text: '中位生存时间必须在所有对象均发生事件后才能计算', correct: false },
+        { text: '中位生存时间适用于比例风险模型', correct: false }
+    ],
+    explanation: '中位生存时间是生存曲线降至50%时对应的时间点。'
+}, {
+    id: 216,
+    type: 'essay',
+    category: 'surv',
+    catLabel: '预后生存',
+    tagClass: 'tag-surv',
+    icon: '⏳',
+    iconClass: 'teal',
+    title: '生存分析中的非比例风险与竞争风险',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJMp2403318',
+    difficulty: '⭐⭐',
+    drugKnowledge: '生存分析进阶',
+    bgSummary: `📄 文献背景：本文发表于N Engl J Med 2024年，由Cheng和Hogan撰写，强调了敏感性分析在评估试验结果稳健性中的重要作用。在肿瘤免疫治疗和心血管器械试验中，非比例风险和竞争风险是常见的方法学挑战。`,
+    subQuestions: [
+        '在生存分析中，什么是比例风险假设（PH假设）？如何检验该假设？如果PH假设不成立，应如何处理？',
+        '在存在竞争风险的情况下，为什么使用Kaplan-Meier法会高估感兴趣事件的发生率？请说明Fine-Gray模型和原因别Cox模型的区别。'
+    ],
+    answers: [
+        '比例风险假设（PH假设）是Cox模型的核心假设，即协变量的效应（HR）随时间保持恒定。最常用的检验方法是Schoenfeld残差检验。若PH假设不成立，处理方法包括：使用时依系数模型、限制性平均生存时间（RMST）、加权Log-rank检验、分层Cox模型，或报告不同时间段的HR。',
+        '在竞争风险存在时，Kaplan-Meier法将竞争事件视为删失，这假设删失个体在之后的随访中发生感兴趣事件的风险与未删失个体相同。但实际上，发生竞争事件的个体已不可能再发生感兴趣事件。因此，1-KM法会高估感兴趣事件的累积发生率。Fine-Gray模型估计的是协变量对CIF（绝对风险）的效应（sdHR）；而原因别Cox模型估计的是协变量对原因别风险的效应。'
+    ],
+    keyPoints: 'PH假设检验与处理；竞争风险下CIF与1-KM法的区别。'
+}, {
+    id: 217,
+    type: 'essay',
+    category: 'surv',
+    catLabel: '预后生存',
+    tagClass: 'tag-surv',
+    icon: '⏳',
+    iconClass: 'teal',
+    title: '限制性平均生存时间（RMST）与P值解读',
+    journal: 'N Engl J Med',
+    doi: '10.1056/EVIDoa2300003',
+    difficulty: '⭐⭐',
+    drugKnowledge: 'RMST/P值',
+    bgSummary: `📄 文献背景：NEJM Evidence 2024年发表了van Zwet等撰写的“A New Look at P Values for Randomized Clinical Trials”（DOI: 10.1056/EVIDoa2300003），该研究分析了Cochrane系统综述数据库中23,551项随机临床试验的主要疗效结果。研究发现，大多数试验的统计效能远低于声称的80-90%。`,
+    subQuestions: [
+        '请简述限制性平均生存时间（RMST）的定义及其在非比例风险下的临床应用优势。',
+        'NEJM Evidence 2024年关于P值的研究发现，大多数临床试验的统计效能如何？这对临床研究中P值的解读有何启示？'
+    ],
+    answers: [
+        'RMST定义为从0到某一预设时间点t*的生存曲线下面积，可直观解释为在t*时间内的平均生存时间。其临床优势包括：不依赖比例风险假设，在非比例风险下仍能提供稳健的效应估计；以时间（月或年）为单位，临床医生易于理解；可直接回答“在特定时间范围内，治疗组比对照组多存活多长时间”这一临床问题。',
+        'NEJM Evidence 2024年的研究发现，大多数试验的实际统计效能远低于声称的80-90%。这意味着“统计学显著”的估计倾向于严重高估真实治疗效应，“不显著”的结果往往对应着重要的效应。对P值解读的启示包括：P值不能单独作为决策依据，应结合效应大小、置信区间和临床重要性综合判断；需要警惕“赢家诅咒”效应。'
+    ],
+    keyPoints: 'RMST定义与优势；P值解读的局限性及实际效能问题。'
+},
+// ================================================================
+// 模块七：诊断评价
+// 全部文献来自 NEJM 主刊
+// ================================================================
+{
+    id: 218,
+    type: 'choice',
+    category: 'diagmod',
+    catLabel: '诊断评价',
+    tagClass: 'tag-diagmod',
+    icon: '🔬',
+    iconClass: 'indigo',
+    title: '在诊断准确性研究中，“谱系偏倚”的经典概念是由谁提出的？',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJM197810262991705',
+    difficulty: '⭐⭐',
+    drugKnowledge: '诊断偏倚',
+    bgSummary: `📄 文献背景：Ransohoff和Feinstein于1978年发表于N Engl J Med的经典研究（DOI: 10.1056/NEJM197810262991705）首次系统阐述了谱系偏倚（Spectrum Bias）的概念。研究指出，若研究人群未能选取适当广度的患病与非患病人群，诊断试验的“rule-in”和“rule-out”性能会被错误地高估；若试验判读与真实诊断的确定未独立进行，偏倚会进一步虚假地抬高试验效能[reference:0]。`,
+    options: [
+        { text: 'Ransohoff和Feinstein', correct: true },
+        { text: 'Sackett和Haynes', correct: false },
+        { text: 'Guyatt和Rennie', correct: false },
+        { text: 'Bossuyt和Reitsma', correct: false }
+    ],
+    explanation: 'Ransohoff DF, Feinstein AR. Problems of spectrum and bias in evaluating the efficacy of diagnostic tests. N Engl J Med 1978;299:926-930.'
+}, {
+    id: 219,
+    type: 'choice',
+    category: 'diagmod',
+    catLabel: '诊断评价',
+    tagClass: 'tag-diagmod',
+    icon: '🔬',
+    iconClass: 'indigo',
+    title: '谱系偏倚会导致诊断试验的敏感度和特异度如何变化？',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJM197810262991705',
+    difficulty: '⭐⭐',
+    drugKnowledge: '诊断偏倚',
+    bgSummary: `📄 文献背景：Ransohoff和Feinstein（N Engl J Med 1978）指出，若研究中的病例组仅纳入重症患者、对照组仅纳入健康人群，则诊断试验的敏感度和特异度会被系统性高估。研究以癌胚抗原和硝基蓝四氮唑试验为例，说明避免谱系偏倚可防止对诊断价值的早期乐观和后续失望[reference:1]。`,
+    options: [
+        { text: '敏感度和特异度均被高估', correct: true },
+        { text: '敏感度被高估，特异度被低估', correct: false },
+        { text: '敏感度被低估，特异度被高估', correct: false },
+        { text: '敏感度和特异度均被低估', correct: false }
+    ],
+    explanation: '谱系偏倚使研究人群的疾病谱过窄（如仅纳入重症病例和健康对照），导致敏感度和特异度被高估。'
+}, {
+    id: 220,
+    type: 'choice',
+    category: 'diagmod',
+    catLabel: '诊断评价',
+    tagClass: 'tag-diagmod',
+    icon: '🔬',
+    iconClass: 'indigo',
+    title: '在SARS-CoV-2诊断试验中，假阴性结果比假阳性结果更具临床后果，主要原因是：',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJMp2015897',
+    difficulty: '⭐⭐',
+    drugKnowledge: '诊断试验基础',
+    bgSummary: `📄 文献背景：Woloshin、Patel和Kesselheim于2020年发表于N Engl J Med（DOI: 10.1056/NEJMp2015897）指出，在SARS-CoV-2大流行中，假阴性结果比假阳性结果更具后果，因为感染者（可能无症状）可能不会被隔离，从而继续传播他人[reference:2]。文章强调，临床敏感度是指在实际患病患者中，指标试验阳性的比例，其测量可能因临床场景而异[reference:3]。`,
+    options: [
+        { text: '假阴性会导致感染者未被隔离并继续传播病毒', correct: true },
+        { text: '假阴性会导致不必要的隔离和接触者追踪', correct: false },
+        { text: '假阴性会影响抗体检测的准确性', correct: false },
+        { text: '假阴性意味着试验的分析敏感度不足', correct: false }
+    ],
+    explanation: '假阳性导致不必要的隔离，而假阴性更为严重，因为感染者可能未被隔离并传播病毒。'
+}, {
+    id: 221,
+    type: 'choice',
+    category: 'diagmod',
+    catLabel: '诊断评价',
+    tagClass: 'tag-diagmod',
+    icon: '🔬',
+    iconClass: 'indigo',
+    title: '在支气管基因组分类器用于肺癌诊断的研究中，AUC为0.78（95% CI 0.73~0.83）。该AUC值表示：',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJMoa1504601',
+    difficulty: '⭐⭐',
+    drugKnowledge: 'ROC分析',
+    bgSummary: `📄 文献背景：Silvestri等发表于N Engl J Med 2015年的AEGIS研究（DOI: 10.1056/NEJMoa1504601）验证了一种支气管气道基因表达分类器，用于改善支气管镜检查对肺癌的诊断性能。在AEGIS-1队列中，分类器的AUC为0.78（95% CI 0.73~0.83），敏感度88%，特异度47%[reference:4]。分类器联合支气管镜检查的敏感度提高至96%~98%[reference:5]。`,
+    options: [
+        { text: '分类器区分肺癌与非肺癌患者的能力为中等水平', correct: true },
+        { text: '分类器的诊断准确率为78%', correct: false },
+        { text: '分类器的敏感度为78%', correct: false },
+        { text: '分类器的特异度为78%', correct: false }
+    ],
+    explanation: 'AUC=0.78表示随机选取一对（患者和非患者）时，分类器将患者判为阳性的概率为78%。0.7-0.9通常认为具有中等区分能力。'
+}, {
+    id: 222,
+    type: 'choice',
+    category: 'diagmod',
+    catLabel: '诊断评价',
+    tagClass: 'tag-diagmod',
+    icon: '🔬',
+    iconClass: 'indigo',
+    title: '在敏感肌钙蛋白I诊断急性心肌梗死的研究中，入院时单次检测的敏感度为90.7%，特异度为90.2%。该结果提示：',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJMoa0903515',
+    difficulty: '⭐',
+    drugKnowledge: '诊断试验基础',
+    bgSummary: `📄 文献背景：Keller等发表于N Engl J Med 2009年的多中心研究（DOI: 10.1056/NEJMoa0903515）评估了敏感肌钙蛋白I检测对急性心肌梗死的早期诊断价值。在入院时样本中，敏感肌钙蛋白I检测的AUC为0.96，临床敏感度为90.7%，特异度为90.2%[reference:6]。在胸痛发作3小时内就诊的患者中，单次检测的阴性预测值为84.1%，阳性预测值为86.7%[reference:7]。`,
+    options: [
+        { text: '90.7%的实际心梗患者被正确检出，90.2%的非心梗患者被正确排除', correct: true },
+        { text: '90.7%的阳性结果是真的，90.2%的阴性结果是真的', correct: false },
+        { text: '90.7%的患者被正确排除，90.2%的非患者被正确确诊', correct: false },
+        { text: '敏感度和特异度均超过90%，说明该试验无需结合临床验前概率', correct: false }
+    ],
+    explanation: '敏感度=真阳性/(真阳性+假阴性)，即90.7%的心梗患者被正确检出；特异度=真阴性/(真阴性+假阳性)，即90.2%的非心梗患者被正确排除。'
+}, {
+    id: 223,
+    type: 'choice',
+    category: 'diagmod',
+    catLabel: '诊断评价',
+    tagClass: 'tag-diagmod',
+    icon: '🔬',
+    iconClass: 'indigo',
+    title: '在诊断试验中，关于“金标准”的局限性，以下哪项描述最符合NEJM经典文献的观点？',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJM197810262991705',
+    difficulty: '⭐⭐',
+    drugKnowledge: '诊断试验基础',
+    bgSummary: `📄 文献背景：Ransohoff和Feinstein（N Engl J Med 1978）指出，诊断效能评估中的两大问题之一是“试验判读与真实诊断的确定未独立进行”。若金标准的判读受到试验结果的影响，偏倚会虚假地抬高试验效能[reference:8]。此外，研究中未选取适当广度的疾病谱也会导致效能高估[reference:9]。`,
+    options: [
+        { text: '金标准的判读若未与试验结果独立进行，会虚假地抬高试验效能', correct: true },
+        { text: '金标准必须绝对完美，不存在任何误判', correct: false },
+        { text: '金标准不完美时，敏感度和特异度会被低估', correct: false },
+        { text: '金标准的选择不影响诊断准确性研究的结论', correct: false }
+    ],
+    explanation: 'Ransohoff和Feinstein强调，若试验判读与金标准确定未独立进行，偏倚会虚假地抬高试验效能。'
+}, {
+    id: 224,
+    type: 'choice',
+    category: 'diagmod',
+    catLabel: '诊断评价',
+    tagClass: 'tag-diagmod',
+    icon: '🔬',
+    iconClass: 'indigo',
+    title: '在临床决策中，当验前概率处于“中间范围”时，诊断试验的主要价值是：',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJMoa1504601',
+    difficulty: '⭐⭐',
+    drugKnowledge: '贝叶斯定理',
+    bgSummary: `📄 文献背景：AEGIS研究（N Engl J Med 2015，DOI: 10.1056/NEJMoa1504601）显示，在101例验前概率为中等（intermediate pretest probability）且支气管镜检查未确诊的患者中，分类器的阴性预测值为91%（95% CI 75~98），支持采取更保守的诊断策略[reference:10]。这表明在验前概率不确定时，诊断试验的结果可显著改变临床决策方向。`,
+    options: [
+        { text: '通过似然比改变验后概率，从而辅助决策', correct: true },
+        { text: '直接替代金标准进行确诊', correct: false },
+        { text: '在验前概率极高时排除疾病', correct: false },
+        { text: '仅用于评估试验的重复性', correct: false }
+    ],
+    explanation: '在验前概率处于中间范围时，诊断试验通过似然比将验前概率转化为验后概率，从而辅助临床决策。'
+}, {
+    id: 225,
+    type: 'choice',
+    category: 'diagmod',
+    catLabel: '诊断评价',
+    tagClass: 'tag-diagmod',
+    icon: '🔬',
+    iconClass: 'indigo',
+    title: '在诊断试验中，若采用串联试验（两个试验均阳性才判为阳性），其敏感度和特异度的变化是：',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJM197810262991705',
+    difficulty: '⭐⭐',
+    drugKnowledge: '诊断试验联合',
+    bgSummary: `📄 文献背景：Ransohoff和Feinstein（N Engl J Med 1978）在讨论诊断效能评估时，强调了试验组合策略对敏感度和特异度的影响。串联试验要求所有试验均阳性才判为阳性，可提高特异度但降低敏感度；平行试验则相反[reference:11]。这一原则在诊断准确性研究中需根据临床目的进行选择。`,
+    options: [
+        { text: '提高特异度，降低敏感度', correct: true },
+        { text: '提高敏感度，降低特异度', correct: false },
+        { text: '敏感度和特异度均提高', correct: false },
+        { text: '敏感度和特异度均降低', correct: false }
+    ],
+    explanation: '串联试验要求所有试验均阳性才判为阳性，减少了假阳性（提高特异度），但增加了假阴性（降低敏感度）。'
+}, {
+    id: 226,
+    type: 'choice',
+    category: 'diagmod',
+    catLabel: '诊断评价',
+    tagClass: 'tag-diagmod',
+    icon: '🔬',
+    iconClass: 'indigo',
+    title: '在敏感肌钙蛋白I研究中，胸痛发作3小时内就诊的患者单次检测的阴性预测值为84.1%。这一指标表示：',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJMoa0903515',
+    difficulty: '⭐⭐',
+    drugKnowledge: '诊断试验基础',
+    bgSummary: `📄 文献背景：Keller等（N Engl J Med 2009，DOI: 10.1056/NEJMoa0903515）报告，在胸痛发作3小时内就诊的患者中，单次敏感肌钙蛋白I检测的阴性预测值为84.1%，阳性预测值为86.7%[reference:12]。这意味着即使检测结果为阴性，仍有约16%的患者实际患有心肌梗死，需结合临床进一步评估。`,
+    options: [
+        { text: '检测结果为阴性的患者中，约84.1%确实未患心肌梗死', correct: true },
+        { text: '84.1%的心梗患者被检测为阴性', correct: false },
+        { text: '84.1%的非心梗患者被检测为阳性', correct: false },
+        { text: '该检测的敏感度为84.1%', correct: false }
+    ],
+    explanation: '阴性预测值（NPV）表示检测结果为阴性时，实际未患病的概率。NPV受患病率影响。'
+}, {
+    id: 227,
+    type: 'choice',
+    category: 'diagmod',
+    catLabel: '诊断评价',
+    tagClass: 'tag-diagmod',
+    icon: '🔬',
+    iconClass: 'indigo',
+    title: '在诊断准确性研究中，采用盲法判读结果的主要目的是：',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJM197810262991705',
+    difficulty: '⭐',
+    drugKnowledge: '诊断偏倚',
+    bgSummary: `📄 文献背景：Ransohoff和Feinstein（N Engl J Med 1978）明确指出，若试验判读与真实诊断的确定未独立进行，偏倚会虚假地抬高试验效能。这种偏倚即为“Review Bias”，可通过盲法判读（即判读者不知晓金标准结果）来避免[reference:13]。`,
+    options: [
+        { text: '避免因知晓金标准结果而对试验结果判读产生偏倚', correct: true },
+        { text: '提高患者依从性', correct: false },
+        { text: '增加样本量', correct: false },
+        { text: '减少失访', correct: false }
+    ],
+    explanation: '盲法判读可避免信息偏倚，确保诊断试验结果判读的客观性。'
+}, {
+    id: 228,
+    type: 'choice',
+    category: 'diagmod',
+    catLabel: '诊断评价',
+    tagClass: 'tag-diagmod',
+    icon: '🔬',
+    iconClass: 'indigo',
+    title: '关于“决策曲线分析”，其在诊断评价中的核心作用是：',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJM197810262991705',
+    difficulty: '⭐⭐⭐',
+    drugKnowledge: '决策分析',
+    bgSummary: `📄 文献背景：Ransohoff和Feinstein（N Engl J Med 1978）强调，诊断试验的最终目标是改善临床决策。决策曲线分析通过计算净获益，将模型预测概率与临床决策阈值结合，综合考虑假阳性和假阴性的相对代价，比单纯的AUC更能反映临床实用性[reference:14]。`,
+    options: [
+        { text: '通过净获益指标综合考虑模型的获益与风险', correct: true },
+        { text: '仅评估模型的区分度', correct: false },
+        { text: '替代ROC曲线分析', correct: false },
+        { text: '仅适用于连续型诊断指标', correct: false }
+    ],
+    explanation: '决策曲线分析通过净获益将预测概率与临床决策阈值结合，反映模型的临床实用性。'
+}, {
+    id: 229,
+    type: 'choice',
+    category: 'diagmod',
+    catLabel: '诊断评价',
+    tagClass: 'tag-diagmod',
+    icon: '🔬',
+    iconClass: 'indigo',
+    title: '在诊断试验中，验前概率与验后概率的关系遵循贝叶斯定理。以下说法正确的是：',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJMoa1504601',
+    difficulty: '⭐⭐',
+    drugKnowledge: '贝叶斯定理',
+    bgSummary: `📄 文献背景：AEGIS研究（N Engl J Med 2015，DOI: 10.1056/NEJMoa1504601）中，在验前概率为中等且支气管镜未确诊的患者中，分类器的阴性预测值为91%，支持更保守的策略[reference:15]。这体现了验前概率通过似然比转化为验后概率的贝叶斯推理过程。`,
+    options: [
+        { text: '验前概率通过似然比转化为验后概率', correct: true },
+        { text: '验后概率 = 验前概率 + 似然比', correct: false },
+        { text: '验前概率越高，验后概率越低', correct: false },
+        { text: '验前概率与验后概率无关', correct: false }
+    ],
+    explanation: '根据贝叶斯定理，验后概率由验前概率和似然比共同决定。'
+}, {
+    id: 230,
+    type: 'choice',
+    category: 'diagmod',
+    catLabel: '诊断评价',
+    tagClass: 'tag-diagmod',
+    icon: '🔬',
+    iconClass: 'indigo',
+    title: '在支气管基因组分类器研究中，分类器联合支气管镜检查的敏感度提高至96%~98%，这一结果提示：',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJMoa1504601',
+    difficulty: '⭐⭐',
+    drugKnowledge: '诊断试验联合',
+    bgSummary: `📄 文献背景：AEGIS研究（N Engl J Med 2015，DOI: 10.1056/NEJMoa1504601）显示，分类器单独使用的敏感度为88%~89%，特异度为47%[reference:16]。分类器联合支气管镜检查后，敏感度提高至96%~98%，且不受病变大小和位置的影响[reference:17]。这表明联合策略可显著降低漏诊风险。`,
+    options: [
+        { text: '联合策略显著提高了检出肺癌的能力，降低漏诊风险', correct: true },
+        { text: '联合策略提高了特异度，降低了敏感度', correct: false },
+        { text: '联合策略的AUC高于单独使用支气管镜', correct: false },
+        { text: '联合策略说明支气管镜单独使用已足够', correct: false }
+    ],
+    explanation: '分类器联合支气管镜将敏感度提高至96%~98%，表明联合策略可有效降低漏诊风险。'
+}, {
+    id: 231,
+    type: 'choice',
+    category: 'diagmod',
+    catLabel: '诊断评价',
+    tagClass: 'tag-diagmod',
+    icon: '🔬',
+    iconClass: 'indigo',
+    title: '在诊断准确性研究中，报告规范（如STARD）的主要目的是：',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJM197810262991705',
+    difficulty: '⭐⭐',
+    drugKnowledge: '研究报告规范',
+    bgSummary: `📄 文献背景：Ransohoff和Feinstein（N Engl J Med 1978）的研究揭示了诊断效能评估中普遍存在的方法学问题，包括谱系偏倚和判读偏倚[reference:18]。这些发现推动了诊断准确性研究报告规范（STARD）的建立，旨在提高研究的完整性和透明度。NEJM主刊在发表诊断准确性研究时，也遵循严格的报告标准。`,
+    options: [
+        { text: '提高诊断准确性研究的完整性和透明度', correct: true },
+        { text: '规定诊断试验必须达到的敏感度阈值', correct: false },
+        { text: '替代金标准', correct: false },
+        { text: '仅适用于随机对照试验', correct: false }
+    ],
+    explanation: 'STARD清单为诊断准确性研究提供了标准化的报告框架，提高研究的完整性和透明度。'
+}, {
+    id: 232,
+    type: 'essay',
+    category: 'diagmod',
+    catLabel: '诊断评价',
+    tagClass: 'tag-diagmod',
+    icon: '🔬',
+    iconClass: 'indigo',
+    title: '诊断准确性研究中的偏倚控制与指标解读',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJM197810262991705',
+    difficulty: '⭐⭐',
+    drugKnowledge: '诊断试验偏倚与指标',
+    bgSummary: `📄 文献背景：Ransohoff和Feinstein于1978年发表于N Engl J Med的经典研究（DOI: 10.1056/NEJM197810262991705）首次系统阐述了谱系偏倚（Spectrum Bias）和判读偏倚（Review Bias）对诊断效能评估的影响。研究指出，若研究人群未能选取适当广度的患病与非患病人群，或试验判读与金标准确定未独立进行，敏感度和特异度会被系统性高估[reference:19]。这一发现奠定了现代诊断准确性研究偏倚控制的方法学基础。`,
+    subQuestions: [
+        '什么是谱系偏倚（Spectrum Bias）？在诊断准确性研究中，如何避免或减少谱系偏倚？',
+        '请解释阳性似然比（LR+）和阴性似然比（LR-）的临床意义。在临床实践中，医生如何结合验前概率和似然比来计算患者的验后概率？'
+    ],
+    answers: [
+        '谱系偏倚属于选择偏倚，指研究中纳入的病例和对照不能代表目标人群的疾病谱，导致敏感度和特异度被高估。Ransohoff和Feinstein（N Engl J Med 1978）指出，若病例组仅纳入重症患者、对照组仅纳入健康人群，诊断试验的效能会被错误地高估。避免方法包括：纳入连续或随机抽样的患者，包括不同疾病严重程度的病例，以及临床上有类似症状的对照。此外，应明确报告研究人群的纳入和排除标准。',
+        'LR+ = 敏感度/(1-特异度)，表示阳性结果在患者中出现的概率是非患者的倍数。LR+>10提示确诊价值高；LR- = (1-敏感度)/特异度，表示阴性结果在患者中出现的概率是非患者的倍数。LR-<0.1提示排除价值高。临床医生可通过Fagan列线图，将验前概率与似然比结合，快速估算验后概率。似然比不受患病率影响，比预测值更稳定。'
+    ],
+    keyPoints: '谱系偏倚的避免；似然比的临床意义及Fagan列线图的应用。'
+}, {
+    id: 233,
+    type: 'essay',
+    category: 'diagmod',
+    catLabel: '诊断评价',
+    tagClass: 'tag-diagmod',
+    icon: '🔬',
+    iconClass: 'indigo',
+    title: '诊断性能评估的核心指标与ROC分析',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJMoa0903515',
+    difficulty: '⭐⭐',
+    drugKnowledge: '诊断性能评估',
+    bgSummary: `📄 文献背景：Keller等发表于N Engl J Med 2009年的多中心研究（DOI: 10.1056/NEJMoa0903515）评估了敏感肌钙蛋白I检测对急性心肌梗死的早期诊断价值。入院时样本中，敏感肌钙蛋白I检测的AUC为0.96，临床敏感度为90.7%，特异度为90.2%[reference:20]。在胸痛发作3小时内就诊的患者中，单次检测的阴性预测值为84.1%，阳性预测值为86.7%[reference:21]。该研究为诊断性能评估提供了AUC、敏感度、特异度、预测值等核心指标的完整范例。`,
+    subQuestions: [
+        '请解释ROC曲线下面积（AUC）的含义及其在诊断试验评价中的临床意义。AUC=0.5、0.7-0.9、>0.9分别代表什么？',
+        '在诊断试验中，为什么说PPV和NPV受患病率影响，而敏感度和特异度不受患病率影响？这一特性对临床实践有何启示？'
+    ],
+    answers: [
+        'AUC是ROC曲线下的面积，综合反映诊断试验的区分能力。AUC=0.96（如敏感肌钙蛋白I检测）表示在随机选取一对（患者和非患者）时，诊断试验将患者判为阳性的概率为96%。AUC=0.5表示无区分能力；AUC在0.7-0.9之间表示中等区分度；AUC>0.9表示高区分度。AUC的临床意义在于：它不受患病率影响，可综合评估诊断试验在不同截断值下的整体性能。',
+        'PPV和NPV受患病率影响的原因是它们基于贝叶斯定理计算，需要考虑验前概率（即患病率）。患病率越高，阳性结果中真阳性的比例越高（PPV越高），阴性结果中假阴性的比例越高（NPV越低）。敏感度和特异度是诊断试验本身的固有特性，反映的是试验在患者和非患者中的正确判别能力，不随人群患病率变化。这一特性对临床实践的启示是：在低患病率人群中，即使敏感度和特异度都很高，PPV也可能很低（假阳性问题），因此诊断试验的结果必须结合患者的验前概率进行解读。'
+    ],
+    keyPoints: 'AUC的含义与分级；PPV/NPV与患病率的关系及临床启示。'
+},
+// ================================================================
+// 模块八：证据综合
+// ================================================================
+{
+    id: 234,
+    type: 'choice',
+    category: 'evid',
+    catLabel: '证据综合',
+    tagClass: 'tag-evid',
+    icon: '🧩',
+    iconClass: 'cyan',
+    title: 'LeLorier等1997年发表于NEJM的研究比较了Meta分析与后续大型RCT的结果。该研究发现Meta分析未能准确预测后续RCT结果的频率为：',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJM199708213370806',
+    difficulty: '⭐⭐',
+    drugKnowledge: 'Meta分析方法学',
+    bgSummary: `📄 文献背景：LeLorier等1997年发表于N Engl J Med的经典研究（DOI: 10.1056/NEJM199708213370806）系统比较了12项大型RCT（≥1000例患者）与19项针对相同问题的Meta分析，覆盖40个主要和次要结局。研究检索了NEJM、Lancet、Annals of Internal Medicine和JAMA四本期刊。结果显示，Meta分析与大型RCT的一致性仅为“尚可”（kappa=0.35；95% CI 0.06~0.64），阳性预测值为68%，阴性预测值为67%。在35%的情况下，Meta分析未能准确预测后续RCT的结果。`,
+    options: [
+        { text: '15%', correct: false },
+        { text: '25%', correct: false },
+        { text: '35%', correct: true },
+        { text: '50%', correct: false }
+    ],
+    explanation: 'LeLorier等发现，12项大型RCT的结局在35%的情况下未被先前发表的Meta分析准确预测。'
+}, {
+    id: 235,
+    type: 'choice',
+    category: 'evid',
+    catLabel: '证据综合',
+    tagClass: 'tag-evid',
+    icon: '🧩',
+    iconClass: 'cyan',
+    title: 'LeLorier等研究中，Meta分析与大型RCT一致性的kappa值为0.35，这一数值表示：',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJM199708213370806',
+    difficulty: '⭐⭐',
+    drugKnowledge: 'Meta分析方法学',
+    bgSummary: `📄 文献背景：LeLorier等（N Engl J Med 1997）报告Meta分析与大型RCT的一致性kappa=0.35（95% CI 0.06~0.64）。Kappa统计量用于评估两种方法之间的一致性程度，通常认为kappa<0.40为“尚可”或“一般”，0.40~0.60为“中等”，0.60~0.80为“良好”，>0.80为“优秀”。该研究还发现，Meta分析的阳性预测值为68%，阴性预测值为67%。`,
+    options: [
+        { text: '一致性为“优秀”', correct: false },
+        { text: '一致性为“良好”', correct: false },
+        { text: '一致性为“尚可”或“一般”', correct: true },
+        { text: '一致性为“完全一致”', correct: false }
+    ],
+    explanation: 'kappa=0.35通常被解释为“尚可”或“一般”一致性，提示Meta分析与后续RCT的结果一致性有限。'
+}, {
+    id: 236,
+    type: 'choice',
+    category: 'evid',
+    catLabel: '证据综合',
+    tagClass: 'tag-evid',
+    icon: '🧩',
+    iconClass: 'cyan',
+    title: 'Bailar在1997年NEJM同期述评中指出，Meta分析面临的核心问题之一是：',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJM199708213370810',
+    difficulty: '⭐⭐',
+    drugKnowledge: 'Meta分析方法学',
+    bgSummary: `📄 文献背景：Bailar JC III于1997年发表于N Engl J Med的述评（DOI: 10.1056/NEJM199708213370810）指出，Meta分析已获得统计学家和临床医生的广泛认可，但其应用可扩展至研究规模小、研究问题、研究方法、受试者来源和性质等方面存在显著差异的情况。Bailar在同期述评中讨论了LeLorier等研究的发现，指出Meta分析合并结果会纳入个体研究的偏倚并引入新的偏倚来源，主要是研究选择和研究间异质性。`,
+    options: [
+        { text: 'Meta分析合并结果会纳入个体研究的偏倚并引入新的偏倚来源', correct: true },
+        { text: 'Meta分析无法计算合并效应量', correct: false },
+        { text: 'Meta分析仅适用于随机对照试验', correct: false },
+        { text: 'Meta分析不需要进行异质性检验', correct: false }
+    ],
+    explanation: 'Bailar指出，Meta分析合并结果会纳入个体研究的偏倚，并因研究选择和研究间异质性而引入新的偏倚。'
+}, {
+    id: 237,
+    type: 'choice',
+    category: 'evid',
+    catLabel: '证据综合',
+    tagClass: 'tag-evid',
+    icon: '🧩',
+    iconClass: 'cyan',
+    title: '在Higgins和Thompson提出的I²统计量中，I²=50%通常被解释为：',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJM199708213370806',
+    difficulty: '⭐⭐',
+    drugKnowledge: '异质性',
+    bgSummary: `📄 文献背景：I²统计量由Higgins和Thompson于2002年提出，用于量化研究间异质性占总变异的比例。通常认为I²<25%为低异质性，25%~50%为中等，>50%为高异质性。在Meta分析中，I²是评估研究间变异程度的核心指标。LeLorier等（N Engl J Med 1997）指出，研究间异质性是Meta分析面临的主要偏倚来源之一。`,
+    options: [
+        { text: '低异质性', correct: false },
+        { text: '中等异质性', correct: true },
+        { text: '高异质性', correct: false },
+        { text: '无法判断', correct: false }
+    ],
+    explanation: 'I²=50%通常被认为是中等异质性的上限，25%~50%为中等异质性范围。'
+}, {
+    id: 238,
+    type: 'choice',
+    category: 'evid',
+    catLabel: '证据综合',
+    tagClass: 'tag-evid',
+    icon: '🧩',
+    iconClass: 'cyan',
+    title: '在Hammond等发表的SDD贝叶斯Meta分析中，SDD降低住院死亡率的RR为0.91（95% CrI 0.82~0.99），I²=33.3%。以下关于I²的解读正确的是：',
+    journal: 'NEJM Evidence',
+    doi: '10.1056/EVIDoa2500264',
+    difficulty: '⭐⭐',
+    drugKnowledge: '异质性',
+    bgSummary: `📄 文献背景：Hammond等发表于NEJM Evidence 2026年的研究（DOI: 10.1056/EVIDoa2500264）采用贝叶斯框架更新了SDD的Meta分析，纳入32项RCT（27,687名参与者），其中30项（27,332名）贡献了主要结局数据。结果显示，SDD组住院死亡率的RR=0.91（95% CrI 0.82~0.99），I²=33.3%，SDD降低住院死亡率的后验概率为99.2%。I²=33.3%属于中等偏低水平。`,
+    options: [
+        { text: 'I²=33.3%说明研究间存在高度异质性', correct: false },
+        { text: 'I²反映的是研究间变异占总变异的百分比', correct: true },
+        { text: 'I²<50%时可以忽略异质性，无需进一步分析', correct: false },
+        { text: 'I²不会随纳入研究数量的变化而变化', correct: false }
+    ],
+    explanation: 'I²量化了研究间异质性占总变异的比例。I²=33.3%属于中等偏低水平，但仍应通过敏感性分析探讨异质性来源。'
+}, {
+    id: 239,
+    type: 'choice',
+    category: 'evid',
+    catLabel: '证据综合',
+    tagClass: 'tag-evid',
+    icon: '🧩',
+    iconClass: 'cyan',
+    title: '在SDD的贝叶斯Meta分析中，报告“SDD降低住院死亡率的后验概率为99.2%”。该指标在贝叶斯框架中的正确解读是：',
+    journal: 'NEJM Evidence',
+    doi: '10.1056/EVIDoa2500264',
+    difficulty: '⭐⭐',
+    drugKnowledge: '贝叶斯Meta分析',
+    bgSummary: `📄 文献背景：Hammond等（NEJM Evidence 2026，DOI: 10.1056/EVIDoa2500264）采用贝叶斯框架合并32项RCT数据。贝叶斯Meta分析基于后验分布进行推断，能够直接提供效应量优于某一阈值的概率。后验概率表示在观测数据和先验分布条件下，某一假设为真的概率。该研究报告“SDD降低住院死亡率的后验概率为99.2%”，意味着在给定数据和先验信息下，SDD使死亡风险降低的概率为99.2%。`,
+    options: [
+        { text: '有99.2%的把握认为SDD与安慰剂效果相同', correct: false },
+        { text: '在给定数据和先验信息下，SDD使死亡风险降低的后验概率为99.2%', correct: true },
+        { text: '该研究的P值为0.008', correct: false },
+        { text: '该结果与频率学派的P<0.01完全等价', correct: false }
+    ],
+    explanation: '后验概率是贝叶斯统计的核心指标，表示在观测数据和先验分布条件下某一假设为真的概率，可直接进行概率性解读。'
+}, {
+    id: 240,
+    type: 'choice',
+    category: 'evid',
+    catLabel: '证据综合',
+    tagClass: 'tag-evid',
+    icon: '🧩',
+    iconClass: 'cyan',
+    title: '在SDD的贝叶斯Meta分析中，95%可信区间（CrI）为0.82~0.99，与传统95%置信区间（CI）的区别是：',
+    journal: 'NEJM Evidence',
+    doi: '10.1056/EVIDoa2500264',
+    difficulty: '⭐⭐',
+    drugKnowledge: '贝叶斯Meta分析',
+    bgSummary: `📄 文献背景：Hammond等（NEJM Evidence 2026）报告SDD组住院死亡率RR=0.91，95% CrI 0.82~0.99。可信区间（CrI）是贝叶斯概念，表示真实参数有95%的后验概率落在此区间内，可直接进行概率性陈述。置信区间（CI）是频率学派概念，表示在重复抽样中约95%的置信区间会包含真实参数。本研究中95% CrI的上限0.99恰好低于1，说明该效应在贝叶斯框架下具有统计可信度。`,
+    options: [
+        { text: '95% CrI表示真实参数有95%的后验概率落在此区间内', correct: true },
+        { text: '95% CrI与95% CI的解读完全相同', correct: false },
+        { text: '95% CrI基于抽样分布计算', correct: false },
+        { text: '95% CrI不能用于二分类结局', correct: false }
+    ],
+    explanation: '95% CrI是贝叶斯概念，表示真实参数有95%的后验概率落在此区间内；95% CI是频率学派概念，表示重复抽样中约95%的区间会包含真实参数。'
+}, {
+    id: 241,
+    type: 'choice',
+    category: 'evid',
+    catLabel: '证据综合',
+    tagClass: 'tag-evid',
+    icon: '🧩',
+    iconClass: 'cyan',
+    title: '在Duong等发表的左氧氟沙星个体患者数据Meta分析中，结局指标为54周内结核病的累积发病率相对差异为0.41（95% CI 0.18~0.92，P=0.03）。该结果提示：',
+    journal: 'NEJM Evidence',
+    doi: '10.1056/EVIDoa2400190',
+    difficulty: '⭐⭐',
+    drugKnowledge: 'IPD Meta分析',
+    bgSummary: `📄 文献背景：Duong等发表于NEJM Evidence 2025年的研究（DOI: 10.1056/EVIDoa2400190）对VQUIN和TB-CHAMP两项随机试验进行了个体患者数据Meta分析，评估左氧氟沙星对耐多药结核病家庭接触者的预防效果。VQUIN试验（n=2041）主要纳入越南成人，TB-CHAMP试验（n=922）主要纳入南非幼儿。结果显示，左氧氟沙星组8例发展为结核病，安慰剂组21例，累积发病率相对差异为0.41（95% CI 0.18~0.92；P=0.03），即左氧氟沙星与结核病发病率相对降低60%相关。`,
+    options: [
+        { text: '左氧氟沙星与结核病发病率相对降低60%相关，差异有统计学意义', correct: true },
+        { text: '左氧氟沙星与结核病发病率相对降低41%相关', correct: false },
+        { text: '该结果无统计学意义', correct: false },
+        { text: '左氧氟沙星增加了结核病风险', correct: false }
+    ],
+    explanation: '相对差异为0.41表示左氧氟沙星组结核病发病率是安慰剂组的0.41倍，即相对降低约60%。95% CI不包含1，P=0.03，差异有统计学意义。'
+}, {
+    id: 242,
+    type: 'choice',
+    category: 'evid',
+    catLabel: '证据综合',
+    tagClass: 'tag-evid',
+    icon: '🧩',
+    iconClass: 'cyan',
+    title: 'Duong等研究中，左氧氟沙星组肌肉骨骼不良事件的风险比为6.36（95% CI 4.30~9.42）。该结果提示：',
+    journal: 'NEJM Evidence',
+    doi: '10.1056/EVIDoa2400190',
+    difficulty: '⭐⭐',
+    drugKnowledge: 'IPD Meta分析',
+    bgSummary: `📄 文献背景：Duong等（NEJM Evidence 2025，DOI: 10.1056/EVIDoa2400190）报告，左氧氟沙星组任何级别的肌肉骨骼事件发生率高于安慰剂组（风险比6.36，95% CI 4.30~9.42），但在10岁以下儿童中未观察到这一差异。研究结论指出，左氧氟沙星与成人及儿童家庭耐多药结核病接触者中结核病发病率相对降低60%相关，但伴有肌肉骨骼不良事件风险增加。`,
+    options: [
+        { text: '左氧氟沙星使肌肉骨骼事件风险增加约6倍', correct: true },
+        { text: '左氧氟沙星使肌肉骨骼事件风险增加约5倍', correct: false },
+        { text: '左氧氟沙星与肌肉骨骼事件无关', correct: false },
+        { text: '左氧氟沙星降低了肌肉骨骼事件风险', correct: false }
+    ],
+    explanation: '风险比6.36表示左氧氟沙星组肌肉骨骼事件风险是安慰剂组的6.36倍，即增加约6倍。'
+}, {
+    id: 243,
+    type: 'choice',
+    category: 'evid',
+    catLabel: '证据综合',
+    tagClass: 'tag-evid',
+    icon: '🧩',
+    iconClass: 'cyan',
+    title: '关于固定效应模型与随机效应模型，以下描述正确的是：',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJM199708213370806',
+    difficulty: '⭐⭐',
+    drugKnowledge: 'Meta分析方法学',
+    bgSummary: `📄 文献背景：LeLorier等（N Engl J Med 1997，DOI: 10.1056/NEJM199708213370806）指出Meta分析面临研究间异质性的挑战。固定效应模型假设所有研究估计同一个真实效应，差异仅来自抽样误差；随机效应模型假设各研究有各自的真实效应，考虑了研究间变异。随机效应模型纳入研究间变异（Tau²），置信区间通常比固定效应模型更宽。当存在显著异质性（I²>50%）时，通常推荐使用随机效应模型。`,
+    options: [
+        { text: '固定效应模型在存在异质性时更稳健', correct: false },
+        { text: '随机效应模型考虑了研究间变异，置信区间通常更宽', correct: true },
+        { text: '随机效应模型仅适用于同质性研究', correct: false },
+        { text: '固定效应模型的结果总是优于随机效应模型', correct: false }
+    ],
+    explanation: '随机效应模型纳入研究间变异，置信区间通常比固定效应模型更宽，结果更保守。'
+}, {
+    id: 244,
+    type: 'choice',
+    category: 'evid',
+    catLabel: '证据综合',
+    tagClass: 'tag-evid',
+    icon: '🧩',
+    iconClass: 'cyan',
+    title: 'van Zwet等2024年发表于NEJM Evidence的研究分析了23,551项随机临床试验的P值，发现大多数试验的实际统计效能：',
+    journal: 'NEJM Evidence',
+    doi: '10.1056/EVIDoa2300003',
+    difficulty: '⭐⭐',
+    drugKnowledge: 'P值解读',
+    bgSummary: `📄 文献背景：van Zwet等发表于NEJM Evidence 2024年的研究（DOI: 10.1056/EVIDoa2300003）分析了Cochrane系统综述数据库中23,551项随机临床试验的主要疗效结果。研究发现，大多数试验的实际统计效能远低于声称的80%~90%。这意味着“统计学显著”的估计倾向于严重高估真实治疗效应，“不显著”的结果往往对应着重要的效应，而复制研究常常无法达到“显著性”。`,
+    options: [
+        { text: '远低于声称的80%~90%', correct: true },
+        { text: '与声称的80%~90%完全一致', correct: false },
+        { text: '普遍高于90%', correct: false },
+        { text: '无法评估', correct: false }
+    ],
+    explanation: 'van Zwet等发现大多数试验的实际统计效能远低于声称的80%~90%，导致显著结果往往高估真实效应。'
+}, {
+    id: 245,
+    type: 'choice',
+    category: 'evid',
+    catLabel: '证据综合',
+    tagClass: 'tag-evid',
+    icon: '🧩',
+    iconClass: 'cyan',
+    title: '在Meta分析中，漏斗图主要用于评估：',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJM199708213370806',
+    difficulty: '⭐',
+    drugKnowledge: '发表偏倚',
+    bgSummary: `📄 文献背景：LeLorier等（N Engl J Med 1997）指出Meta分析存在发表偏倚等问题，合并结果会纳入个体研究的偏倚并引入新的偏倚来源。漏斗图是以效应估计值为横坐标、样本量或标准误为纵坐标绘制的散点图。若存在发表偏倚，漏斗图可能呈现不对称。Egger检验和Begg检验可提供统计学验证。`,
+    options: [
+        { text: '研究间异质性', correct: false },
+        { text: '发表偏倚', correct: true },
+        { text: '合并效应量', correct: false },
+        { text: '敏感性分析', correct: false }
+    ],
+    explanation: '漏斗图是评估发表偏倚的常用工具。若散点分布不对称，提示可能存在发表偏倚。'
+}, {
+    id: 246,
+    type: 'choice',
+    category: 'evid',
+    catLabel: '证据综合',
+    tagClass: 'tag-evid',
+    icon: '🧩',
+    iconClass: 'cyan',
+    title: '关于GRADE证据分级系统，以下说法正确的是：',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJM199708213370806',
+    difficulty: '⭐⭐',
+    drugKnowledge: '证据分级',
+    bgSummary: `📄 文献背景：LeLorier等（N Engl J Med 1997）发现Meta分析与大型RCT的一致性有限（kappa=0.35），提示在临床决策中需综合评估证据质量。GRADE是目前国际公认的证据质量评价和推荐强度分级系统，将证据质量分为高、中、低、极低四个等级。随机对照试验初始为高质量，观察性研究初始为低质量。降级因素包括偏倚风险、不一致性、间接性、不精确性和发表偏倚。`,
+    options: [
+        { text: 'GRADE将证据质量分为高、中、低、极低四个等级', correct: true },
+        { text: 'GRADE仅适用于观察性研究', correct: false },
+        { text: 'GRADE将证据质量分为A、B、C三个等级', correct: false },
+        { text: 'GRADE不评估发表偏倚', correct: false }
+    ],
+    explanation: 'GRADE将证据质量分为高、中、低、极低四个等级，随机对照试验初始为高质量，可根据降级因素下调。'
+}, {
+    id: 247,
+    type: 'choice',
+    category: 'evid',
+    catLabel: '证据综合',
+    tagClass: 'tag-evid',
+    icon: '🧩',
+    iconClass: 'cyan',
+    title: '在Meta分析中，若纳入的研究使用了不同的效应量指标（如OR、RR、HR），正确的做法是：',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJM199708213370806',
+    difficulty: '⭐⭐',
+    drugKnowledge: '效应量合并',
+    bgSummary: `📄 文献背景：LeLorier等（N Engl J Med 1997）比较了19项Meta分析与12项大型RCT的结果，覆盖40个主要和次要结局，涉及不同类型的效应量指标。不同研究可能报告不同的效应量指标。在合并前需进行转换，或使用标准化均数差（SMD）等通用指标。直接合并不同指标会导致统计错误。例如，OR和RR在结局发生率较低时近似相等，但在高发生率时差异显著。`,
+    options: [
+        { text: '直接合并所有指标', correct: false },
+        { text: '将不同指标转换为同一尺度（如均转换为OR或SMD）后再合并', correct: true },
+        { text: '仅纳入报告RR的研究', correct: false },
+        { text: '分别进行Meta分析，不做合并', correct: false }
+    ],
+    explanation: '当研究报告不同效应量时，需先进行转换，再合并。直接合并不同指标会导致统计错误。'
+}, {
+    id: 248,
+    type: 'choice',
+    category: 'evid',
+    catLabel: '证据综合',
+    tagClass: 'tag-evid',
+    icon: '🧩',
+    iconClass: 'cyan',
+    title: '在系统综述中，评估纳入研究偏倚风险最常用的工具是：',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJM199708213370806',
+    difficulty: '⭐⭐',
+    drugKnowledge: '偏倚评估',
+    bgSummary: `📄 文献背景：LeLorier等（N Engl J Med 1997）指出Meta分析面临研究选择和偏倚问题。偏倚风险评估是系统综述的核心步骤。Cochrane协作网开发的RoB 2.0工具是评估随机对照试验偏倚风险的权威工具，涵盖随机化过程、偏离既定干预、缺失结局数据、结局测量和结果选择性报告5个领域。GRADE系统将偏倚风险作为证据降级的重要因素之一。`,
+    options: [
+        { text: 'GRADE', correct: false },
+        { text: 'Cochrane RoB 2.0', correct: true },
+        { text: 'PRISMA', correct: false },
+        { text: 'STARD', correct: false }
+    ],
+    explanation: 'Cochrane RoB 2.0是评估随机对照试验偏倚风险的标准工具，涵盖5个领域。'
+}, {
+    id: 249,
+    type: 'essay',
+    category: 'evid',
+    catLabel: '证据综合',
+    tagClass: 'tag-evid',
+    icon: '🧩',
+    iconClass: 'cyan',
+    title: 'Meta分析中的异质性处理与贝叶斯方法',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJM199708213370806',
+    difficulty: '⭐⭐',
+    drugKnowledge: 'Meta分析方法学',
+    bgSummary: `📄 文献背景：LeLorier等1997年发表于N Engl J Med的经典研究（DOI: 10.1056/NEJM199708213370806）比较了19项Meta分析与12项大型RCT的结果，覆盖40个主要和次要结局。研究发现，Meta分析与大型RCT的一致性仅为“尚可”（kappa=0.35），Meta分析的阳性预测值为68%，阴性预测值为67%。在35%的情况下，Meta分析未能准确预测后续RCT的结果。这一发现推动了对Meta分析方法学的深入反思。贝叶斯Meta分析由Hammond等发表于NEJM Evidence 2026年的SDD研究（DOI: 10.1056/EVIDoa2500264）提供了实践范例。`,
+    subQuestions: [
+        '在Meta分析中，如何评估和处理研究间的异质性？请解释固定效应模型与随机效应模型的区别。',
+        '请简述贝叶斯Meta分析与传统频率学派Meta分析的核心区别。在后验概率的解读上，贝叶斯方法有何临床优势？'
+    ],
+    answers: [
+        '异质性通过I²统计量、Cochran\'s Q检验等评估。I²<25%为低异质性，25%~50%为中等，>50%为高异质性。固定效应模型假设所有研究估计的是同一个真实效应，差异仅来源于抽样误差；随机效应模型假设各研究有各自的真实效应，差异来源于研究间变异和抽样误差。通常当I²>50%时考虑使用随机效应模型。若存在显著异质性，可通过亚组分析、Meta回归或敏感性分析探讨异质性来源。',
+        '核心区别：（1）推断基础不同：频率学派基于抽样分布和P值，贝叶斯学派基于后验分布；（2）不确定性表述不同：频率学派使用置信区间（CI），贝叶斯学派使用可信区间（CrI）；（3）贝叶斯方法可整合先验信息，在数据有限时尤其有价值。临床优势：贝叶斯Meta分析输出后验概率（如“SDD降低死亡风险的概率为99.2%”），可直接进行概率性解读，更符合临床决策的思维习惯。'
+    ],
+    keyPoints: '异质性评估与模型选择；贝叶斯Meta分析的后验概率解读及临床优势。'
+}, {
+    id: 250,
+    type: 'essay',
+    category: 'evid',
+    catLabel: '证据综合',
+    tagClass: 'tag-evid',
+    icon: '🧩',
+    iconClass: 'cyan',
+    title: 'Meta分析与后续RCT的一致性：LeLorier研究的启示',
+    journal: 'N Engl J Med',
+    doi: '10.1056/NEJM199708213370806',
+    difficulty: '⭐⭐',
+    drugKnowledge: 'Meta分析方法学',
+    bgSummary: `📄 文献背景：LeLorier等1997年发表于N Engl J Med的研究（DOI: 10.1056/NEJM199708213370806）系统比较了Meta分析与后续大型RCT的结果。研究检索了NEJM、Lancet、Annals of Internal Medicine和JAMA四本期刊上发表的12项大型RCT（≥1000例患者）和19项针对相同问题的Meta分析。对于40个主要和次要结局，Meta分析与大型RCT的一致性仅为“尚可”（kappa=0.35，95% CI 0.06~0.64）。Meta分析的阳性预测值为68%，阴性预测值为67%。在35%的情况下，Meta分析未能准确预测后续RCT的结果。Bailar在同期述评中指出，Meta分析合并结果会纳入个体研究的偏倚并引入新的偏倚来源。`,
+    subQuestions: [
+        'LeLorier等1997年发表于NEJM的研究的核心发现是什么？该研究对Meta分析在临床指南制定中的应用有何启示？',
+        '为什么Meta分析的结果可能与后续大型RCT不一致？请从研究间异质性、发表偏倚和研究设计差异等角度进行分析。'
+    ],
+    answers: [
+        '核心发现：LeLorier等比较了12项大型RCT和19项Meta分析，覆盖40个结局。Meta分析与RCT的一致性仅为“尚可”（kappa=0.35），阳性预测值68%，阴性预测值67%，35%的情况下Meta分析未能准确预测RCT结果。启示：（1）Meta分析虽然能提高效应估计的精度，但并非总能准确预测后续大型RCT的结果；（2）在临床指南制定中，不应仅依赖Meta分析，还需考虑证据的稳健性和时效性；（3）Meta分析的结论需结合纳入研究的质量和异质性进行解读。',
+        '不一致的可能原因：（1）研究间异质性：不同研究的人群、干预措施、结局定义可能存在差异，导致合并效应不能代表真实效应；（2）发表偏倚：阳性结果的研究更容易被发表，导致Meta分析高估效应；（3）研究设计差异：Meta分析纳入的小型研究可能存在方法学缺陷，而大型RCT设计更严谨；（4）生态学偏倚：Meta分析基于研究水平的数据，可能掩盖个体水平的效应差异；（5）时间效应：随着新研究的发表，效应估计可能随时间变化。'
+    ],
+    keyPoints: 'LeLorier研究的核心发现及对指南制定的启示；Meta分析与RCT不一致的原因。'
+}
+ ];
+
         // ==================== 全局状态 ====================
         let currentUser = null;
         let solvedMap = {};
